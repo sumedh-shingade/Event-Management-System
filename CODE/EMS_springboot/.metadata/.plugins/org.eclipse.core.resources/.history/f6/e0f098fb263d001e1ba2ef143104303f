@@ -1,0 +1,13 @@
+package com.demo.service;
+
+import com.demo.model.Accounts;
+
+public class LoginServiceImpl implements LoginService {
+
+	@Override
+	public void addNewLogin(Accounts a) {
+		// TODO Auto-generated method stub
+
+	}
+
+}
