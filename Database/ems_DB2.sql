@@ -69,6 +69,7 @@ CREATE TABLE admin (
     name VARCHAR(255),
     uname varchar(40),
    
-    date_of_birth DATE
+    date_of_birth DATE,
+	mob_no VARCHAR(15)
   
 );
