@@ -10,7 +10,7 @@ public interface BookingService {
 
 	
 
-	void deleteBooking(int event_id);
+	void deleteBooking (int event_id);
 
 
 
