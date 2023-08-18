@@ -1,4 +1,4 @@
-# Welcome to [Event-Management-System]GitHub Profile!
+# Welcome to Event-Management-System
 
 ## About Me
 
