@@ -1,6 +1,6 @@
 # Welcome to Event-Management-System
 
-## Project: EventMaster
+## Project: Event Management System Web Application using Java Platform
 
 🚀 **4S-Events** is an innovative event management platform that aims to provide unparalleled convenience to both clients and event organizers. Our primary objective is to tackle the challenges posed by traditional manual systems and offer a comprehensive solution that streamlines every aspect of event management.
 
