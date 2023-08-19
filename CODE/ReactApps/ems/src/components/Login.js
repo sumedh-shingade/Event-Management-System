@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 export default function LoginComponent() {
    const containerStyle = {
-        backgroundImage: 'url("../iems/src/components/images/loginbackground.jpeg")', // Replace with the correct relative path to your image
+         backgroundImage: `url(${loginBackground})`, // Replace with the correct relative path to your image
         backgroundSize: 'cover',
         minHeight: '100vh',
         display: 'flex',
