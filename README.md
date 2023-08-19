@@ -1,12 +1,8 @@
 # Welcome to Event-Management-System
 
-## About Me
-
-👋 Hi there! I'm [Your Name], and I'm passionate about revolutionizing the world of event management through technology. This profile showcases my journey in creating a seamless and efficient solution for event planning and management.
-
 ## Project: EventMaster
 
-🚀 **Fores** is an innovative event management platform that aims to provide unparalleled convenience to both clients and event organizers. Our primary objective is to tackle the challenges posed by traditional manual systems and offer a comprehensive solution that streamlines every aspect of event management.
+🚀 **4S-Events** is an innovative event management platform that aims to provide unparalleled convenience to both clients and event organizers. Our primary objective is to tackle the challenges posed by traditional manual systems and offer a comprehensive solution that streamlines every aspect of event management.
 
 ### Key Features:
 
@@ -23,15 +19,10 @@
 2. Backend: MySql Database.
 3. Frontend: React JS.
 4. IDE: Eclipse.
-  
-
-## Let's Connect!
-
-I'm always open to collaboration and discussions. If you're interested in exploring the world of seamless event management or have ideas to share, feel free to reach out via email or connect with me on LinkedIn.
 
 ## Explore the Code
 
-Dive into the repositories to explore the code behind **Fores** and other related projects. Don't forget to star the repositories you find interesting and let's together create a new era of exceptional event experiences.
+Dive into the repositories to explore the code behind **4S-Events** and other related projects. Don't forget to star the repositories you find interesting and let's together create a new era of exceptional event experiences.
 
 🌐 Happy exploring and innovating!
 
