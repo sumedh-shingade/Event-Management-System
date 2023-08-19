@@ -1,9 +1,0 @@
-package com.demo.service;
-
-import com.demo.model.Accounts;
-
-public interface AccountService {
-   
-	int addNewAccount(Accounts a);
-
-}
