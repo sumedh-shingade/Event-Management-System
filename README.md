@@ -4,7 +4,7 @@
 
 🚀 **4S-Events** is an innovative event management platform that aims to provide unparalleled convenience to both clients and event organizers. Our primary objective is to tackle the challenges posed by traditional manual systems and offer a comprehensive solution that streamlines every aspect of event management.
 
-### Key Features:
+## Key Features:
 
 - **Seamless Access:** Clients can effortlessly access their accounts and take control of their events.
 - **Efficient Order Management:** Store and categorize orders based on dates, urgency, and planning requirements.
