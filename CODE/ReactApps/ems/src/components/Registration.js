@@ -32,34 +32,48 @@ export default function RegistrationComponent() {
     // }
 
     return <>
-        <div class="container">
-            <h2>Registration</h2>
-            <form>
-                <label for="email">Email ID:</label>
-                <input type="email" id="email" name="email" required />
-
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required />
-
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required />
-
-                <label for="address">Address:</label>
-                <input type="text" id="address" name="address" required />
-
-                <label for="mobile">Mobile Number:</label>
-                <input type="number" id="mobile" name="mobile" required />
-
-                <label for="role">Role:</label>
-                <select id="role" name="role" required>
-                    <option value="">Select Role</option>
-                    <option value="user">User</option>
-                    <option value="admin">Admin</option>
-                </select>
-
-                <button type="submit">Register</button>
-            </form>
+       <div class="container">
+    <h2>Registration</h2>
+    <form>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email ID:</label>
+            <input type="email" class="form-control" id="email" name="email" required/>
         </div>
+
+        <div class="mb-3">
+            <label for="name" class="form-label">Name:</label>
+            <input type="text" class="form-control" id="name" name="name" required/>
+        </div>
+
+        <div class="mb-3">
+            <label for="password" class="form-label">Password:</label>
+            <input type="password" class="form-control" id="password" name="password" required/>
+        </div>
+
+        <div class="mb-3">
+            <label for="address" class="form-label">Address:</label>
+            <input type="text" class="form-control" id="address" name="address" required/>
+        </div>
+
+        <div class="mb-3">
+            <label for="mobile" class="form-label">Mobile Number:</label>
+            <input type="number" class="form-control" id="mobile" name="mobile" required/>
+        </div>
+
+        <div class="mb-3">
+            <label for="role" class="form-label">Role:</label>
+            <select class="form-select" id="role" name="role" required>
+                <option value="">Select Role</option>
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+</div>
+
+     
 
     </>
 }
