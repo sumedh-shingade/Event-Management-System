@@ -1,6 +1,7 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 // import './css/Header.css'
 import React from 'react';
+import Person from './images/person.svg'
 
 const Header = () => {
     return (
@@ -20,25 +21,9 @@ const Header = () => {
                             {/* <a class="nav-link" href="#">Login</a> */}
                             <Link to="/#" className="nav-link">About Us</Link>
                         </li>
-                        <li class="nav-item">
-                            {/* <a class="nav-link" href="#">Login</a> */}
-                            <Link to="/login" className="nav-link">Login</Link>
-                        </li>
+
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Register
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                {/* <li><a class="dropdown-item" href="#">Admin</a></li> */}
-                                <Link to="/register" className="nav-link" style={{ color: 'black' }}> Admin</Link>
-                                {/* <li><a class="dropdown-item" href="#">Customer</a></li> */}
-                                <Link to="/register" className="nav-link" style={{ color: 'black' }}> User</Link>
-                            </ul>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Services
-                            </a>
+                        <Link to="/service" className="nav-link">Services</Link>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="#">Weddings</a></li>
                                 <li><a class="dropdown-item" href="#">Birthday Parties</a></li>
@@ -46,14 +31,24 @@ const Header = () => {
                                 <li><a class="dropdown-item" href="#">Corporate Events</a></li>
                             </ul>
                         </li>
+
+                        <li class="nav-item">
+                            {/* <a class="nav-link" href="#">Login</a> */}
+                            <Link to="/login" className="nav-link">Login</Link>
+                        </li>
+
+                        <li class="nav-item">
+                            {/* <a class="nav-link" href="#">Login</a> */}
+                            <Link to="/register" className="nav-link">Register</Link>
+                        </li>
+
+                       
+                       
                         {/* <li class="nav-item">
                             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                         </li> */}
                     </ul>
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+                    <button type="button" class="btn btn-light">Profile</button>                
                 </div>
             </div>
         </nav>

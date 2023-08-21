@@ -4,10 +4,9 @@
 // import './css/Login.css'
 import loginBackground from './images/loginbackground.jpeg';
 import { Link } from "react-router-dom";
-
 export default function LoginComponent() {
    const containerStyle = {
-         backgroundImage: `url(${loginBackground})`, // Replace with the correct relative path to your image
+        backgroundImage: `url(${loginBackground})`, // Replace with the correct relative path to your image
         backgroundSize: 'cover',
         minHeight: '100vh',
         display: 'flex',
@@ -15,13 +14,11 @@ export default function LoginComponent() {
         alignItems: 'center'
     };
 
-   
     const cardStyle = {
         width: '400px',
         backgroundColor: 'rgba(255, 255, 255, 0.8)', // Change to the desired color
         borderRadius: '10px' // Optionally add rounded corners
     };
-
 
     
 
@@ -66,10 +63,13 @@ export default function LoginComponent() {
                 </div>
                 <button class="btn btn-primary w-100" type="submit">Login</button>
             </form>
-       <div className="text-center mt-3">
-                    <p>Don't have an account? <Link to="/register">Register</Link></p>
+            <div className="text-center mt-3">
+                   <p>Don't have an account? <Link to="/register">
+                    Register</Link></p>
                 </div>
         </div>
     </div>
-       </>
+
+
+    </>
 }
