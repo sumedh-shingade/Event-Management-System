@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.demo.beans.Bookings;
 import com.demo.service.BookingService;
 
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/bookings")
 public class BookingsController {
@@ -45,6 +47,7 @@ public class BookingsController {
 	public ResponseEntity<String> addNewBooking(@RequestBody Bookings b) {
 		System.out.println(b);
 		bookingService.addNewBooking(b);
+		System.out.println("Hhgfhgfgdgfghf");
 		return ResponseEntity.ok("added successfully");
 	}
 
