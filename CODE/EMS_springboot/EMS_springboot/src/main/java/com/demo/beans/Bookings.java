@@ -3,6 +3,8 @@ package com.demo.beans;
 
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -11,6 +13,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class Bookings {
 	@Id
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private int event_id;
 	private String event_name;
 	private String start_time;

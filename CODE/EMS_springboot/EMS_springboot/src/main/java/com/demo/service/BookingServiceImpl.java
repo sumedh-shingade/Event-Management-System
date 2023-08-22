@@ -22,6 +22,8 @@ import com.demo.dao.VenueDao;
 
 @Service
 public class BookingServiceImpl implements BookingService {
+
+	
 	@Autowired
 	BookingDao bdao;
 
