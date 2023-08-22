@@ -1,27 +1,26 @@
 package com.demo.beans;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Media {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int media_id;
-	private String photography;
-	private String videography;
-	private String drone_photography;
+	private String media_type;
 
 	public Media() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Media(int media_id, String photography, String videography, String drone_photography) {
+	public Media(int media_id, String media_type) {
 		super();
 		this.media_id = media_id;
-		this.photography = photography;
-		this.videography = videography;
-		this.drone_photography = drone_photography;
+		this.media_type = media_type;
 	}
 
 	public int getMedia_id() {
@@ -32,34 +31,19 @@ public class Media {
 		this.media_id = media_id;
 	}
 
-	public String getPhotography() {
-		return photography;
+	public String getMedia_type() {
+		return media_type;
 	}
 
-	public void setPhotography(String photography) {
-		this.photography = photography;
-	}
-
-	public String getVideography() {
-		return videography;
-	}
-
-	public void setVideography(String videography) {
-		this.videography = videography;
-	}
-
-	public String getDrone_photography() {
-		return drone_photography;
-	}
-
-	public void setDrone_photography(String drone_photography) {
-		this.drone_photography = drone_photography;
+	public void setMedia_type(String media_type) {
+		this.media_type = media_type;
 	}
 
 	@Override
 	public String toString() {
-		return "Media [media_id=" + media_id + ", photography=" + photography + ", videography=" + videography
-				+ ", drone_photography=" + drone_photography + "]";
+		return "Media [media_id=" + media_id + ", media_type=" + media_type + "]";
 	}
+
+	
 
 }
