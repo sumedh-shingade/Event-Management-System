@@ -13,7 +13,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class Bookings {
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int event_id;
 	private String event_name;
 	private String start_time;
