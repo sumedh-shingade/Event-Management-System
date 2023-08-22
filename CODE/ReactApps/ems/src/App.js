@@ -9,6 +9,8 @@ import ServiceComponent from './components/Services';
 import BookingComponent from './components/Booking';
 import ProfileComponent from './components/Profile';
 
+import AboutUsComponent from './components/About';
+
 function App() {
 
   return <Routes>
@@ -18,12 +20,14 @@ function App() {
     <Route path="/service" element={<ServiceComponent></ServiceComponent>}></Route>
     <Route path='/booking' element={<BookingComponent></BookingComponent>}></Route>
     <Route path='/profile' element={<ProfileComponent></ProfileComponent>}></Route>
-
+    <Route path='/aboutus' element={<AboutUsComponent></AboutUsComponent>}></Route>
+   
   </Routes>
   // (
   //   <HomeComponent></HomeComponent>
   //   // <LoginComponent></LoginComponent>
   // );
+
 }
 
 export default App;
