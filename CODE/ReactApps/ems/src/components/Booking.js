@@ -1,241 +1,130 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios'; // Import Axios library
+import axios from 'axios';
 
-function BookingComponent() {
+const predefinedVenues = ['Venue A', 'Venue B', 'Venue C'];
+const predefinedAddresses = ['Address A', 'Address B', 'Address C'];
+const predefinedLocations = ['Location A', 'Location B', 'Location C'];
+
+const predefinedCatering = ['Menu 1', 'Menu 2', 'Menu 3'];
+const predefinedDecorations = ['Decoration 1', 'Decoration 2', 'Decoration 3'];
+const predefinedMedia = ['Media 1', 'Media 2', 'Media 3'];
+
+
+
+function BookingForm() {
+    const [bookingSuccess, setBookingSuccess] = useState(false);
+
     const [eventName, setEventName] = useState('');
     const [date, setDate] = useState('');
     const [startTime, setStartTime] = useState('');
     const [endTime, setEndTime] = useState('');
     const [expectedAttendees, setExpectedAttendees] = useState('');
-
     const [selectedVenue, setSelectedVenue] = useState('');
-    const [customVenue, setCustomVenue] = useState({
-        venueName: '',
-        address: '',
-        location: ''
-    });
-
     const [selectedCatering, setSelectedCatering] = useState('');
-    const [customCatering, setCustomCatering] = useState('');
-    
     const [selectedDecoration, setSelectedDecoration] = useState('');
-    const [customDecoration, setCustomDecoration] = useState('');
-
     const [selectedMedia, setSelectedMedia] = useState('');
 
-    const venueOptions = [
-        { label: 'Venue A', value: 'venue_a' },
-        { label: 'Venue B', value: 'venue_b' },
-        { label: 'Venue C', value: 'venue_c' },
-        { label: 'Other', value: 'other' }
-    ];
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-    const cateringOptions = [
-        { label: 'Indian', value: 'indian' },
-        { label: 'Continental', value: 'continental' },
-        { label: 'Other', value: 'other' }
-    ];
+        const selectedVenueIndex = predefinedVenues.indexOf(selectedVenue);
 
-    const decorationOptions = [
-        { label: 'Floral decoration', value: 'floral' },
-        { label: 'Balloon decoration', value: 'balloon' },
-        { label: 'Other', value: 'other' }
-    ];
-
-    const mediaOptions = [
-        { label: 'Photography', value: 'photography' },
-        { label: 'Videography', value: 'videography' },
-        { label: 'Drone Photography', value: 'drone' }
-    ];
-
-    const handleVenueChange = (value) => {
-        setSelectedVenue(value);
-        if (value !== 'other') {
-            setCustomVenue({
-                venueName: '',
-                address: '',
-                location: ''
-            });
-        }
-    };
-
-    const handleInputChange = (event) => {
-        const { name, value } = event.target;
-        setCustomVenue((prevVenue) => ({
-            ...prevVenue,
-            [name]: value
-        }));
-    };
-
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
-    //     // Handle form submission logic here
-    // };
-
-    const handleMediaChange = (value) => {
-        if (selectedMedia.includes(value)) {
-            setSelectedMedia(prevSelected => prevSelected.filter(item => item !== value));
-        } else {
-            setSelectedMedia(prevSelected => [...prevSelected, value]);
-        }
-    };
-
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        
-        // Create the booking object with selected data
         const bookingData = {
-            "event_id": 12, // Replace with actual event ID
             "event_name": eventName,
+            "date": date,
             "start_time": startTime,
             "end_time": endTime,
-            "date": date,
             "exp_attendee": expectedAttendees,
             "venue": {
-                venue_id: 11,
-                name: selectedVenue === 'other' ? customVenue.venueName : selectedVenue,
-                address: selectedVenue === 'other' ? customVenue.address : '',
-                location: selectedVenue === 'other' ? customVenue.location : '',
+                "name": selectedVenue,
+                "address": predefinedAddresses[selectedVenueIndex],
+                "location": predefinedLocations[selectedVenueIndex]
             },
-            "catering": {
-                catering_id: 22,
-                indian: selectedCatering === 'indian' ? 'selected' : 'not selected',
-                continental: selectedCatering === 'continental' ? 'selected' : 'not selected',
-                other: selectedCatering === 'other' ? customCatering : 'selected',
-            },
-            "decoration": {
-                decoration_id: 33,
-                floral_decor: selectedDecoration === 'floral' ? 'selected' : 'not selected',
-                balloon_decor: selectedDecoration === 'balloon' ? 'selected' : 'not selected',
-                other_decor: selectedDecoration === 'other' ? customDecoration : 'selected',
-            },
-            "media": {
-                media_id: 44,
-                photography: selectedMedia.includes('photography') ? 'selected' : 'not selected',
-                videography: selectedMedia.includes('videography') ? 'selected' : 'not selected',
-                drone_photography: selectedMedia.includes('drone_photography') ? 'selected' : 'not selected',
-            },
-            
-
-            // ... Catering, Decoration, and Media objects ...
+            "catering": { "menu": selectedCatering },
+            "decoration": { "decor_type": selectedDecoration },
+            "media": { "media_type": selectedMedia }
         };
 
         try {
-            // Send the booking data to the server
             const response = await axios.post('http://localhost:8080/bookings/insert', bookingData);
-            console.log('Booking data sent successfully:', response.data);
+            alert('Booking has been successfully created!');
+            console.log('Response:', response.data);
+            setBookingSuccess(true);
+
         } catch (error) {
-            console.error('Error sending booking data:', error);
+            console.error('Error:', error);
         }
     };
 
-
     return (
-        <div className="container">
-            <h2 className="text-center my-5">Event Booking</h2>
+        <div>
+            <h1>Create Booking</h1>
             <form onSubmit={handleSubmit}>
-                <div className="mb-3">
-                    <label htmlFor="eventName" className="form-label">Event Name:</label>
-                    <input type="text" className="form-control" id="eventName" name="eventName" value={eventName} onChange={(e) => setEventName(e.target.value)} required />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="date" className="form-label">Date:</label>
-                    <input type="date" className="form-control" id="date" name="date" value={date} onChange={(e) => setDate(e.target.value)} required />
-                </div>
-                <div className="row mb-3">
-                    <div className="col-md-6">
-                        <label htmlFor="startTime" className="form-label">Start Time:</label>
-                        <input type="time" className="form-control" id="startTime" name="startTime" value={startTime} onChange={(e) => setStartTime(e.target.value)} required />
-                    </div>
-                    <div className="col-md-6">
-                        <label htmlFor="endTime" className="form-label">End Time:</label>
-                        <input type="time" className="form-control" id="endTime" name="endTime" value={endTime} onChange={(e) => setEndTime(e.target.value)} required />
-                    </div>
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="expectedAttendees" className="form-label">Expected Attendees:</label>
-                    <input type="number" className="form-control" id="expectedAttendees" name="expectedAttendees" value={expectedAttendees} onChange={(e) => setExpectedAttendees(e.target.value)} required />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="venue" className="form-label">Venue:</label>
-                    <select className="form-select" id="venue" name="venue" value={selectedVenue} onChange={(e) => handleVenueChange(e.target.value)} required>
-                        <option value="">Select a Venue</option>
-                        {venueOptions.map(option => (
-                            <option key={option.value} value={option.value}>{option.label}</option>
-                        ))}
-                    </select>
-                </div>
-                {selectedVenue === 'other' && (
-                    <div>
-                        <h5>Custom Venue Details</h5>
-                        <div className="mb-3">
-                            <label htmlFor="venueName" className="form-label">Venue Name:</label>
-                            <input type="text" className="form-control" id="venueName" name="venueName" value={customVenue.venueName} onChange={handleInputChange} required />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="address" className="form-label">Address:</label>
-                            <input type="text" className="form-control" id="address" name="address" value={customVenue.address} onChange={handleInputChange} required />
-                        </div>
-                        <div className="mb-3">
-                            <label htmlFor="location" className="form-label">Location:</label>
-                            <input type="text" className="form-control" id="location" name="location" value={customVenue.location} onChange={handleInputChange} required />
-                        </div>
-                    </div>
+                <label>Event Name:</label>
+                <input type="text" value={eventName} onChange={(e) => setEventName(e.target.value)} required />
+
+                <label>Date:</label>
+                <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
+
+                <label>Start Time:</label>
+                <input type="time" value={startTime} onChange={(e) => setStartTime(e.target.value)} required />
+
+                <label>End Time:</label>
+                <input type="time" value={endTime} onChange={(e) => setEndTime(e.target.value)} required />
+
+                <label>Expected Attendees:</label>
+                <input
+                    type="number"
+                    value={expectedAttendees}
+                    onChange={(e) => setExpectedAttendees(e.target.value)}
+                    required
+                />
+
+                <label>Venue:</label>
+                <select value={selectedVenue} onChange={(e) => setSelectedVenue(e.target.value)} required>
+                    <option value="">Select a Venue</option>
+                    {predefinedVenues.map((venue, index) => (
+                        <option key={index} value={venue}>{venue}</option>
+                    ))}
+                </select>
+
+                <label>Catering:</label>
+                <select value={selectedCatering} onChange={(e) => setSelectedCatering(e.target.value)} required>
+                    <option value="">Select a Catering</option>
+                    {predefinedCatering.map((catering, index) => (
+                        <option key={index} value={catering}>{catering}</option>
+                    ))}
+                </select>
+
+                <label>Decoration:</label>
+                <select value={selectedDecoration} onChange={(e) => setSelectedDecoration(e.target.value)} required>
+                    <option value="">Select a Decoration</option>
+                    {predefinedDecorations.map((decoration, index) => (
+                        <option key={index} value={decoration}>{decoration}</option>
+                    ))}
+                </select>
+
+                <label>Media:</label>
+                <select value={selectedMedia} onChange={(e) => setSelectedMedia(e.target.value)} required>
+                    <option value="">Select a Media</option>
+                    {predefinedMedia.map((media, index) => (
+                        <option key={index} value={media}>{media}</option>
+                    ))}
+                </select>
+
+                {/* ... Other dropdowns for Catering, Decoration, and Media */}
+
+                <button type="submit" >Create Booking</button>
+
+                {bookingSuccess && (
+                    <Link to="/profile" className="nav-link active" aria-current="page">
+                        Profile
+                    </Link>
                 )}
-
-            <div className="mb-3">
-                    <label htmlFor="catering" className="form-label">Catering:</label>
-                    <select className="form-select" id="catering" name="catering" value={selectedCatering} onChange={(e) => setSelectedCatering(e.target.value)} required>
-                        <option value="">Select Catering</option>
-                        {cateringOptions.map(option => (
-                            <option key={option.value} value={option.value}>{option.label}</option>
-                        ))}
-                    </select>
-                </div>
-                {selectedCatering === 'other' && (
-                    <div className="mb-3">
-                        <label htmlFor="customCatering" className="form-label">Your Choice:</label>
-                        <input type="text" className="form-control" id="customCatering" name="customCatering" value={customCatering} onChange={(e) => setCustomCatering(e.target.value)} required />
-                    </div>
-                )}
-
-                <div className="mb-3">
-                    <label htmlFor="decoration" className="form-label">Decoration:</label>
-                    <select className="form-select" id="decoration" name="decoration" value={selectedDecoration} onChange={(e) => setSelectedDecoration(e.target.value)} required>
-                        <option value="">Select Decoration</option>
-                        {decorationOptions.map(option => (
-                            <option key={option.value} value={option.value}>{option.label}</option>
-                        ))}
-                    </select>
-                </div>
-                {selectedDecoration === 'other' && (
-                    <div className="mb-3">
-                        <label htmlFor="customDecoration" className="form-label">Your Choice:</label>
-                        <input type="text" className="form-control" id="customDecoration" name="customDecoration" value={customDecoration} onChange={(e) => setCustomDecoration(e.target.value)} required />
-                    </div>
-                )}
-
-            <div className="mb-3">  
-                <label className="form-label">Media:</label>
-                {mediaOptions.map(option => (
-                    <div className="form-check" key={option.value}>
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value={option.value}
-                            checked={selectedMedia.includes(option.value)}
-                            onChange={() => handleMediaChange(option.value)}
-                        />
-                        <label className="form-check-label">{option.label}</label>
-                    </div>
-                ))}
-            </div>
-
-                <button type="submit" className="btn btn-success"><Link to="/profile" className="nav-link">Submit</Link></button>
             </form>
         </div>
     );
 }
 
-export default BookingComponent;
+export default BookingForm;
