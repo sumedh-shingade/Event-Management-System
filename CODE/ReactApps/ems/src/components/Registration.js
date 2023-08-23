@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import registration from './images/registration.jpg';
 
@@ -22,25 +23,43 @@ function RegistrationComponent() {
     });
 
     const handleChange = (event) => {
-        const { name, value, type, checked } = event.target;
+        const { name, value, type } = event.target;
         setFormValues((prevValues) => ({
             ...prevValues,
-            [name]: type === 'checkbox' ? checked : value
         }));
     };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-
-        // Perform form validation here
-        const { name, email, password, address, mobile, terms } = formValues;
-        if (name && email && password && address && mobile && terms) {
-            // All fields are filled, navigate to '/'
-            window.location.href = '/';
-        } else {
-            // Some fields are missing, display an error message or style the fields
+    const handleRegistration = () => {
+        // Perform form validation
+        const { name, email, password, address, mobile } = formValues;
+        if (!name || !email || !password || !address || !mobile) {
             alert('Please fill in all the required fields.');
+            return;
         }
+
+        // Prepare the data object to be sent in the request
+        const data = {
+            email_id: formValues.email,
+            name: formValues.name,
+            password: formValues.password,
+            address: formValues.address,
+            mob_no: formValues.mobile,
+            role: 'customer'
+        };
+
+        // Make the Axios POST request
+        axios.post('http://localhost:8080/accounts/insert', data)
+            .then(response => {
+                console.log('User created successfully:', response.data);
+                // Redirect to the desired page after successful registration
+                // For example: window.location.href = '/login';
+                alert('Registration successful!');
+
+            })
+            .catch(error => {
+                console.error('Error creating user:', error);
+                // Display an error message or handle the error appropriately
+            });
     };
 
     return (
@@ -52,7 +71,7 @@ function RegistrationComponent() {
                             <div className="text-center">
                                 <h3 className="text-primary"><strong>Register Now</strong></h3>
                             </div>
-                            <form onSubmit={handleSubmit}>
+                            <form>
                                 <div className="mb-3">
                                     <label htmlFor="name" className="form-label">Name:</label>
                                     <input
@@ -113,20 +132,15 @@ function RegistrationComponent() {
                                         required
                                     />
                                 </div>
-                                <div className="mb-3 form-check">
-                                    <input
-                                        type="checkbox"
-                                        className="form-check-input"
-                                        id="terms"
-                                        name="terms"
-                                        checked={formValues.terms}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                    <label className="form-check-label" htmlFor="terms">I agree to the terms and conditions.</label>
-                                </div>
+
                                 <div className="text-center mt-3">
-                                    <button type="submit" className="btn btn-primary btn-rounded w-75">Register Now</button>
+                                    <button
+                                        type="button"
+                                        className="btn btn-primary btn-rounded w-75"
+                                        onClick={handleRegistration}
+                                    >
+                                        Register Now
+                                    </button>
                                 </div>
                             </form>
                         </div>

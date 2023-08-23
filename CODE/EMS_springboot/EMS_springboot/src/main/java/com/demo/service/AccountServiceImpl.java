@@ -1,5 +1,7 @@
 package com.demo.service;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,4 +25,15 @@ public class AccountServiceImpl implements AccountService {
 		ldao.save(l);
 	}
 
+
+	@Override
+	public Accounts getById(String email_id) {
+		Optional<Accounts> op = adao.findById(email_id);
+		if (op.isPresent()) {
+			return op.get();
+		} else
+			return null;
+	}
+
+	
 }

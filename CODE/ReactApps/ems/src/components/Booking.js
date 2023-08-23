@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios'; // Import Axios library
 
 function BookingComponent() {
+
+    const [email_id, setEmail_id] = useState('');
     const [eventName, setEventName] = useState('');
     const [date, setDate] = useState('');
     const [startTime, setStartTime] = useState('');
@@ -18,7 +19,7 @@ function BookingComponent() {
 
     const [selectedCatering, setSelectedCatering] = useState('');
     const [customCatering, setCustomCatering] = useState('');
-    
+
     const [selectedDecoration, setSelectedDecoration] = useState('');
     const [customDecoration, setCustomDecoration] = useState('');
 
@@ -81,12 +82,29 @@ function BookingComponent() {
         }
     };
 
+    // const [dateSubmitted, setDateSubmitted] = useState(false);
+    // useEffect(() => {
+    //     if (dateSubmitted) {
+    //         // Make the Axios GET request here
+    //         axios.get(`http://localhost:8080/accounts/${date}`)
+    //             .then(response => {
+    //                 // Assuming response.data contains the booking data for the selected date
+    //                 if (response.data.length > 0) {
+    //                     alert("This date is already booked. Please select another date");
+    //                     return;
+    //                 }
+    //             })
+    //             .catch(error => {
+    //                 // console.error("Error fetching booking data:", error);
+    //             });
+    //     }
+    // }, [date, dateSubmitted]); // Dependency array with 'date' to run the effect when the date changes
+
     const handleSubmit = async (event) => {
         event.preventDefault();
-        
+
         // Create the booking object with selected data
         const bookingData = {
-            "event_id": 12, // Replace with actual event ID
             "event_name": eventName,
             "start_time": startTime,
             "end_time": endTime,
@@ -116,18 +134,36 @@ function BookingComponent() {
                 videography: selectedMedia.includes('videography') ? 'selected' : 'not selected',
                 drone_photography: selectedMedia.includes('drone_photography') ? 'selected' : 'not selected',
             },
-            
+            "email_id": email_id
+
 
             // ... Catering, Decoration, and Media objects ...
         };
+
 
         try {
             // Send the booking data to the server
             const response = await axios.post('http://localhost:8080/bookings/insert', bookingData);
             console.log('Booking data sent successfully:', response.data);
+            alert("Event booked successfully!")
         } catch (error) {
             console.error('Error sending booking data:', error);
         }
+
+
+        // useEffect(() => {
+        //     // Make the Axios GET request when the component mounts
+        //     axios.get(`http://localhost:8080/accounts/${date}`)
+        //         .then(response => {
+        //             // Assuming response.data contains the booking data for the selected date
+        //             if (response.data.length > 0) {
+        //                 alert("This date is already booked. Please select another date");
+        //             }
+        //         })
+        //         .catch(error => {
+        //             console.error("Error fetching booking data:", error);
+        //         });
+        // }, [date]); // Dependency array with 'date' to run the effect when the date changes
     };
 
 
@@ -141,8 +177,18 @@ function BookingComponent() {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="date" className="form-label">Date:</label>
-                    <input type="date" className="form-control" id="date" name="date" value={date} onChange={(e) => setDate(e.target.value)} required />
+                    <input
+                        type="date"
+                        className="form-control"
+                        id="date"
+                        name="date"
+                        value={date}
+                        onChange={(e) => setDate(e.target.value)}
+                        min={new Date().toISOString().split("T")[0]} // Set the minimum date to the current date
+                        required
+                    />
                 </div>
+
                 <div className="row mb-3">
                     <div className="col-md-6">
                         <label htmlFor="startTime" className="form-label">Start Time:</label>
@@ -184,7 +230,7 @@ function BookingComponent() {
                     </div>
                 )}
 
-            <div className="mb-3">
+                <div className="mb-3">
                     <label htmlFor="catering" className="form-label">Catering:</label>
                     <select className="form-select" id="catering" name="catering" value={selectedCatering} onChange={(e) => setSelectedCatering(e.target.value)} required>
                         <option value="">Select Catering</option>
@@ -216,23 +262,27 @@ function BookingComponent() {
                     </div>
                 )}
 
-            <div className="mb-3">  
-                <label className="form-label">Media:</label>
-                {mediaOptions.map(option => (
-                    <div className="form-check" key={option.value}>
-                        <input
-                            className="form-check-input"
-                            type="checkbox"
-                            value={option.value}
-                            checked={selectedMedia.includes(option.value)}
-                            onChange={() => handleMediaChange(option.value)}
-                        />
-                        <label className="form-check-label">{option.label}</label>
-                    </div>
-                ))}
-            </div>
+                <div className="mb-3">
+                    <label className="form-label">Media:</label>
+                    {mediaOptions.map(option => (
+                        <div className="form-check" key={option.value}>
+                            <input
+                                className="form-check-input"
+                                type="checkbox"
+                                value={option.value}
+                                checked={selectedMedia.includes(option.value)}
+                                onChange={() => handleMediaChange(option.value)}
+                            />
+                            <label className="form-check-label">{option.label}</label>
+                        </div>
+                    ))}
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="email_id" className="form-label">Email Id:</label>
+                    <input type="text" className="form-control" id="email_id" name="email_id" value={email_id} onChange={(e) => setEmail_id(e.target.value)} required />
+                </div>
 
-                <button type="submit" className="btn btn-success"><Link to="/profile" className="nav-link">Submit</Link></button>
+                <button type="submit" className="btn btn-success">Book Event</button>
             </form>
         </div>
     );

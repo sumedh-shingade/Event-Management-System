@@ -33,6 +33,10 @@ public class Bookings {
 	@JoinColumn(name="media_id")
 	private Media media;
 	
+//	@OneToOne
+//	@JoinColumn(name="email_id")
+	private String email_id;
+	
 	
 	public Bookings() {
 		super();
@@ -41,7 +45,7 @@ public class Bookings {
 
 
 	public Bookings(int event_id, String event_name, String start_time, String end_time, String date, int exp_attendee,
-			Venue venue, Catering catering, Decoration decoration, Media media) {
+			Venue venue, Catering catering, Decoration decoration, Media media, String email_id) {
 		super();
 		this.event_id = event_id;
 		this.event_name = event_name;
@@ -53,6 +57,7 @@ public class Bookings {
 		this.catering = catering;
 		this.decoration = decoration;
 		this.media = media;
+		this.email_id = email_id;
 	}
 	
 	
@@ -69,6 +74,16 @@ public class Bookings {
 //		this.exp_attendee = exp_attendee;
 //		this.venue_id
 //	}
+
+
+	public String getEmail_id() {
+		return email_id;
+	}
+
+
+	public void setEmail_id(String email_id) {
+		this.email_id = email_id;
+	}
 
 
 	public int getEvent_id() {
@@ -175,7 +190,8 @@ public class Bookings {
 	public String toString() {
 		return "Bookings [event_id=" + event_id + ", event_name=" + event_name + ", start_time=" + start_time
 				+ ", end_time=" + end_time + ", date=" + date + ", exp_attendee=" + exp_attendee + ", venue=" + venue
-				+ ", catering=" + catering + ", decoration=" + decoration + ", media=" + media + "]";
+				+ ", catering=" + catering + ", decoration=" + decoration + ", media=" + media + ", email_id="
+				+ email_id + "]";
 	}
 	
 	

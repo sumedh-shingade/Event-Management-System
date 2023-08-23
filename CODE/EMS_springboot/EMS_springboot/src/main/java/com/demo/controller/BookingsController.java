@@ -1,5 +1,6 @@
 package com.demo.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,26 @@ public class BookingsController {
 	public ResponseEntity<Bookings> getById(@PathVariable int event_id) {
 //		System.out.println(event_id);
 		Bookings b = bookingService.getById(event_id);
+		if (b != null)
+			return ResponseEntity.ok(b);
+		else
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	}
+	
+	@GetMapping("/date/{date}")
+	public ResponseEntity<Date> getByDate(@PathVariable String date) {
+		System.out.println(date);
+		Date b = bookingService.getByDate(date);
+		if (b != null)
+			return ResponseEntity.ok(b);
+		else
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+	}
+	
+	@GetMapping("/email/{email_id}")
+	public ResponseEntity<Bookings> getByEmail(@PathVariable String email_id) {
+		System.out.println(email_id);
+		Bookings b = bookingService.getByEmail(email_id);
 		if (b != null)
 			return ResponseEntity.ok(b);
 		else
