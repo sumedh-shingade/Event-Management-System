@@ -171,7 +171,7 @@ export default function HomeComponent() {
     return (
         <div style={containerStyle}>
             <div className="container text-center">
-                <h1 className="display-4 my-5">4S-Events</h1>
+                <h1 className="display-4 my-5">4S Events</h1>
                 <p className="lead">4S-Events is a premier event management services company dedicated to creating unforgettable experiences. From weddings and birthdays to corporate gatherings, we bring your vision to life with creativity and professionalism.</p>
             </div>
             <div className="d-flex justify-content-center align-items-center">
