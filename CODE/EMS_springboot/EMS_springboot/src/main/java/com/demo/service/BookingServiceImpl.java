@@ -1,5 +1,6 @@
 package com.demo.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,7 +58,7 @@ public class BookingServiceImpl implements BookingService {
 
 		bdao.saveBooking(b.getEvent_id(), b.getEvent_name(), b.getStart_time(), b.getEnd_time(), b.getDate(),
 				b.getExp_attendee(), b.getVenue().getvenue_id(), b.getCatering().getCatering_id(),
-				b.getDecoration().getDecoration_id(), b.getMedia().getMedia_id());
+				b.getDecoration().getDecoration_id(), b.getMedia().getMedia_id(), b.getEmail_id());
 
 	}
 
@@ -94,7 +95,18 @@ public class BookingServiceImpl implements BookingService {
 		} else
 			return null;
 	}
+	
+	@Override
+	public Date getByDate(String date) {
+		
+		Optional<Date> op = bdao.findByDate(date);
+		if (op.isPresent()) {
+			return op.get();
+		} else
+			return null;	
+	}
 
+	@Transactional
 	@Override
 	public void updateBooking(Bookings b) {
 		Optional<Bookings> op = bdao.findById(b.getEvent_id());
@@ -109,9 +121,22 @@ public class BookingServiceImpl implements BookingService {
 			b1.setCatering(b.getCatering());
 			b1.setDecoration(b.getDecoration());
 			b1.setMedia(b.getMedia());
+			b1.setEmail_id(b.getEmail_id());
+			System.out.println(b1);
 			 bdao.save(b1);
 		}
 		
 	}
+
+	@Override
+	public Bookings getByEmail(String email_id) {
+		Optional<Bookings> op = bdao.findByEmail(email_id);
+		if (op.isPresent()) {
+			return op.get();
+		} else
+			return null;
+	}
+
+	
 
 }

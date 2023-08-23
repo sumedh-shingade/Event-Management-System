@@ -23,17 +23,21 @@ function RegistrationComponent() {
     });
 
     const handleChange = (event) => {
-        const { name, value, type, checked } = event.target;
+        const { name, value, type } = event.target;
         setFormValues((prevValues) => ({
             ...prevValues,
-            [name]: type === 'checkbox' ? checked : value
         }));
     };
 
     const handleRegistration = () => {
         // Perform form validation
+<<<<<<< HEAD
         const { name, email, password, address, mobile, terms } = formValues;
         if (!name || !email || !password || !address || !mobile || !terms) {
+=======
+        const { name, email, password, address, mobile } = formValues;
+        if (!name || !email || !password || !address || !mobile) {
+>>>>>>> 6362eba76b407c38409805c6191169f5f468f746
             alert('Please fill in all the required fields.');
             return;
         }
@@ -54,6 +58,11 @@ function RegistrationComponent() {
                 console.log('User created successfully:', response.data);
                 // Redirect to the desired page after successful registration
                 // For example: window.location.href = '/login';
+<<<<<<< HEAD
+=======
+                alert('Registration successful!');
+
+>>>>>>> 6362eba76b407c38409805c6191169f5f468f746
             })
             .catch(error => {
                 console.error('Error creating user:', error);
@@ -131,18 +140,7 @@ function RegistrationComponent() {
                                         required
                                     />
                                 </div>
-                                <div className="mb-3 form-check">
-                                    <input
-                                        type="checkbox"
-                                        className="form-check-input"
-                                        id="terms"
-                                        name="terms"
-                                        checked={formValues.terms}
-                                        onChange={handleChange}
-                                        required
-                                    />
-                                    <label className="form-check-label" htmlFor="terms">I agree to the terms and conditions.</label>
-                                </div>
+
                                 <div className="text-center mt-3">
                                     <button
                                         type="button"

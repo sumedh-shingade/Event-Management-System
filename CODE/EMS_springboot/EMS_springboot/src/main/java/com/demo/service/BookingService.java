@@ -1,5 +1,6 @@
 package com.demo.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.demo.beans.Bookings;
@@ -23,5 +24,13 @@ public interface BookingService {
 
 
 	void updateBooking(Bookings b);
+
+
+
+	Date getByDate(String date);
+
+
+
+	Bookings getByEmail(String email_id);
 
 }

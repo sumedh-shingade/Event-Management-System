@@ -6,4 +6,6 @@ public interface AccountService {
    
 	void addNewAccount (Accounts a);
 
+	Accounts getById(String email_id);
+
 }
