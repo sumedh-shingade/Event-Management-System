@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 
 export default function FooterComponent() {
   const location = useLocation();
-  const allowedRoutes = ['/', '/aboutus', '/services'];
+  const allowedRoutes = ['/', '/aboutus', '/service'];
 
   // Check if the current route is in the allowedRoutes array
   const shouldRenderFooter = allowedRoutes.includes(location.pathname);
