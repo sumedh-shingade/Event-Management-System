@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import Header from './components/Header';
+import FooterComponent from './components/footer';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -12,6 +13,7 @@ root.render(
   <BrowserRouter>
     <Header></Header>
     <App />
+    <FooterComponent/>
   </BrowserRouter>
 );
 

@@ -47,7 +47,7 @@ export default function ServiceComponent() {
                         <div className="card">
                             <div className="row g-0">
                                 <div className="col-md-4">
-                                    <img src={service.image} alt={service.title} className="img-fluid" />
+                                    <img src={service.image} alt={service.title} className="img-fluid"  />
                                 </div>
                                 <div className="col-md-8">
                                     <div className="card-body">
