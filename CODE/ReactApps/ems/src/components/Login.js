@@ -1,75 +1,111 @@
-// import axios from "axios"
-// import { useState } from "react"
-// import ShowEmployee from "./ShowEmployee"
-// import './css/Login.css'
+import React, { useState } from 'react';
+import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
 import loginBackground from './images/loginbackground.jpeg';
-import { Link } from "react-router-dom";
+
 export default function LoginComponent() {
-   const containerStyle = {
-        backgroundImage: `url(${loginBackground})`, // Replace with the correct relative path to your image
-        backgroundSize: 'cover',
-        minHeight: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
+  const navigate = useNavigate();
+
+  const containerStyle = {
+    backgroundImage: `url(${loginBackground})`,
+    backgroundSize: 'cover',
+    minHeight: '100vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  };
+
+  const cardStyle = {
+    width: '400px',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    borderRadius: '10px',
+  };
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleEmail = (e) => {
+    setEmail(e.target.value);
+    console.log(email);
+  };
+
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+    console.log(password);
+  };
+
+  const handleLogin = async (e) => {
+    const loginData = {
+      "email_id": email,        //Always use double quotes while using DTO
+      "password": password,     //Keys name should always match with Bean variable names
     };
+    console.log(loginData);
 
-    const cardStyle = {
-        width: '400px',
-        backgroundColor: 'rgba(255, 255, 255, 0.8)', // Change to the desired color
-        borderRadius: '10px' // Optionally add rounded corners
-    };
+    e.preventDefault();
+    try {
+      const response = await axios.post(`http://localhost:8080/login/`, loginData);
+      // Handle successful login response
+      console.log(loginData);
+      alert('Login successful');
+      navigate('/'); // Navigate to the desired route after successful login
+    } catch (error) {
+      if (error.response && error.response.status === 401) {
+        alert('Login failed: Wrong credentials');
+        console.log(loginData);
+      } else {
+        alert('Login failed: An error occurred');
+        console.log(loginData);
+      }
+      console.error(error);
+    }
+  };
 
-    
-
-    // let id = 0
-    // let [arr, setarr] = useState([])
-
-    // function handler() {
-    //     let p = axios.get(`https://reqres.in/api/users/${id}`)
-    //     p.then((resp) => {
-    //         let obj = resp.data.data
-    //         arr.push(obj)
-    //         setarr([...arr])
-    //         console.log(arr)
-    //     })
-
-    // }
-
-    // function display() {
-    //     return arr.map((employee) => {
-    //         return <ShowEmployee
-    //             id={employee.id}
-    //             first_name={employee.first_name}
-    //             last_name={employee.last_name}
-    //             email={employee.email}
-    //             avatar={employee.avatar}></ShowEmployee>
-    //     })
-
-    // }
-
-    return <>
-          <div style={containerStyle}>
-            <div className="card p-4" style={cardStyle}>
-            <h2 class="card-title text-center">Login</h2>
-            <form>
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email:</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email"/>
-                </div>
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password:</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password"/>
-                </div>
-                <button class="btn btn-primary w-100" type="submit">Login</button>
-            </form>
-            <div className="text-center mt-3">
-                   <p>Don't have an account? <Link to="/register">
-                    Register</Link></p>
-                </div>
+  return (
+    <div style={containerStyle}>
+      <div className="card p-4" style={cardStyle}>
+        <h2 className="card-title text-center">Login</h2>
+        <form>
+          <div className="mb-3">
+            <label htmlFor="email" className="form-label">
+              Email:
+            </label>
+            <input
+              type="email"
+              className="form-control"
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              value={email}
+              onChange={handleEmail}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label">
+              Password:
+            </label>
+            <input
+              type="password"
+              className="form-control"
+              id="password"
+              name="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={handlePassword}
+            />
+          </div>
+          <button className="btn btn-primary w-100" onClick={handleLogin}>
+            Login
+          </button>
+        </form>
+        <div className="text-center mt-3">
+          <p>
+            Don't have an account? <Link to="/register">Register</Link>
+          </p>
+          <p>
+            <Link to="/forgot-password">Forgot Password</Link>
+          </p>
         </div>
+      </div>
     </div>
-
-
-    </>
+  );
 }

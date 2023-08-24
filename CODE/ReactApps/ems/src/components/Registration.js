@@ -24,20 +24,19 @@ function RegistrationComponent() {
 
     const handleChange = (event) => {
         const { name, value, type } = event.target;
+        const newValue = type === 'checkbox' ? event.target.checked : value;
+    
         setFormValues((prevValues) => ({
             ...prevValues,
+            [name]: newValue,
         }));
     };
+    
 
     const handleRegistration = () => {
         // Perform form validation
-<<<<<<< HEAD
-        const { name, email, password, address, mobile, terms } = formValues;
-        if (!name || !email || !password || !address || !mobile || !terms) {
-=======
         const { name, email, password, address, mobile } = formValues;
         if (!name || !email || !password || !address || !mobile) {
->>>>>>> 6362eba76b407c38409805c6191169f5f468f746
             alert('Please fill in all the required fields.');
             return;
         }
@@ -58,11 +57,8 @@ function RegistrationComponent() {
                 console.log('User created successfully:', response.data);
                 // Redirect to the desired page after successful registration
                 // For example: window.location.href = '/login';
-<<<<<<< HEAD
-=======
                 alert('Registration successful!');
 
->>>>>>> 6362eba76b407c38409805c6191169f5f468f746
             })
             .catch(error => {
                 console.error('Error creating user:', error);

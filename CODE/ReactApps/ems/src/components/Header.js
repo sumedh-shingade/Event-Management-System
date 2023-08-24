@@ -1,14 +1,19 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 // import './css/Header.css'
-import React from 'react';
+import React, {useState} from 'react';
 import Person from './images/person.svg'
 import navbarlogo from './images/navbarlogo.png'
 
-const Header = () => {
+ const Header = () => {
+//     const[logins,setLogins]=useState(0);
+
+    // LoginHandler()={
+    //     setLogins(1)
+    // }
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark"> {/* Use className instead of class */}
         <div className="container-fluid">
-            <a className="navbar-brand" href="#"> 4S Events{" "}
+            <a className="navbar-brand" href="/"> 4S Events{" "}
                 <img src={navbarlogo} alt="4S-Events Logo" width="30" height="30" className="d-inline-block align-top" /> 
             </a>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

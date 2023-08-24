@@ -1,146 +1,12 @@
-// // import axios from "axios"
-// // import { useState } from "react"
-// // import ShowEmployee from "./ShowEmployee"
-// import { Link, Outlet } from "react-router-dom";
-// // import './css/Home.css'
-// import birthday from './images/birthday.jpg'
-// import corporate from './images/corporate.jpg'
-// import wedding from './images/wedding.jpg'
 
-// export default function HomeComponent() {
-
-//     const styleobj = {
-//         width: "18rem"
-//     };
-
-//     // let id = 0
-//     // let [arr, setarr] = useState([])
-
-//     // function handler() {
-//     //     let p = axios.get(`https://reqres.in/api/users/${id}`)
-//     //     p.then((resp) => {
-//     //         let obj = resp.data.data
-//     //         arr.push(obj)
-//     //         setarr([...arr])
-//     //         console.log(arr)
-//     //     })
-
-//     // }
-
-//     // function display() {
-//     //     return arr.map((employee) => {
-//     //         return <ShowEmployee
-//     //             id={employee.id}
-//     //             first_name={employee.first_name}
-//     //             last_name={employee.last_name}
-//     //             email={employee.email}
-//     //             avatar={employee.avatar}></ShowEmployee>
-//     //     })
-
-//     // }
-
-//     return <>
-//         <div>
-//             <div className="container">
-//                 <h1 className="display-4 text-center my-5">4S-Events</h1>
-//                 <p className="lead text-center">4S-Events is a premier event management services company dedicated to creating unforgettable experiences. From weddings and birthdays to corporate gatherings, we bring your vision to life with creativity and professionalism.</p>
-//             </div>
-
-
-//             {/* <div class="card-container">
-//                 <div class="card">
-//                     <h2>Weddings</h2>
-//                     <img src={wedding} alt="Wedding Event" />
-//                     <div class="card-description">
-//                         <p>Exquisite arrangements for your special day. Our team will create a magical atmosphere that reflects your love story.</p>
-//                     </div>
-//                     <button class="learn-more-btn">Learn More</button>
-//                 </div>
-//                 <div class="card">
-//                     <h2>Birthday Parties</h2>
-//                     <img src={birthday} alt="Birthday Party Event" />
-//                     <div class="card-description">
-//                         <p>Celebrate with style and fun. Whether it's a kids' party or an adult celebration, we have creative ideas to make it memorable.</p>
-//                     </div>
-//                     <button class="learn-more-btn">Learn More</button>
-//                 </div>
-//                 <div class="card">
-//                     <h2>Corporate Events</h2>
-//                     <img src={corporate} alt="Corporate Event" />
-//                     <div class="card-description">
-//                         <p>Professional events tailored to your needs. From seminars and conferences to team-building activities, we ensure a seamless experience.</p>
-//                     </div>
-//                     <button class="learn-more-btn">Learn More</button>
-//                 </div>
-//             </div> */}
-
-//             {/* <div class="card" style={{ width: "18rem", margin: "10px" }}>
-//                 <img class="card-img-top" src={wedding} alt="Card image cap" style={{ maxWidth: "90%", margin: "10px auto", display: "block" }} />
-//                 <div class="card-body">
-//                     <h5 class="card-title">Wedding</h5>
-//                     <p class="card-text">Exquisite arrangements for your special day. Our team will create a magical atmosphere that reflects your love story.</p>
-//                     <a href="#" class="btn btn-primary">Learn More</a>
-//                 </div>
-//             </div>
-
-//             <div class="card" style={{ width: "18rem", margin: "10px" }}>
-//                 <img class="card-img-top" src={birthday} alt="Card image cap" style={{ maxWidth: "90%", margin: "10px auto", display: "block" }} />
-//                 <div class="card-body">
-//                     <h5 class="card-title">Birthday</h5>
-//                     <p class="card-text">Celebrate with style and fun. Whether it's a kids' party or an adult celebration, we have creative ideas to make it memorable.</p>
-//                     <a href="#" class="btn btn-primary">Learn More</a>
-//                 </div>
-//             </div>
-
-//             <div class="card" style={{ width: "18rem", margin: "10px" }}>
-//                 <img class="card-img-top" src={corporate} alt="Card image cap" style={{ maxWidth: "90%", margin: "10px auto", display: "block" }} />
-//                 <div class="card-body">
-//                     <h5 class="card-title">Corporate Events</h5>
-//                     <p class="card-text">Professional events tailored to your needs. From seminars and conferences to team-building activities, we ensure a seamless experience.</p>
-//                     <a href="#" class="btn btn-primary">Learn More</a>
-//                 </div>
-//             </div>
-
-//  */}
-//             <div class="card-scroll-container" style={{ display: "flex", overflowX: "scroll", padding: "20px 0" }}>
-//                 <div class="card" style={{ width: "18rem", margin: "10px" }}>
-//                     <img class="card-img-top" src={wedding} alt="Card image cap" style={{ width: "90%", height: "150px", margin: "10px auto", display: "block" }} />
-//                     <div class="card-body">
-//                         <h5 class="card-title">Wedding</h5>
-//                         <p class="card-text">Exquisite arrangements for your special day. Our team will create a magical atmosphere that reflects your love story.</p>
-//                         <a href="#" class="btn btn-primary">Learn More</a>
-//                     </div>
-//                 </div>
-
-//                 <div class="card" style={{ width: "18rem", margin: "10px" }}>
-//                     <img class="card-img-top" src={birthday} alt="Card image cap" style={{ width: "90%", height: "150px", margin: "10px auto", display: "block" }} />
-//                     <div class="card-body">
-//                         <h5 class="card-title">Birthday</h5>
-//                         <p class="card-text">Celebrate with style and fun. Whether it's a kids' party or an adult celebration, we have creative ideas to make it memorable.</p>
-//                         <a href="#" class="btn btn-primary">Learn More</a>
-//                     </div>
-//                 </div>
-
-//                 <div class="card" style={{ width: "18rem", margin: "10px" }}>
-//                     <img class="card-img-top" src={corporate} alt="Card image cap" style={{ width: "90%", height: "150px", margin: "10px auto", display: "block" }} />
-//                     <div class="card-body">
-//                         <h5 class="card-title">Corporate Events</h5>
-//                         <p class="card-text">Professional events tailored to your needs. From seminars and conferences to team-building activities, we ensure a seamless experience.</p>
-//                         <a href="#" class="btn btn-primary">Learn More</a>
-//                     </div>
-//                 </div>
-//             </div>
-
-
-
-//         </div>
-//     </>
-// }
-import React from 'react';
-import { Link } from "react-router-dom";
+import React, { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 import birthday from './images/birthday.jpg';
 import corporate from './images/corporate.jpg';
 import wedding from './images/wedding.jpg';
+import courousalimage1 from './images/corousalimage1.jpg';
+import courousalimage2 from './images/corousalimage2.jpg';
+import courousalimage3 from './images/corousalimage3.jpg';
 //import backgroundImage from './images/background.jpg'; // Replace with your background image path
 
 export default function HomeComponent() {
@@ -148,7 +14,8 @@ export default function HomeComponent() {
         flex: "0 0 18rem",
         margin: "10px",
         display: "flex",
-        flexDirection: "column"
+        flexDirection: "column",
+        alignItems:"center"
     };
 
     const containerStyle = {
@@ -167,21 +34,79 @@ export default function HomeComponent() {
         height: "150px", // Adjust the height as needed for consistent alignment
         objectFit: "cover"
     };
+    const blackDecorativeLine = {
+        height: "2px",
+        backgroundColor: "black",
+        width: "100px",
+        margin: "20px auto"
+    };
+    
+    const carouselImages = [
+        { src: courousalimage1, alt: "courousalimage1" },
+        { src: courousalimage2, alt: "courousalimage2" },
+        { src: courousalimage3, alt: "courousalimage3" }
+    ];
 
+    
+
+    
+   
     return (
         <div style={containerStyle}>
-            <div className="container text-center">
-                <h1 className="display-4 my-5">4S Events</h1>
-                <p className="lead">4S-Events is a premier event management services company dedicated to creating unforgettable experiences. From weddings and birthdays to corporate gatherings, we bring your vision to life with creativity and professionalism.</p>
+            <div id="imageCarousel" className="carousel slide mb-4" data-bs-ride="carousel">
+                <div className="carousel-inner">
+                    {carouselImages.map((image, index) => (
+                        <div
+                            key={index}
+                            className={`carousel-item ${index === 0 ? 'active' : ''}`}
+                        >
+                            <img
+                                src={image.src}
+                                className="d-block w-100"
+                                alt={image.alt}
+                                style={{ maxHeight: "400px", objectFit: "cover" }}
+                            />
+                        </div>
+                    ))}
+                </div>
+                <button
+                    className="carousel-control-prev"
+                    type="button"
+                    data-bs-target="#imageCarousel"
+                    data-bs-slide="prev"
+                >
+                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span className="visually-hidden">Previous</span>
+                </button>
+                <button
+                    className="carousel-control-next"
+                    type="button"
+                    data-bs-target="#imageCarousel"
+                    data-bs-slide="next"
+                >
+                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span className="visually-hidden">Next</span>
+                </button>
             </div>
+            <div className="container text-center">
+            <h1 className="display-4 my-5" style={{ fontWeight: 'bold', fontStyle: 'italic' }}>4S Events</h1>
+            <h3><p className="lead" style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>
+    4S Events stands as a trailblazer in the domain of event management, weaving together exceptional services that transcend conventional boundaries. Our unwavering commitment lies in sculpting experiences that etch themselves into memory, invoking emotions that resonate long after the event's conclusion. From the elegance of weddings to the exuberance of birthdays and the strategic finesse of corporate assemblies, we orchestrate a symphony of moments that linger in hearts and minds.
+</p></h3>            
+</div><br></br>
+<div className="black-decorative-line" style={blackDecorativeLine}></div>
+
             <div className="d-flex justify-content-center align-items-center">
-                <div className="d-flex flex-row">
+    <div className="d-flex flex-column align-items-center">
+        <h2 className="mb-4">Our Services</h2>
+
+        <div className="d-flex flex-row justify-content-center"> 
                     <div className="card" style={cardStyle}>
                         <img className="card-img-top" src={wedding} alt="Wedding" style={cardImageStyle} />
                         <div className="card-body">
                             <h5 className="card-title">Wedding</h5>
                             <p className="card-text">Exquisite arrangements for your special day. Our team will create a magical atmosphere that reflects your love story.</p>
-                            <Link to="#" className="btn btn-primary">Learn More</Link>
+                            <Link to="/service" className="btn btn-primary">Learn More</Link>
                         </div>
                     </div>
 
@@ -204,6 +129,7 @@ export default function HomeComponent() {
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     );
 }

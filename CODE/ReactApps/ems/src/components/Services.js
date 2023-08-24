@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import weddingImage from './images/wedding.jpg';
 import birthdayImage from './images/birthday.jpg';
 import corporateImage from './images/corporate.jpg';
 
 export default function ServiceComponent() {
     const isLoggedIn = true; // Replace with your authentication logic
-    
+   
     const servicesData = [
         {
             title: "Wedding",
             description: "Exquisite arrangements for your special day. Our team will create a magical atmosphere that reflects your love story.",
-            details: "Create the perfect wedding experience with our expert event planners.",
+            details: "From enchanting decor to personalized touches, we weave your dreams into reality. Walk down the aisle surrounded by elegance and romance, while we handle every detail with meticulous care. Let us craft the perfect ambiance that mirrors your unique journey and transforms your wedding day into an unforgettable tale of love and celebration.",
             image: weddingImage
         },
         {
@@ -27,7 +27,7 @@ export default function ServiceComponent() {
             image: corporateImage
         }
     ];
-
+    const { serviceIndex } = useParams();
     const [selectedService, setSelectedService] = useState(null);
 
     const handleReadMore = (index) => {
@@ -54,26 +54,26 @@ export default function ServiceComponent() {
                                         <h3 className="card-title">{service.title}</h3>
                                         <p className="card-text">{service.description}</p>
                                         {selectedService === index ? (
-                                            <>
-                                                <p className="card-text">{service.details}</p>
+                                            <div>
+                                            <p className="card-text">{service.details}</p>
+                                            <div className="d-flex justify-content-right align-items-center">
                                                 <button className="btn btn-primary me-2" onClick={handleReadLess}>Read Less</button>
-
-                                                <div>
-                                            {isLoggedIn ? (
-                                                <button className="btn btn-success">
-                                                <Link to="/booking" className="nav-link">
-                                                    Book Now
-                                                </Link>
-                                                </button>
-                                            ) : (
-                                                <button className="btn btn-success">
-                                                <Link to="/login" className="nav-link">
-                                                    Book Now
-                                                </Link>
-                                                </button>
-                                            )}
+                                                {isLoggedIn ? (
+                                                    <button className="btn btn-success">
+                                                        <Link to="/booking" className="nav-link">
+                                                            Book Now
+                                                        </Link>
+                                                    </button>
+                                                ) : (
+                                                    <button className="btn btn-success">
+                                                        <Link to="/login" className="nav-link">
+                                                            Book Now
+                                                        </Link>
+                                                    </button>
+                                                )}
                                             </div>
-                                            </>
+                                        </div>
+                                        
                                         ) : (
                                             <button className="btn btn-primary me-2" onClick={() => handleReadMore(index)}>Read More</button>
                                         )}
