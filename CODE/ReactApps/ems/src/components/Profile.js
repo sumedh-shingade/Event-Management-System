@@ -251,6 +251,7 @@ function ProfileComponent() {
 
   };
 
+
   const [eventToDelete, setEventToDelete] = useState(null);
   const handleDelete = (event_id) => {
     axios.delete(`http://localhost:8080/bookings/delete/${event_id}`)
@@ -302,6 +303,7 @@ function ProfileComponent() {
               <th scope="col">Edit</th>
               <th scope="col">Delete</th>
               <th>Details</th>
+              <th>Payment</th>
             </tr>
           </thead>
 
@@ -314,7 +316,7 @@ function ProfileComponent() {
                 <td>
                   <button
                     type="button"
-                    className="btn btn-primary"
+                    className="btn btn-secondary"
                     onClick={() => handleEdit(bData.event_id)}
                   >
                     Edit
@@ -332,8 +334,12 @@ function ProfileComponent() {
                   </td>
 
                 </td>
-                <td> <button type="button" className="btn btn-success" onClick={() => setSelectedBookingDetails(bData)}>
+                <td> <button type="button" className="btn btn-info" onClick={() => setSelectedBookingDetails(bData)}>
                   Show Details
+                </button></td>
+
+                <td> <button type="button" className="btn btn-primary">
+                  Payment
                 </button></td>
 
               </tr>
@@ -375,8 +381,14 @@ function ProfileComponent() {
         <div className="selected-booking-details">
           <h3>Booking Details</h3>
           <p>Event Name: {selectedBookingDetails.event_name}</p>
+          <p>Date: {selectedBookingDetails.date}</p>
           <p>Start Time: {selectedBookingDetails.start_time}</p>
           <p>End Time: {selectedBookingDetails.end_time}</p>
+          <p>Enxpected Attendees: {selectedBookingDetails.exp_attendee}</p>
+          <p>Venue: {selectedBookingDetails.venue.name}</p>
+          <p>Catering Services: {selectedBookingDetails.catering.menu}</p>
+          <p>Decoration Services: {selectedBookingDetails.decoration.decor_type}</p>
+          <p>Media Services: {selectedBookingDetails.media.media_type}</p>
           {/* Render other details as needed */}
         </div>
       )}

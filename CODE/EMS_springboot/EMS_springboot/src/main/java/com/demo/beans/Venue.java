@@ -13,26 +13,27 @@ public class Venue {
 	private String name;
 	private String address;
 	private String location;
+	private int venue_cost;
 
-	// Default constructor
 	public Venue() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	// Parameterized constructor
-	public Venue(int venue_id, String name, String address, String location) {
+	public Venue(int venue_id, String name, String address, String location, int venue_cost) {
+		super();
 		this.venue_id = venue_id;
 		this.name = name;
 		this.address = address;
 		this.location = location;
+		this.venue_cost = venue_cost;
 	}
 
-	// Getter and setter methods
-	public int getvenue_id() {
+	public int getVenue_id() {
 		return venue_id;
 	}
 
-	public void setvenue_id(int venue_id) {
+	public void setVenue_id(int venue_id) {
 		this.venue_id = venue_id;
 	}
 
@@ -60,10 +61,18 @@ public class Venue {
 		this.location = location;
 	}
 
-	// toString method
+	public int getVenue_cost() {
+		return venue_cost;
+	}
+
+	public void setVenue_cost(int venue_cost) {
+		this.venue_cost = venue_cost;
+	}
+
 	@Override
 	public String toString() {
-		return "Venue{" + "venue_id=" + venue_id + ", name='" + name + '\'' + ", address='" + address + '\''
-				+ ", location='" + location + '\'' + '}';
+		return "Venue [venue_id=" + venue_id + ", name=" + name + ", address=" + address + ", location=" + location
+				+ ", venue_cost=" + venue_cost + "]";
 	}
+
 }

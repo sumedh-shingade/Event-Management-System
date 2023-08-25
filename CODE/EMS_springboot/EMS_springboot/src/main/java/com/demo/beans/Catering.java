@@ -11,6 +11,7 @@ public class Catering {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int catering_id;
 	private String menu;
+	private int menu_cost;
 	
 	
 	public Catering() {
@@ -19,10 +20,11 @@ public class Catering {
 	}
 
 
-	public Catering(int catering_id, String menu) {
+	public Catering(int catering_id, String menu, int menu_cost) {
 		super();
 		this.catering_id = catering_id;
 		this.menu = menu;
+		this.menu_cost = menu_cost;
 	}
 
 
@@ -46,12 +48,20 @@ public class Catering {
 	}
 
 
+	public int getMenu_cost() {
+		return menu_cost;
+	}
+
+
+	public void setMenu_cost(int menu_cost) {
+		this.menu_cost = menu_cost;
+	}
+
+
 	@Override
 	public String toString() {
-		return "Catering [catering_id=" + catering_id + ", menu=" + menu + "]";
+		return "Catering [catering_id=" + catering_id + ", menu=" + menu + ", menu_cost=" + menu_cost + "]";
 	}
-	
-	
 	
 
 }

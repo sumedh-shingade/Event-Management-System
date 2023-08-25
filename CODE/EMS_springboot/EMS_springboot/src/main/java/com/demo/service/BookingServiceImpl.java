@@ -15,11 +15,13 @@ import com.demo.beans.Catering;
 import com.demo.beans.Decoration;
 import com.demo.beans.Media;
 import com.demo.beans.NewData;
+import com.demo.beans.Payment;
 import com.demo.beans.Venue;
 import com.demo.dao.BookingDao;
 import com.demo.dao.CateringDao;
 import com.demo.dao.DecorationDao;
 import com.demo.dao.MediaDao;
+import com.demo.dao.PaymentDao;
 import com.demo.dao.VenueDao;
 
 @Service
@@ -40,6 +42,9 @@ public class BookingServiceImpl implements BookingService {
 
 	@Autowired
 	DecorationDao ddao;
+	
+	@Autowired
+	PaymentDao pdao;
 
 	@Override
 	@Transactional
@@ -56,10 +61,13 @@ public class BookingServiceImpl implements BookingService {
 
 		Venue v = b.getVenue();
 		vdao.save(v);
+		
+		Payment p = b.getPayment();
+		pdao.save(p);
 
 		bdao.saveBooking(b.getEvent_id(), b.getEvent_name(), b.getStart_time(), b.getEnd_time(), b.getDate(),
-				b.getExp_attendee(), b.getVenue().getvenue_id(), b.getCatering().getCatering_id(),
-				b.getDecoration().getDecoration_id(), b.getMedia().getMedia_id(), b.getEmail_id());
+				b.getExp_attendee(), b.getVenue().getVenue_id(), b.getCatering().getCatering_id(),
+				b.getDecoration().getDecoration_id(), b.getMedia().getMedia_id(), b.getPayment().getPayment_id(), b.getEmail_id());
 
 	}
 

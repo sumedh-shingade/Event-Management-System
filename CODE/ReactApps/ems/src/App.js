@@ -1,5 +1,5 @@
 
-import logo from './logo.svg';
+
 import './App.css';
 import LoginComponent from './components/Login';
 import HomeComponent from './components/Home';
@@ -8,8 +8,8 @@ import RegistrationComponent from './components/Registration';
 import ServiceComponent from './components/Services';
 import BookingComponent from './components/Booking';
 import ProfileComponent from './components/Profile';
-
 import AboutUsComponent from './components/About';
+import PaymentComponent from './components/Payment';
 
 function App() {
 
@@ -21,6 +21,8 @@ function App() {
     <Route path='/booking' element={<BookingComponent></BookingComponent>}></Route>
     <Route path='/profile' element={<ProfileComponent></ProfileComponent>}></Route>
     <Route path='/aboutus' element={<AboutUsComponent></AboutUsComponent>}></Route>
+    <Route path='/payment' element={<PaymentComponent></PaymentComponent>}></Route>
+
   </Routes>
 }
 

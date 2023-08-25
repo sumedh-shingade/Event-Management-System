@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios'; // Import Axios library
 
+
+
 function BookingComponent() {
 
     const [email_id, setEmail_id] = useState('');
@@ -53,11 +55,41 @@ function BookingComponent() {
     const handleVenueChange = (value) => {
         setSelectedVenue(value);
         if (value !== 'other') {
-            setCustomVenue({
-                venueName: '',
-                address: '',
-                location: ''
-            });
+            switch (value) {
+                case 'venue_a':
+                    setCustomVenue({
+                        venueName: 'Venue A Name',
+                        address: 'Venue A Address',
+                        location: 'Venue A Location',
+                        venueCost: 20000
+                    });
+                    break;
+                case 'venue_b':
+                    setCustomVenue({
+                        venueName: 'Venue B Name',
+                        address: 'Venue B Address',
+                        location: 'Venue B Location',
+                        venueCost: 25000
+                    });
+                    break;
+                case 'venue_c':
+                    setCustomVenue({
+                        venueName: 'Venue C Name',
+                        address: 'Venue C Address',
+                        location: 'Venue C Location',
+                        venueCost: 30000
+
+                    });
+                    break;
+                default:
+                    setCustomVenue({
+                        venueName: '',
+                        address: '',
+                        location: '',
+                        venueCost: 50000
+                    });
+                    break;
+            }
         }
     };
 
@@ -69,36 +101,112 @@ function BookingComponent() {
         }));
     };
 
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
-    //     // Handle form submission logic here
+
+    // const handleMediaChange = (value) => {
+    //     if (selectedMedia.includes(value)) {
+    //         setSelectedMedia(prevSelected => prevSelected.filter(item => item !== value));
+    //     } else {
+    //         setSelectedMedia(prevSelected => [...prevSelected, value]);
+    //     }
     // };
 
-    const handleMediaChange = (value) => {
-        if (selectedMedia.includes(value)) {
-            setSelectedMedia(prevSelected => prevSelected.filter(item => item !== value));
-        } else {
-            setSelectedMedia(prevSelected => [...prevSelected, value]);
+
+    // New state variables for selected option details and image URL
+    const [selectedOptionDetails, setSelectedOptionDetails] = useState(null);
+
+
+    const handleOptionChange = (optionValue) => {
+        // Update selected option details and image based on the option value
+        switch (optionValue) {
+            case 'venue_a':
+                setSelectedOptionDetails(
+                    'Details for Venue A: Price: 20,000/- Per Day'
+                );
+                break;
+            case 'venue_b':
+                setSelectedOptionDetails('Details for Venue B: Price: 25,000/- Per Day');
+                break;
+            case 'venue_c':
+                setSelectedOptionDetails('Details for Venue C: Price: 30,000/- Per Day');
+                break;
+            default:
+                setSelectedOptionDetails(null);
+                break;
         }
     };
 
-    // const [dateSubmitted, setDateSubmitted] = useState(false);
-    // useEffect(() => {
-    //     if (dateSubmitted) {
-    //         // Make the Axios GET request here
-    //         axios.get(`http://localhost:8080/accounts/${date}`)
-    //             .then(response => {
-    //                 // Assuming response.data contains the booking data for the selected date
-    //                 if (response.data.length > 0) {
-    //                     alert("This date is already booked. Please select another date");
-    //                     return;
-    //                 }
-    //             })
-    //             .catch(error => {
-    //                 // console.error("Error fetching booking data:", error);
-    //             });
-    //     }
-    // }, [date, dateSubmitted]); // Dependency array with 'date' to run the effect when the date changes
+
+
+    const [selectedCateringOptionDetails, setSelectedCateringOptionDetails] = useState(null);
+
+
+    const handleCateringOptionChange = (optionValue) => {
+        // Update selected option details and image based on the option value
+        switch (optionValue) {
+            case 'indian':
+                setSelectedCateringOptionDetails(
+                    'Details for Menu: Price: 200/- Per Head'
+                );
+                break;
+            case 'continental':
+                setSelectedCateringOptionDetails('Details for Menu : Price: 250/- Per Head');
+                break;
+            default:
+                setSelectedCateringOptionDetails(null);
+                break;
+        }
+    };
+
+
+    const [selectedDecorOptionDetails, setSelectedDecorOptionDetails] = useState(null);
+
+
+    const handleDecorOptionChange = (optionValue) => {
+        // Update selected option details and image based on the option value
+        switch (optionValue) {
+            case 'floral':
+                setSelectedDecorOptionDetails(
+                    'Details for Floral Decoration: Price: 10,000/- Per Event'
+                );
+                break;
+            case 'balloon':
+                setSelectedDecorOptionDetails('Details for Balloon Decoration: Price: 5,000/- Per Event');
+                break;
+
+            default:
+                setSelectedDecorOptionDetails(null);
+                break;
+        }
+    };
+
+
+    const [selectedMediaOptionDetails, setSelectedMediaOptionDetails] = useState(null);
+
+
+    const handleMediaOptionChange = (optionValue) => {
+        // Update selected option details and image based on the option value
+        switch (optionValue) {
+            case 'photography':
+                setSelectedMediaOptionDetails(
+                    'Details for Photography: Price: 30,000/- Per Event'
+                );
+                break;
+            case 'videography':
+                setSelectedMediaOptionDetails('Details for Videography: Price: 50,000/- Per Event');
+                break;
+            case 'drone':
+                setSelectedMediaOptionDetails('Details for Drone-Photography: Price: 1,00,000/- Per Event');
+                break;
+            default:
+                setSelectedMediaOptionDetails(null);
+                break;
+        }
+    };
+
+
+
+
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -128,6 +236,13 @@ function BookingComponent() {
                 // "media_id": 44,
                 "media_type": selectedMedia
             },
+            "payment": {
+                "status": "Pending",
+                "venue_amt": 0,
+                "catering_amt": 0,
+                "media_amt": 0,
+                "decoration_amt": 0
+            },
             "email_id": email_id
 
 
@@ -149,19 +264,7 @@ function BookingComponent() {
         }
 
 
-        // useEffect(() => {
-        //     // Make the Axios GET request when the component mounts
-        //     axios.get(`http://localhost:8080/accounts/${date}`)
-        //         .then(response => {
-        //             // Assuming response.data contains the booking data for the selected date
-        //             if (response.data.length > 0) {
-        //                 alert("This date is already booked. Please select another date");
-        //             }
-        //         })
-        //         .catch(error => {
-        //             console.error("Error fetching booking data:", error);
-        //         });
-        // }, [date]); // Dependency array with 'date' to run the effect when the date changes
+
     };
 
 
@@ -203,13 +306,22 @@ function BookingComponent() {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="venue" className="form-label">Venue:</label>
-                    <select className="form-select" id="venue" name="venue" value={selectedVenue} onChange={(e) => handleVenueChange(e.target.value)} required>
+                    <select className="form-select" id="venue" name="venue" value={selectedVenue} onChange={(e) => {
+                        handleVenueChange(e.target.value);
+                        handleOptionChange(e.target.value);
+                    }} required>
                         <option value="">Select a Venue</option>
                         {venueOptions.map(option => (
                             <option key={option.value} value={option.value}>{option.label}</option>
                         ))}
                     </select>
                 </div>
+                {selectedOptionDetails && (
+                    <div>
+                        <h5>Venue Details:</h5>
+                        <p>{selectedOptionDetails}</p>
+                    </div>
+                )}
                 {selectedVenue === 'other' && (
                     <div>
                         <h5>Custom Venue Details</h5>
@@ -228,15 +340,31 @@ function BookingComponent() {
                     </div>
                 )}
 
+
+
+
+
+
+
+
                 <div className="mb-3">
                     <label htmlFor="catering" className="form-label">Catering:</label>
-                    <select className="form-select" id="catering" name="catering" value={selectedCatering} onChange={(e) => setSelectedCatering(e.target.value)} required>
+                    <select className="form-select" id="catering" name="catering" value={selectedCatering} onChange={(e) => {
+                        setSelectedCatering(e.target.value);
+                        handleCateringOptionChange(e.target.value);
+                    }} required>
                         <option value="">Select Catering</option>
                         {cateringOptions.map(option => (
                             <option key={option.value} value={option.value}>{option.label}</option>
                         ))}
                     </select>
                 </div>
+                {selectedCateringOptionDetails && (
+                    <div>
+                        <h5>Catering Details:</h5>
+                        <p>{selectedCateringOptionDetails}</p>
+                    </div>
+                )}
                 {selectedCatering === 'other' && (
                     <div className="mb-3">
                         <label htmlFor="customCatering" className="form-label">Your Choice:</label>
@@ -244,15 +372,30 @@ function BookingComponent() {
                     </div>
                 )}
 
+
+
+
+
+
+
                 <div className="mb-3">
                     <label htmlFor="decoration" className="form-label">Decoration:</label>
-                    <select className="form-select" id="decoration" name="decoration" value={selectedDecoration} onChange={(e) => setSelectedDecoration(e.target.value)} required>
+                    <select className="form-select" id="decoration" name="decoration" value={selectedDecoration} onChange={(e) => {
+                        setSelectedDecoration(e.target.value);
+                        handleDecorOptionChange(e.target.value);
+                    }} required>
                         <option value="">Select Decoration</option>
                         {decorationOptions.map(option => (
                             <option key={option.value} value={option.value}>{option.label}</option>
                         ))}
                     </select>
                 </div>
+                {selectedOptionDetails && (
+                    <div>
+                        <h5>Decoration Details:</h5>
+                        <p>{selectedDecorOptionDetails}</p>
+                    </div>
+                )}
                 {selectedDecoration === 'other' && (
                     <div className="mb-3">
                         <label htmlFor="customDecoration" className="form-label">Your Choice:</label>
@@ -260,20 +403,42 @@ function BookingComponent() {
                     </div>
                 )}
 
+
+
+
+
+
+
                 <div className="mb-3">
                     <label className="form-label">Media:</label>
-                    <select className="form-select" id="media" name="media" value={selectedMedia} onChange={(e) => setSelectedMedia(e.target.value)} required>
+                    <select className="form-select" id="media" name="media" value={selectedMedia} onChange={(e) => {
+                        setSelectedMedia(e.target.value);
+                        handleMediaOptionChange(e.target.value);
+                    }} required>
                         <option value="">Select Media</option>
                         {mediaOptions.map(option => (
                             <option key={option.value} value={option.value}>{option.label}</option>
                         ))}
                     </select>
                 </div>
+                {selectedOptionDetails && (
+                    <div>
+                        <h5>Media Details:</h5>
+                        <p>{selectedMediaOptionDetails}</p>
+                    </div>
+                )}
+
+
+
 
                 <div className="mb-3">
                     <label htmlFor="email_id" className="form-label">Email Id:</label>
                     <input type="text" className="form-control" id="email_id" name="email_id" value={email_id} onChange={(e) => setEmail_id(e.target.value)} required />
                 </div>
+
+
+
+
 
                 <button type="submit" className="btn btn-success">Book Event</button>
             </form>

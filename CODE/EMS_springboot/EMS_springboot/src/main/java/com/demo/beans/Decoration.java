@@ -11,16 +11,18 @@ public class Decoration {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int decoration_id;
 	private String decor_type;
+	private int decor_cost;
 
 	public Decoration() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Decoration(int decoration_id, String decor_type) {
+	public Decoration(int decoration_id, String decor_type, int decor_cost) {
 		super();
 		this.decoration_id = decoration_id;
 		this.decor_type = decor_type;
+		this.decor_cost = decor_cost;
 	}
 
 	public int getDecoration_id() {
@@ -39,10 +41,18 @@ public class Decoration {
 		this.decor_type = decor_type;
 	}
 
-	@Override
-	public String toString() {
-		return "Decoration [decoration_id=" + decoration_id + ", decor_type=" + decor_type + "]";
+	public int getDecor_cost() {
+		return decor_cost;
 	}
 
+	public void setDecor_cost(int decor_cost) {
+		this.decor_cost = decor_cost;
+	}
+
+	@Override
+	public String toString() {
+		return "Decoration [decoration_id=" + decoration_id + ", decor_type=" + decor_type + ", decor_cost="
+				+ decor_cost + "]";
+	}
 
 }

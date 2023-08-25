@@ -11,16 +11,18 @@ public class Media {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int media_id;
 	private String media_type;
+	private int media_cost;
 
 	public Media() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Media(int media_id, String media_type) {
+	public Media(int media_id, String media_type, int media_cost) {
 		super();
 		this.media_id = media_id;
 		this.media_type = media_type;
+		this.media_cost = media_cost;
 	}
 
 	public int getMedia_id() {
@@ -39,11 +41,17 @@ public class Media {
 		this.media_type = media_type;
 	}
 
-	@Override
-	public String toString() {
-		return "Media [media_id=" + media_id + ", media_type=" + media_type + "]";
+	public int getMedia_cost() {
+		return media_cost;
 	}
 
-	
+	public void setMedia_cost(int media_cost) {
+		this.media_cost = media_cost;
+	}
+
+	@Override
+	public String toString() {
+		return "Media [media_id=" + media_id + ", media_type=" + media_type + ", media_cost=" + media_cost + "]";
+	}
 
 }
