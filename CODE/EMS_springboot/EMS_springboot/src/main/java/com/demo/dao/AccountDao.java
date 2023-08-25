@@ -12,7 +12,10 @@ import com.demo.beans.Accounts;
 @Repository
 public interface AccountDao extends JpaRepository<Accounts, Integer> {
 
-	@Query(value="select * from accounts where email_id=:email_id",nativeQuery=true)
-	Optional<Accounts> findById(@Param("email_id") String email_id);
+//	@Query(value="select * from accounts where email_id=:email_id",nativeQuery=true)
+//	Optional<Accounts> findById(@Param("email_id") String email_id);
+
+	@Query(value="select * from accounts where email_id=:email_id",nativeQuery = true)
+	Optional<Accounts> findByEmailId(@Param("email_id") String email_id);
 
 }

@@ -111,28 +111,22 @@ function BookingComponent() {
             "date": date,
             "exp_attendee": expectedAttendees,
             "venue": {
-                venue_id: 11,
-//name: selectedVenue === 'other' ? customVenue.venueName : selectedVenue,
-                // address: selectedVenue === 'other' ? customVenue.address : '',
-                // location: selectedVenue === 'other' ? customVenue.location : '',
+                // venue_id: 11,
+                "name": selectedVenue === 'other' ? customVenue.venueName : selectedVenue,
+                "address": selectedVenue === 'other' ? customVenue.address : '',
+                "location": selectedVenue === 'other' ? customVenue.location : '',
             },
             "catering": {
-                catering_id: 22,
-                // indian: selectedCatering === 'indian' ? 'selected' : 'not selected',
-                // continental: selectedCatering === 'continental' ? 'selected' : 'not selected',
-                // other: selectedCatering === 'other' ? customCatering : 'selected',
+                // "catering_id": 22,
+                "menu": selectedCatering
             },
             "decoration": {
-                decoration_id: 33,
-                // floral_decor: selectedDecoration === 'floral' ? 'selected' : 'not selected',
-                // balloon_decor: selectedDecoration === 'balloon' ? 'selected' : 'not selected',
-                // other_decor: selectedDecoration === 'other' ? customDecoration : 'selected',
+                // "decoration_id": 33,
+                "decor_type": selectedDecoration
             },
             "media": {
-                media_id: 44,
-                // photography: selectedMedia.includes('photography') ? 'selected' : 'not selected',
-                // videography: selectedMedia.includes('videography') ? 'selected' : 'not selected',
-                // drone_photography: selectedMedia.includes('drone_photography') ? 'selected' : 'not selected',
+                // "media_id": 44,
+                "media_type": selectedMedia
             },
             "email_id": email_id
 
@@ -146,8 +140,12 @@ function BookingComponent() {
             const response = await axios.post('http://localhost:8080/bookings/insert', bookingData);
             console.log('Booking data sent successfully:', response.data);
             alert("Event booked successfully!")
+            console.log(bookingData);
         } catch (error) {
             console.error('Error sending booking data:', error);
+            alert(error)
+            console.log(bookingData);
+
         }
 
 
@@ -264,19 +262,14 @@ function BookingComponent() {
 
                 <div className="mb-3">
                     <label className="form-label">Media:</label>
-                    {mediaOptions.map(option => (
-                        <div className="form-check" key={option.value}>
-                            <input
-                                className="form-check-input"
-                                type="checkbox"
-                                value={option.value}
-                                checked={selectedMedia.includes(option.value)}
-                                onChange={() => handleMediaChange(option.value)}
-                            />
-                            <label className="form-check-label">{option.label}</label>
-                        </div>
-                    ))}
+                    <select className="form-select" id="media" name="media" value={selectedMedia} onChange={(e) => setSelectedMedia(e.target.value)} required>
+                        <option value="">Select Media</option>
+                        {mediaOptions.map(option => (
+                            <option key={option.value} value={option.value}>{option.label}</option>
+                        ))}
+                    </select>
                 </div>
+
                 <div className="mb-3">
                     <label htmlFor="email_id" className="form-label">Email Id:</label>
                     <input type="text" className="form-control" id="email_id" name="email_id" value={email_id} onChange={(e) => setEmail_id(e.target.value)} required />

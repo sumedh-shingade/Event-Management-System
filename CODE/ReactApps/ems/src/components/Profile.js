@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
 
 
 function ProfileComponent() {
-  // const [email_id, setEmail_id] = useState('');
+
+  // Inside the ProfileComponent function
+  const [selectedBookingDetails, setSelectedBookingDetails] = useState(null);
+
+
   const [bookingData, setBookingData] = useState([]);
   const [userData, setUserData] = useState({});
-  // setEmail_id("abc@ems"); // Replace with the desired email ID
 
-  const email_id = "abc@ems";
+  const email_id = "qqq@ems";
 
 
-  const [eventName, setEventName] = useState('');
+  const [event_name, setevent_name] = useState('');
   const [date, setDate] = useState('');
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
-  const [expectedAttendees, setExpectedAttendees] = useState('');
+  const [start_time, setstart_time] = useState('');
+  const [end_time, setend_time] = useState('');
+  const [exp_attendee, setexp_attendee] = useState('');
 
   const [selectedVenue, setSelectedVenue] = useState('');
   const [customVenue, setCustomVenue] = useState({
@@ -95,6 +97,7 @@ function ProfileComponent() {
       })
       .catch(error => {
         console.error("Error fetching user data:", error);
+        alert(error)
       });
   }, []); // Empty dependency array to ensure the effect runs only once
 
@@ -103,66 +106,112 @@ function ProfileComponent() {
     axios.get(`http://localhost:8080/bookings/email/${email_id}`)
       .then(response => {
         setBookingData(response.data);
+        console.log(bookingData)
       })
       .catch(error => {
         console.error("Error fetching user data:", error);
+        alert(error)
+        console.log(bookingData)
+
       });
   }, []); // Empty dependency array to ensure the effect runs only once
 
 
 
-  const [editFormData, setEditFormData] = useState({
-    "event_name": bookingData.event_id,
-    "start_time": "",
-    "end_time": "",
-    "date": "",
-    "exp_attendee": "",
-    "venue": { "venue_id": bookingData.venue_id, "name": "", "address": "", "location": "" },
-    "catering": { "catering_id": bookingData.catering_id, "menu": "" },
-    "decoration": { "decoration_id": bookingData.decoration_id, "decor_type": "" },
-    "media": { "media_id": bookingData.media_id, "media_type": "" },
-    "email_id": bookingData.email_id
-  });
+  const [editFormData, setEditFormData] = useState(
+    {
+      "event_name": "",
+      "start_time": "",
+      "end_time": "",
+      "date": "",
+      "exp_attendee": "",
+      "venue": {
+        "venue_id": "",
+        "name": "",
+        "address": "",
+        "location": "",
+      },
+      "catering": {
+        "catering_id": "",
+        "menu": ""
+      },
+      "decoration": {
+        "decoration_id": "",
+        "decor_type": ""
+      },
+      "media": {
+        "media_id": "",
+        "media_type": ""
+      },
+      "email_id": ""
+    }
+
+  );
 
   const [isEditing, setIsEditing] = useState(false); // Track edit mode
+  const [superId, setSuperId] = useState(0);
 
-  const handleEdit = event_id => {
+  const [newData, setNewData] = useState({});
+
+  function handleEdit(event_id) {
+    console.log(parseInt(event_id));
+
+    setSuperId(parseInt(event_id));
+    console.log(superId);
+
     setIsEditing(true); // Show the edit form when "Edit" is clicked
     // Fetch the existing booking data and populate the form
 
-    const booking = bookingData[event_id];
-    setEditFormData({
-      event_name: booking.event_name,
-      start_time: booking.start_time,
-      end_time: booking.end_time,
-      date: booking.date,
-      exp_attendee: booking.exp_attendee,
-      venue: { ...booking.venue },
-      catering: { ...booking.catering },
-      decoration: { ...booking.decoration },
-      media: { ...booking.media },
-      email_id: booking.email_id
-    });
 
-    // Make sure to validate editFormData before sending
-    axios.put(`http://localhost:8080/bookings/update/${event_id}`, editFormData)
-      .then(response => {
-        console.log("Booking updated:", response.data);
+    // Find the booking data for the selected event_id
+    const selectedBooking = bookingData.find(booking => booking.event_id === event_id);
 
-        // Update bookingData or fetch updated data again
-        // // For simplicity, you can fetch the data again here
-        // axios.get(`http://localhost:8080/bookings/email/${email_id}`)
-        //   .then(response => {
-        //     setBookingData(response.data);
-        //   })
-        //   .catch(error => {
-        //     console.error("Error fetching booking data:", error);
-        //   });
-      })
-      .catch(error => {
-        console.error("Error updating booking:", error);
-      });
+    console.log(selectedBooking)
+
+
+    // Set the selected booking details to display
+    setSelectedBookingDetails(selectedBooking);
+
+
+
+    // Populate the edit form with the selected booking data
+    setEditFormData(
+      {
+        "event_name": event_name,
+        "start_time": selectedBooking.start_time,
+        "end_time": selectedBooking.end_time,
+        "date": selectedBooking.date,
+        "exp_attendee": selectedBooking.exp_attendee,
+        "venue": {
+          "venue_id": selectedBooking.venue.venue_id,
+          "name": selectedBooking.venue,
+          "address": "",
+          "location": "",
+        },
+        "catering": {
+          "catering_id": selectedBooking.catering.catering_id,
+          "menu": selectedCatering
+        },
+        "decoration": {
+          "decoration_id": selectedBooking.decoration.decoration_id,
+          "decor_type": selectedDecoration
+        },
+        "media": {
+          "media_id": selectedBooking.media.media_id,
+          "media_type": selectedMedia
+        },
+        "email_id": selectedBooking.email_id
+      }
+    );
+
+
+
+
+
   };
+
+
+
 
   const handleEditFormChange = event => {
     const { name, value } = event.target;
@@ -172,6 +221,66 @@ function ProfileComponent() {
     });
   };
 
+
+  const e_id = bookingData.event_id;
+  const handleSubmit = async (event) => {
+    // console.log(event)
+    event.preventDefault();
+
+
+    console.log(bookingData);
+    console.log(parseInt(bookingData[0].event_id));
+    console.log(editFormData);
+    console.log(superId);
+
+
+    axios.put(`http://localhost:8080/bookings/update/${superId}`, editFormData)
+      .then(response => {
+        console.log("Booking updated", response.data);
+        alert("Event updated successfully")
+        console.log(editFormData);
+
+      })
+      .catch(error => {
+        console.error("Error updating booking", error);
+        alert(error)
+        console.log(editFormData);
+
+      });
+
+
+  };
+
+  const [eventToDelete, setEventToDelete] = useState(null);
+  const handleDelete = (event_id) => {
+    axios.delete(`http://localhost:8080/bookings/delete/${event_id}`)
+      .then(response => {
+        console.log("Event deleted", response.data);
+        // After successful deletion, you might want to refresh the booking data
+        // You can call the API request again to fetch the updated data
+
+        alert("Kindly refresh your page to view updated profile")
+      })
+      .catch(error => {
+        console.error("Error deleting event", error);
+      });
+  };
+
+
+
+  // Find the booking data for the selected event_id
+  // const selectedBooking = bookingData.find(booking => booking.event_id === event_id);
+
+
+
+
+
+
+
+
+
+
+
   return (
     <div className="profile">
       <h2>Profile Information</h2>
@@ -180,175 +289,216 @@ function ProfileComponent() {
       <p>Mobile: {userData.mob_no}</p>
 
       <div>
+
+
+
         <table class="table table-hover">
+
+
           <thead>
             <tr>
               <th scope="col">Sr No</th>
               <th scope="col">Booked Events</th>
               <th scope="col">Edit</th>
               <th scope="col">Delete</th>
+              <th>Details</th>
             </tr>
           </thead>
-          <tbody>
-            {/* <tr>
-              <th scope="row">1</th>
-              <td>{bookingData.event_name}</td>
-              <td><button type="button" class="btn btn-primary" onClick={() => handleEdit(bookingData.event_id)}>Edit</button></td>
-              <td><button type="button" class="btn btn-danger">Delete</button></td>
-            </tr> */}
 
-            {Object.keys(bookingData).map(event_id => (
-              <tr key={event_id}>
-                <th scope="row">1</th>
-                <td>{bookingData[event_id].event_name}</td>
+
+          <tbody>
+            {bookingData.map((bData, index) => (
+              <tr key={bData.event_id}>
+                <th scope="row">{index + 1}</th>
+                <td>{bData.event_name}</td>
                 <td>
                   <button
                     type="button"
                     className="btn btn-primary"
-                    onClick={() => handleEdit(event_id)}
+                    onClick={() => handleEdit(bData.event_id)}
                   >
                     Edit
                   </button>
                 </td>
                 <td>
-                  <button type="button" className="btn btn-danger">
-                    Delete
-                  </button>
+                  <td>
+                    <button
+                      type="button"
+                      className="btn btn-danger"
+                      onClick={() => setEventToDelete(bData.event_id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
+
                 </td>
+                <td> <button type="button" className="btn btn-success" onClick={() => setSelectedBookingDetails(bData)}>
+                  Show Details
+                </button></td>
+
               </tr>
             ))}
 
           </tbody>
         </table>
+
+        {eventToDelete && (
+          <div className="delete-confirmation">
+            <p>Are you sure you want to delete this event?</p>
+            <button
+              type="button"
+              className="btn btn-danger"
+              onClick={() => {
+                handleDelete(eventToDelete);
+                setEventToDelete(null); // Clear the eventToDelete state after deletion
+              }}
+            >
+              Confirm Delete
+            </button>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => setEventToDelete(null)} // Clear the eventToDelete state
+            >
+              Cancel
+            </button>
+          </div>
+        )}
+
+
       </div>
 
 
+
+      {/* Render the selected booking details */}
+      {selectedBookingDetails && (
+        <div className="selected-booking-details">
+          <h3>Booking Details</h3>
+          <p>Event Name: {selectedBookingDetails.event_name}</p>
+          <p>Start Time: {selectedBookingDetails.start_time}</p>
+          <p>End Time: {selectedBookingDetails.end_time}</p>
+          {/* Render other details as needed */}
+        </div>
+      )}
+
+
+
+
       {isEditing && (
-        <div className="edit-form">
-          {/* <h3>Edit Form</h3>
-          <input type="text" name="event_name" placeholder="Event Name" value={editFormData.event_name} onChange={handleEditFormChange} />
-          <input type="date" name="date" placeholder="date" value={editFormData.date} onChange={handleEditFormChange} />
-          <input type="time" name="start_time" placeholder="start_time" value={editFormData.start_time} onChange={handleEditFormChange} />
-          <input type="time" name="end_time" placeholder="end_time" value={editFormData.end_time} onChange={handleEditFormChange} />
-          <input type="number" name="exp_attendee" placeholder="exp_attendee" value={editFormData.exp_attendee} onChange={handleEditFormChange} /> */}
-
-          <div className="mb-3">
-            <label htmlFor="eventName" className="form-label">Event Name:</label>
-            <input type="text" className="form-control" id="eventName" name="eventName" value={eventName} required onChange={handleEditFormChange} />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="date" className="form-label">Date:</label>
-            <input
-              type="date"
-              className="form-control"
-              id="date"
-              name="date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-              min={new Date().toISOString().split("T")[0]} // Set the minimum date to the current date
-              required
-            />
-          </div>
-
-          <div className="row mb-3">
-            <div className="col-md-6">
-              <label htmlFor="startTime" className="form-label">Start Time:</label>
-              <input type="time" className="form-control" id="startTime" name="startTime" value={startTime} onChange={handleEditFormChange} required />
-            </div>
-            <div className="col-md-6">
-              <label htmlFor="endTime" className="form-label">End Time:</label>
-              <input type="time" className="form-control" id="endTime" name="endTime" value={endTime} onChange={handleEditFormChange} required />
-            </div>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="expectedAttendees" className="form-label">Expected Attendees:</label>
-            <input type="number" className="form-control" id="expectedAttendees" name="expectedAttendees" value={expectedAttendees} onChange={handleEditFormChange} required />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="venue" className="form-label">Venue:</label>
-            <select className="form-select" id="venue" name="venue" value={selectedVenue} onChange={handleEditFormChange} required>
-              <option value="">Select a Venue</option>
-              {venueOptions.map(option => (
-                <option key={option.value} value={option.value}>{option.label}</option>
-              ))}
-            </select>
-          </div>
-          {selectedVenue === 'other' && (
-            <div>
-              <h5>Custom Venue Details</h5>
-              <div className="mb-3">
-                <label htmlFor="venueName" className="form-label">Venue Name:</label>
-                <input type="text" className="form-control" id="venueName" name="venueName" value={customVenue.venueName} onChange={handleEditFormChange} required />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="address" className="form-label">Address:</label>
-                <input type="text" className="form-control" id="address" name="address" value={customVenue.address} onChange={handleEditFormChange} required />
-              </div>
-              <div className="mb-3">
-                <label htmlFor="location" className="form-label">Location:</label>
-                <input type="text" className="form-control" id="location" name="location" value={customVenue.location} onChange={handleEditFormChange} required />
-              </div>
-            </div>
-          )}
-
-          <div className="mb-3">
-            <label htmlFor="catering" className="form-label">Catering:</label>
-            <select className="form-select" id="catering" name="catering" value={selectedCatering} onChange={handleEditFormChange} required>
-              <option value="">Select Catering</option>
-              {cateringOptions.map(option => (
-                <option key={option.value} value={option.value}>{option.label}</option>
-              ))}
-            </select>
-          </div>
-          {selectedCatering === 'other' && (
+        <div className="edit-form" onChange={handleEditFormChange}>
+          <h3>Update Booking Details</h3>
+          <form onSubmit={handleSubmit}>
             <div className="mb-3">
-              <label htmlFor="customCatering" className="form-label">Your Choice:</label>
-              <input type="text" className="form-control" id="customCatering" name="customCatering" value={customCatering} onChange={handleEditFormChange} required />
+              <label htmlFor="event_name" className="form-label">Event Name:</label>
+              <input type="text" className="form-control" id="event_name" name="event_name" value={event_name} onChange={(e) => setevent_name(e.target.value)} required />
             </div>
-          )}
-
-          <div className="mb-3">
-            <label htmlFor="decoration" className="form-label">Decoration:</label>
-            <select className="form-select" id="decoration" name="decoration" value={selectedDecoration} onChange={handleEditFormChange} required>
-              <option value="">Select Decoration</option>
-              {decorationOptions.map(option => (
-                <option key={option.value} value={option.value}>{option.label}</option>
-              ))}
-            </select>
-          </div>
-          {selectedDecoration === 'other' && (
             <div className="mb-3">
-              <label htmlFor="customDecoration" className="form-label">Your Choice:</label>
-              <input type="text" className="form-control" id="customDecoration" name="customDecoration" value={customDecoration} onChange={handleEditFormChange} required />
+              <label htmlFor="date" className="form-label">Date:</label>
+              <input
+                type="date"
+                className="form-control"
+                id="date"
+                name="date"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                min={new Date().toISOString().split("T")[0]} // Set the minimum date to the current date
+                required
+              />
             </div>
-          )}
 
-          <div className="mb-3">
-            <label className="form-label">Media:</label>
-            {mediaOptions.map(option => (
-              <div className="form-check" key={option.value}>
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  value={option.value}
-                  checked={selectedMedia.includes(option.value)}
-                  onChange={() => handleMediaChange(option.value)}
-                />
-                <label className="form-check-label">{option.label}</label>
+            <div className="row mb-3">
+              <div className="col-md-6">
+                <label htmlFor="start_time" className="form-label">Start Time:</label>
+                <input type="time" className="form-control" id="start_time" name="start_time" value={start_time} onChange={(e) => setstart_time(e.target.value)} required />
               </div>
-            ))}
-          </div>
-          {/* <div className="mb-3">
-            <label htmlFor="email_id" className="form-label">Email Id:</label>
-            <input type="text" className="form-control" id="email_id" name="email_id" value={email_id} onChange={(e) => setEmail_id(e.target.value)} required />
-          </div> */}
+              <div className="col-md-6">
+                <label htmlFor="end_time" className="form-label">End Time:</label>
+                <input type="time" className="form-control" id="end_time" name="end_time" value={end_time} onChange={(e) => setend_time(e.target.value)} required />
+              </div>
+            </div>
+            <div className="mb-3">
+              <label htmlFor="exp_attendee" className="form-label">Expected Attendees:</label>
+              <input type="number" className="form-control" id="exp_attendee" name="exp_attendee" value={exp_attendee} onChange={(e) => setexp_attendee(e.target.value)} required />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="venue" className="form-label">Venue:</label>
+              <select className="form-select" id="venue" name="venue" value={selectedVenue} onChange={(e) => handleVenueChange(e.target.value)} required>
+                <option value="">Select a Venue</option>
+                {venueOptions.map(option => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))}
+              </select>
+            </div>
+            {selectedVenue === 'other' && (
+              <div>
+                <h5>Custom Venue Details</h5>
+                <div className="mb-3">
+                  <label htmlFor="venueName" className="form-label">Venue Name:</label>
+                  <input type="text" className="form-control" id="venueName" name="venueName" value={customVenue.venueName} onChange={handleInputChange} required />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="address" className="form-label">Address:</label>
+                  <input type="text" className="form-control" id="address" name="address" value={customVenue.address} onChange={handleInputChange} required />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="location" className="form-label">Location:</label>
+                  <input type="text" className="form-control" id="location" name="location" value={customVenue.location} onChange={handleInputChange} required />
+                </div>
+              </div>
+            )}
 
-          <button type="submit" className="btn btn-success">Book Event</button>
+            <div className="mb-3">
+              <label htmlFor="catering" className="form-label">Catering:</label>
+              <select className="form-select" id="catering" name="catering" value={selectedCatering} onChange={(e) => setSelectedCatering(e.target.value)} required>
+                <option value="">Select Catering</option>
+                {cateringOptions.map(option => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))}
+              </select>
+            </div>
+            {selectedCatering === 'other' && (
+              <div className="mb-3">
+                <label htmlFor="customCatering" className="form-label">Your Choice:</label>
+                <input type="text" className="form-control" id="customCatering" name="customCatering" value={customCatering} onChange={(e) => setCustomCatering(e.target.value)} required />
+              </div>
+            )}
 
+            <div className="mb-3">
+              <label htmlFor="decoration" className="form-label">Decoration:</label>
+              <select className="form-select" id="decoration" name="decoration" value={selectedDecoration} onChange={(e) => setSelectedDecoration(e.target.value)} required>
+                <option value="">Select Decoration</option>
+                {decorationOptions.map(option => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))}
+              </select>
+            </div>
+            {selectedDecoration === 'other' && (
+              <div className="mb-3">
+                <label htmlFor="customDecoration" className="form-label">Your Choice:</label>
+                <input type="text" className="form-control" id="customDecoration" name="customDecoration" value={customDecoration} onChange={(e) => setCustomDecoration(e.target.value)} required />
+              </div>
+            )}
 
+            <div className="mb-3">
+              <label className="form-label">Media:</label>
+              <select className="form-select" id="media" name="media" value={selectedMedia} onChange={(e) => setSelectedMedia(e.target.value)} required>
+                <option value="">Select Media</option>
+                {mediaOptions.map(option => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))}
+              </select>
+            </div>
+            {/* <div className="mb-3">
+              <label htmlFor="email_id" className="form-label">Email Id:</label>
+              <input type="text" className="form-control" id="email_id" name="email_id" value={email_id} onChange={(e) => setEmail_id(e.target.value)} required />
+            </div> */}
+
+            <button type="submit" className="btn btn-success">Update</button>
+          </form>
         </div>
       )}
     </div>
+
   );
 }
 

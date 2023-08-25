@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.beans.Bookings;
+import com.demo.beans.NewData;
 import com.demo.service.BookingService;
 
 @CrossOrigin("*")
@@ -55,13 +56,14 @@ public class BookingsController {
 	}
 	
 	@GetMapping("/email/{email_id}")
-	public ResponseEntity<Bookings> getByEmail(@PathVariable String email_id) {
-		System.out.println(email_id);
-		Bookings b = bookingService.getByEmail(email_id);
-		if (b != null)
-			return ResponseEntity.ok(b);
+	public List<Bookings> getByEmail(@PathVariable String email_id) {
+		List<Bookings> blist = bookingService.getByEmail(email_id);
+		System.out.println(blist);
+
+		if (blist != null)
+			return blist;
 		else
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			return null;
 	}
 
 	@PostMapping("/insert")
@@ -80,11 +82,13 @@ public class BookingsController {
 	}
 	
 	@PutMapping("/update/{event_id}")
-	public ResponseEntity<String> updateBooking(@PathVariable int event_id, @RequestBody Bookings b) {
-	    System.out.println(b);
+	public ResponseEntity<String> updateBooking(@PathVariable int event_id, @RequestBody NewData n) {
+	    System.out.println(n);
 	    // Make sure you set the event_id from the path into the entity if needed
+	    Bookings b = new Bookings();
 	    b.setEvent_id(event_id);
-	    bookingService.updateBooking(b);
+	    System.out.println(event_id);
+	    bookingService.updateBooking(b,n);
 	    return ResponseEntity.ok("Modified successfully");
 	}
 

@@ -1,6 +1,7 @@
 package com.demo.dao;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -26,7 +27,7 @@ public interface BookingDao extends JpaRepository<Bookings, Integer> {
 	Optional<Date> findByDate(@Param("date") String date);
 
 	@Query(value="select * from bookings where email_id=:email_id",nativeQuery = true)
-	Optional<Bookings> findByEmail(String email_id);
+	List<Bookings> findByEmail(@Param("email_id") String email_id);
 
 
 //	void delete(Optional<Bookings> b);

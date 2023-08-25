@@ -23,9 +23,9 @@ public class AccountsController {
 	AccountService accountService;
 	
 	@GetMapping("/{email_id}")
-	public ResponseEntity<Accounts> getAccountById(@PathVariable String email_id) {
+	public ResponseEntity<Accounts> getAccountByEmailId(@PathVariable String email_id) {
 		System.out.println(email_id);
-		Accounts a = accountService.getById(email_id);
+		Accounts a = accountService.getByEmailId(email_id);
 		if (a != null)
 			return ResponseEntity.ok(a);
 		else

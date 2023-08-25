@@ -27,8 +27,8 @@ public class AccountServiceImpl implements AccountService {
 
 
 	@Override
-	public Accounts getById(String email_id) {
-		Optional<Accounts> op = adao.findById(email_id);
+	public Accounts getByEmailId(String email_id) {
+		Optional<Accounts> op = adao.findByEmailId(email_id);
 		if (op.isPresent()) {
 			return op.get();
 		} else

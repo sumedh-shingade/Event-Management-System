@@ -18,12 +18,5 @@ public class LoginServiceImpl implements LoginService {
 		Login l=new Login(a.getEmail_id(),a.getPassword());
 		ldao.save(l);
 	}
-	@Override
-	public Login validateUser(Login l) {
-		String email_id=l.getEmail_id();
-		String password=l.getPassword();
-		return ldao.validateUser(email_id,password);
-		
-	}
 
 }

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.demo.beans.Bookings;
+import com.demo.beans.NewData;
 
 public interface BookingService {
 
@@ -23,7 +24,7 @@ public interface BookingService {
 
 
 
-	void updateBooking(Bookings b);
+//	void updateBooking(Bookings b);
 
 
 
@@ -31,6 +32,10 @@ public interface BookingService {
 
 
 
-	Bookings getByEmail(String email_id);
+	List<Bookings> getByEmail(String email_id);
+
+
+
+	void updateBooking(Bookings b, NewData n);
 
 }
