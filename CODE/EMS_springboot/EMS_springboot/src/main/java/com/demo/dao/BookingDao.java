@@ -1,8 +1,6 @@
 package com.demo.dao;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -23,8 +21,8 @@ public interface BookingDao extends JpaRepository<Bookings, Integer> {
 	                 @Param("venue_id") int venueId, @Param("catering_id") int cateringId, @Param("decoration_id") int decorationId,
 	                 @Param("media_id") int mediaId, @Param("payment_id") int payment_id, @Param("email_id") String email_id);
 
-	@Query(value="select date from bookings where date= :date",nativeQuery = true)
-	Optional<Date> findByDate(@Param("date") String date);
+	@Query(value="select * from bookings where date=:date and (:start_time between start_time and end_time or :end_time between start_time and end_time);",nativeQuery = true)
+	List<Bookings> findByDate(@Param("date") String date, @Param("start_time") String start_time,@Param("end_time") String end_time);
 
 	@Query(value="select * from bookings where email_id=:email_id",nativeQuery = true)
 	List<Bookings> findByEmail(@Param("email_id") String email_id);

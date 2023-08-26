@@ -19,7 +19,6 @@ export default function FooterComponent() {
           <MDBRow className='mt-3'>
             <MDBCol md="3" lg="4" xl="3" className='mx-auto mb-4'>
               <h6 className='text-uppercase fw-bold mb-4'>
-                <MDBIcon icon="home" className="me-3" style={{ color: 'white' }} />
                 4S Events
               </h6>
               <p>
@@ -33,58 +32,55 @@ export default function FooterComponent() {
             <MDBCol md="3" lg="2" xl="2" className='mx-auto mb-4'>
               <h6 className='text-uppercase fw-bold mb-4'>Useful links</h6>
               <p>
-                <a href='/home' className='text-reset'>
-                  <MDBIcon icon="home" /> Home
+                <a href='/' className='text-reset'>
+                  Home
                 </a>
               </p>
               <p>
-                <a href='#!' className='text-reset'>
+                <a href='/aboutus' className='text-reset'>
                   About Us
                 </a>
               </p>
               <p>
-                <a href='#!' className='text-reset'>
+                <a href='/service' className='text-reset'>
                   Services
-                </a>
-              </p>
-              <p>
-                <a href='#!' className='text-reset'>
-                  Contact Us
                 </a>
               </p>
             </MDBCol>
 
-           <MDBCol md="4" lg="3" xl="3" className='mx-auto mb-md-0 mb-4'>
-    <div className="text-center">
-        <h6 className='text-uppercase fw-bold mb-4'>Contact</h6>
-        <div className="mb-3">
-            <div className="d-flex align-items-center">
-                <MDBIcon icon="home" className="me-3" style={{ color: 'white', fontSize: '1.2rem' }} />
-                <p className="mb-0" style={{ color: 'white' }}>
-                    IET, Shivajinagar, Pune, Maharashtra
-                </p>
-            </div>
-        </div>
-        <div className="mb-3">
-            <div className="d-flex align-items-center">
-                <MDBIcon icon="envelope" className="me-3" style={{ color: 'white', fontSize: '1.2rem' }} />
-                <p className="mb-0" style={{ color: 'white' }}>
-                  IET@gmail.com
-                </p>
-            </div>
-        </div>
-        <div className="d-flex align-items-center">
-            <MDBIcon icon="phone" className="me-3" style={{ color: 'white', fontSize: '1.2rem' }} />
-            <p className="mb-0" style={{ color: 'white' }}>
-                +91 9689483207
-            </p>
-        </div>
-    </div>
-</MDBCol>
+            <MDBCol md="4" lg="3" xl="3" className='mx-auto mb-md-0 mb-4'>
+              <div className="text-center">
+                <h6 className='text-uppercase fw-bold mb-4'>Contact</h6>
+                <div className="mb-3">
+                  <div className="d-flex align-items-center justify-content-start">
+                    <MDBIcon icon="home" className="me-3" style={{ color: 'white', fontSize: '1.2rem' }} />
+                    <p className="mb-0" style={{ color: 'white' }}>
+                      IET, Shivajinagar, Pune, Maharashtra
+                    </p>
+                  </div>
+                </div>
+                <div className="mb-3">
+                  <div className="d-flex align-items-center">
+                    <MDBIcon icon="envelope" className="me-3" style={{ color: 'white', fontSize: '1.2rem' }} />
+                    <p className="mb-0" style={{ color: 'white' }}>
+                      IET@gmail.com
+                    </p>
+                  </div>
+                </div>
+                <div className="d-flex align-items-center">
+                  <MDBIcon icon="phone" className="me-3" style={{ color: 'white', fontSize: '1.2rem' }} />
+                  <p className="mb-0" style={{ color: 'white' }}>
+                    +91 9689483207,<br></br>
+                    +91 8329496964,<br></br>
+                    +91 9370530085
+                  </p>
+                </div>
+              </div>
+            </MDBCol>
 
 
-</MDBRow>
-</MDBContainer>
+          </MDBRow>
+        </MDBContainer>
       </section>
       <div className='text-center p-4' style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
         © 2023 Copyright:
@@ -93,6 +89,6 @@ export default function FooterComponent() {
         </a>
       </div>
     </MDBFooter>
-   
+
   );
 }

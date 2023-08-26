@@ -1,9 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios'; // Import Axios library
+import { useNavigate } from 'react-router-dom';
+
 
 
 
 function BookingComponent() {
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        // Check if the user is logged in
+        const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+
+        // If not logged in, redirect to login page
+        if (!isLoggedIn) {
+            navigate('/login'); // Replace '/login' with the actual login route
+        }
+    }, [navigate]);
+
+    const [venueCost, setVenueCost] = useState(0);
+    const [cateringCost, setCateringCost] = useState(0);
+    const [decorationCost, setDecorationCost] = useState(0);
+    const [mediaCost, setMediaCost] = useState(0);
+
+
+
 
     const [email_id, setEmail_id] = useState('');
     const [eventName, setEventName] = useState('');
@@ -141,18 +163,21 @@ function BookingComponent() {
 
 
     const handleCateringOptionChange = (optionValue) => {
-        // Update selected option details and image based on the option value
+        // Update selected option details and costs based on the option value
         switch (optionValue) {
             case 'indian':
                 setSelectedCateringOptionDetails(
                     'Details for Menu: Price: 200/- Per Head'
                 );
+                setCateringCost(200);
                 break;
             case 'continental':
                 setSelectedCateringOptionDetails('Details for Menu : Price: 250/- Per Head');
+                setCateringCost(250);
                 break;
             default:
                 setSelectedCateringOptionDetails(null);
+                setCateringCost(0);
                 break;
         }
     };
@@ -162,19 +187,21 @@ function BookingComponent() {
 
 
     const handleDecorOptionChange = (optionValue) => {
-        // Update selected option details and image based on the option value
+        // Update selected option details and costs based on the option value
         switch (optionValue) {
             case 'floral':
                 setSelectedDecorOptionDetails(
                     'Details for Floral Decoration: Price: 10,000/- Per Event'
                 );
+                setDecorationCost(10000);
                 break;
             case 'balloon':
                 setSelectedDecorOptionDetails('Details for Balloon Decoration: Price: 5,000/- Per Event');
+                setDecorationCost(5000);
                 break;
-
             default:
                 setSelectedDecorOptionDetails(null);
+                setDecorationCost(0);
                 break;
         }
     };
@@ -184,21 +211,25 @@ function BookingComponent() {
 
 
     const handleMediaOptionChange = (optionValue) => {
-        // Update selected option details and image based on the option value
+        // Update selected option details and costs based on the option value
         switch (optionValue) {
             case 'photography':
                 setSelectedMediaOptionDetails(
                     'Details for Photography: Price: 30,000/- Per Event'
                 );
+                setMediaCost(30000);
                 break;
             case 'videography':
                 setSelectedMediaOptionDetails('Details for Videography: Price: 50,000/- Per Event');
+                setMediaCost(50000);
                 break;
             case 'drone':
                 setSelectedMediaOptionDetails('Details for Drone-Photography: Price: 1,00,000/- Per Event');
+                setMediaCost(100000);
                 break;
             default:
                 setSelectedMediaOptionDetails(null);
+                setMediaCost(0);
                 break;
         }
     };
@@ -207,64 +238,90 @@ function BookingComponent() {
 
 
 
+    // Calculate total costs
+    const totalCost = customVenue.venueCost + cateringCost * expectedAttendees + decorationCost + mediaCost;
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
-        // Create the booking object with selected data
-        const bookingData = {
-            "event_name": eventName,
-            "start_time": startTime,
-            "end_time": endTime,
-            "date": date,
-            "exp_attendee": expectedAttendees,
-            "venue": {
-                // venue_id: 11,
-                "name": selectedVenue === 'other' ? customVenue.venueName : selectedVenue,
-                "address": selectedVenue === 'other' ? customVenue.address : '',
-                "location": selectedVenue === 'other' ? customVenue.location : '',
-            },
-            "catering": {
-                // "catering_id": 22,
-                "menu": selectedCatering
-            },
-            "decoration": {
-                // "decoration_id": 33,
-                "decor_type": selectedDecoration
-            },
-            "media": {
-                // "media_id": 44,
-                "media_type": selectedMedia
-            },
-            "payment": {
-                "status": "Pending",
-                "venue_amt": 0,
-                "catering_amt": 0,
-                "media_amt": 0,
-                "decoration_amt": 0
-            },
-            "email_id": email_id
-
-
-            // ... Catering, Decoration, and Media objects ...
-        };
-
+        console.log(date, startTime, endTime);
 
         try {
-            // Send the booking data to the server
-            const response = await axios.post('http://localhost:8080/bookings/insert', bookingData);
-            console.log('Booking data sent successfully:', response.data);
-            alert("Event booked successfully!")
-            console.log(bookingData);
+            const availabilityResponse = await axios.get(`http://localhost:8080/bookings/date/${date}/${startTime}/${endTime}`);
+
+            if (availabilityResponse.data.length > 0) {
+
+                // Date is not available
+                alert("This time slot is not available. Please select another date.");
+
+                console.log(availabilityResponse.data);
+
+
+            } else {
+                // Date is available, proceed with booking
+
+
+                // Create the booking object with selected data
+                const bookingData = {
+                    "event_name": eventName,
+                    "start_time": startTime,
+                    "end_time": endTime,
+                    "date": date,
+                    "exp_attendee": expectedAttendees,
+                    "venue": {
+                        // venue_id: 11,
+                        "name": customVenue.venueName,
+                        "address": customVenue.address,
+                        "location": customVenue.location,
+                        "venue_cost": customVenue.venueCost
+                    },
+                    "catering": {
+                        // "catering_id": 22,
+                        "menu": selectedCatering,
+                        "menu_cost": cateringCost
+                    },
+                    "decoration": {
+                        // "decoration_id": 33,
+                        "decor_type": selectedDecoration,
+                        "decor_cost": decorationCost
+                    },
+                    "media": {
+                        // "media_id": 44,
+                        "media_type": selectedMedia,
+                        "media_cost": mediaCost
+                    },
+                    "payment": {
+                        "status": "Pending",
+                        "venue_amt": customVenue.venueCost,
+                        "catering_amt": cateringCost,
+                        "media_amt": mediaCost,
+                        "decoration_amt": decorationCost,
+                        "total": totalCost
+                    },
+                    "email_id": email_id
+
+
+                    // ... Catering, Decoration, and Media objects ...
+                };
+
+
+
+                try {
+                    // Send the booking data to the server
+                    const response = await axios.post('http://localhost:8080/bookings/insert', bookingData);
+                    console.log('Booking data sent successfully:', response.data);
+                    alert("Event booked successfully!")
+                    console.log(bookingData);
+                } catch (error) {
+                    console.error('Error sending booking data:', error);
+                    alert(error)
+                    console.log(bookingData);
+
+                }
+            }
         } catch (error) {
-            console.error('Error sending booking data:', error);
-            alert(error)
-            console.log(bookingData);
-
+            console.error('Error checking date availability:', error);
+            alert("An error occurred while checking date availability.");
         }
-
-
-
     };
 
 
@@ -272,10 +329,12 @@ function BookingComponent() {
         <div className="container">
             <h2 className="text-center my-5">Event Booking</h2>
             <form onSubmit={handleSubmit}>
+
                 <div className="mb-3">
                     <label htmlFor="eventName" className="form-label">Event Name:</label>
                     <input type="text" className="form-control" id="eventName" name="eventName" value={eventName} onChange={(e) => setEventName(e.target.value)} required />
                 </div>
+
                 <div className="mb-3">
                     <label htmlFor="date" className="form-label">Date:</label>
                     <input
@@ -300,10 +359,12 @@ function BookingComponent() {
                         <input type="time" className="form-control" id="endTime" name="endTime" value={endTime} onChange={(e) => setEndTime(e.target.value)} required />
                     </div>
                 </div>
+
                 <div className="mb-3">
                     <label htmlFor="expectedAttendees" className="form-label">Expected Attendees:</label>
                     <input type="number" className="form-control" id="expectedAttendees" name="expectedAttendees" value={expectedAttendees} onChange={(e) => setExpectedAttendees(e.target.value)} required />
                 </div>
+
                 <div className="mb-3">
                     <label htmlFor="venue" className="form-label">Venue:</label>
                     <select className="form-select" id="venue" name="venue" value={selectedVenue} onChange={(e) => {

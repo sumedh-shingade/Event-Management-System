@@ -28,7 +28,7 @@ public interface BookingService {
 
 
 
-	Date getByDate(String date);
+	List<Bookings> getByDate(String date, String start_time, String end_time);
 
 
 

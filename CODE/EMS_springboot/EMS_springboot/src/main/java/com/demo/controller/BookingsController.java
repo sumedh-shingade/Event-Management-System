@@ -1,6 +1,5 @@
 package com.demo.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,14 +44,14 @@ public class BookingsController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 	}
 	
-	@GetMapping("/date/{date}")
-	public ResponseEntity<Date> getByDate(@PathVariable String date) {
+	@GetMapping("/date/{date}/{start_time}/{end_time}")
+	public List<Bookings> getByDate(@PathVariable String date, @PathVariable String start_time, @PathVariable String end_time) {
 		System.out.println(date);
-		Date b = bookingService.getByDate(date);
-		if (b != null)
-			return ResponseEntity.ok(b);
+		List <Bookings> blist = bookingService.getByDate(date, start_time, end_time);
+		if (blist != null)
+			return blist;
 		else
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			return null;
 	}
 	
 	@GetMapping("/email/{email_id}")

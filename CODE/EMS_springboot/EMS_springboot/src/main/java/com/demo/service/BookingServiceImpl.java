@@ -108,11 +108,11 @@ public class BookingServiceImpl implements BookingService {
 	}
 	
 	@Override
-	public Date getByDate(String date) {
+	public List<Bookings> getByDate(String date, String start_time, String end_time) {
 		
-		Optional<Date> op = bdao.findByDate(date);
-		if (op.isPresent()) {
-			return op.get();
+		List<Bookings> blist = bdao.findByDate(date, start_time, end_time);
+		if (blist!=null) {
+			return blist;
 		} else
 			return null;	
 	}

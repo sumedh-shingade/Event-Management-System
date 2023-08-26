@@ -19,7 +19,7 @@ public class Payment {
 	private int media_amt;
 	private int decoration_amt;
 	
-	@Formula(value = "venue_cost + catering_cost + media_cost + decoration_cost")
+//	@Formula(value = "venue_cost + catering_cost + media_cost + decoration_cost")
 	private int total;
 
 	public Payment() {

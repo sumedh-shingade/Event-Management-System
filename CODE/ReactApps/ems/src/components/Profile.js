@@ -1,8 +1,34 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 
 function ProfileComponent() {
+
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    sessionStorage.removeItem('email_id'); // Remove email from session storage
+    sessionStorage.setItem("isLoggedIn", "false");
+
+    console.log(sessionStorage);
+
+    alert("Logout successfull")
+    navigate('/login');
+
+
+  };
+
+  useEffect(() => {
+    // Check if the user is logged in
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+
+    // If not logged in, redirect to login page
+    if (!isLoggedIn) {
+      navigate('/login'); // Replace '/login' with the actual login route
+    }
+  }, [navigate]);
+
 
   // Inside the ProfileComponent function
   const [selectedBookingDetails, setSelectedBookingDetails] = useState(null);
@@ -11,7 +37,9 @@ function ProfileComponent() {
   const [bookingData, setBookingData] = useState([]);
   const [userData, setUserData] = useState({});
 
-  const email_id = "qqq@ems";
+  const email_id = sessionStorage.getItem('email_id');
+  console.log(email_id);
+  console.log(sessionStorage);
 
 
   const [event_name, setevent_name] = useState('');
@@ -81,13 +109,13 @@ function ProfileComponent() {
 
 
 
-  const handleMediaChange = (value) => {
-    if (selectedMedia.includes(value)) {
-      setSelectedMedia(prevSelected => prevSelected.filter(item => item !== value));
-    } else {
-      setSelectedMedia(prevSelected => [...prevSelected, value]);
-    }
-  };
+  // const handleMediaChange = (value) => {
+  //   if (selectedMedia.includes(value)) {
+  //     setSelectedMedia(prevSelected => prevSelected.filter(item => item !== value));
+  //   } else {
+  //     setSelectedMedia(prevSelected => [...prevSelected, value]);
+  //   }
+  // };
 
   useEffect(() => {
     // Make the Axios GET request when the component mounts
@@ -97,7 +125,7 @@ function ProfileComponent() {
       })
       .catch(error => {
         console.error("Error fetching user data:", error);
-        alert(error)
+        // alert(error)
       });
   }, []); // Empty dependency array to ensure the effect runs only once
 
@@ -151,8 +179,6 @@ function ProfileComponent() {
   const [isEditing, setIsEditing] = useState(false); // Track edit mode
   const [superId, setSuperId] = useState(0);
 
-  const [newData, setNewData] = useState({});
-
   function handleEdit(event_id) {
     console.log(parseInt(event_id));
 
@@ -186,7 +212,8 @@ function ProfileComponent() {
           "venue_id": selectedBooking.venue.venue_id,
           "name": selectedBooking.venue,
           "address": "",
-          "location": "",
+          "location": ""
+
         },
         "catering": {
           "catering_id": selectedBooking.catering.catering_id,
@@ -222,7 +249,6 @@ function ProfileComponent() {
   };
 
 
-  const e_id = bookingData.event_id;
   const handleSubmit = async (event) => {
     // console.log(event)
     event.preventDefault();
@@ -253,6 +279,7 @@ function ProfileComponent() {
 
 
   const [eventToDelete, setEventToDelete] = useState(null);
+  console.log(eventToDelete);
   const handleDelete = (event_id) => {
     axios.delete(`http://localhost:8080/bookings/delete/${event_id}`)
       .then(response => {
@@ -260,10 +287,12 @@ function ProfileComponent() {
         // After successful deletion, you might want to refresh the booking data
         // You can call the API request again to fetch the updated data
 
-        alert("Kindly refresh your page to view updated profile")
+        // alert("Kindly refresh your page to view updated profile")
+        window.location.reload();
       })
       .catch(error => {
         console.error("Error deleting event", error);
+        alert(error);
       });
   };
 
@@ -327,7 +356,10 @@ function ProfileComponent() {
                     <button
                       type="button"
                       className="btn btn-danger"
-                      onClick={() => setEventToDelete(bData.event_id)}
+                      onClick={() => {
+                        setEventToDelete(bData.event_id);
+                        handleDelete(bData.event_id);
+                      }}
                     >
                       Delete
                     </button>
@@ -338,7 +370,9 @@ function ProfileComponent() {
                   Show Details
                 </button></td>
 
-                <td> <button type="button" className="btn btn-primary">
+                <td> <button type="button" className="btn btn-primary" onClick={() => {
+                  navigate(`/payment?eventId=${bData.event_id}`);
+                }}>
                   Payment
                 </button></td>
 
@@ -347,6 +381,7 @@ function ProfileComponent() {
 
           </tbody>
         </table>
+
 
         {eventToDelete && (
           <div className="delete-confirmation">
@@ -384,7 +419,7 @@ function ProfileComponent() {
           <p>Date: {selectedBookingDetails.date}</p>
           <p>Start Time: {selectedBookingDetails.start_time}</p>
           <p>End Time: {selectedBookingDetails.end_time}</p>
-          <p>Enxpected Attendees: {selectedBookingDetails.exp_attendee}</p>
+          <p>Expected Attendees: {selectedBookingDetails.exp_attendee}</p>
           <p>Venue: {selectedBookingDetails.venue.name}</p>
           <p>Catering Services: {selectedBookingDetails.catering.menu}</p>
           <p>Decoration Services: {selectedBookingDetails.decoration.decor_type}</p>
@@ -509,6 +544,19 @@ function ProfileComponent() {
           </form>
         </div>
       )}
+
+
+      <div className="text-center mt-3">
+        <button className="btn btn-danger" onClick={handleLogout}>
+          Logout
+        </button>
+        <span className="mx-2"></span> {/* Adding spacing */}
+        <button className="btn btn-success">
+          <Link to="/booking" className="nav-link">
+            Book Now
+          </Link>
+        </button>
+      </div>
     </div>
 
   );

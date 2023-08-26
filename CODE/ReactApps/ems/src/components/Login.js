@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import loginBackground from './images/loginbackground.jpeg';
@@ -23,6 +23,7 @@ export default function LoginComponent() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -39,15 +40,27 @@ export default function LoginComponent() {
       "email_id": email,        //Always use double quotes while using DTO
       "password": password,     //Keys name should always match with Bean variable names
     };
+    // sessionStorage['email_id']=email;
+    //sessionStorage['password']=password;
+
+    console.log("isLoggedIn status:", isLoggedIn);
+
     console.log(loginData);
 
     e.preventDefault();
     try {
       const response = await axios.post(`http://localhost:8080/login/`, loginData);
-      // Handle successful login response
-      console.log(loginData);
-      alert('Login successful');
-      navigate('/'); // Navigate to the desired route after successful login
+      if (response.data) {
+        setIsLoggedIn(true);
+
+        console.log("response.data: ", response.data);
+        sessionStorage.setItem("email_id", email);
+        sessionStorage.setItem("isLoggedIn", "true");
+        // Handle successful login response
+        console.log(loginData);
+        alert('Login successful');
+        //navigate('/');
+      } // Navigate to the desired route after successful login
     } catch (error) {
       if (error.response && error.response.status === 401) {
         alert('Login failed: Wrong credentials');
@@ -58,6 +71,23 @@ export default function LoginComponent() {
       }
       console.error(error);
     }
+  };
+
+
+  useEffect(() => {
+    console.log(sessionStorage);
+  }, [isLoggedIn]);
+
+
+
+  const handleLogout = () => {
+    sessionStorage.removeItem('email_id'); // Remove email from session storage
+    // sessionStorage.removeItem('password'); // Remove password from session storage
+    // setIsLoggedIn(false); // Set login status to false
+    sessionStorage.setItem("isLoggedIn", "false");
+
+    console.log(sessionStorage);
+
   };
 
   return (
@@ -97,14 +127,29 @@ export default function LoginComponent() {
             Login
           </button>
         </form>
-        <div className="text-center mt-3">
-          <p>
-            Don't have an account? <Link to="/register">Register</Link>
-          </p>
-          <p>
-            <Link to="/forgot-password">Forgot Password</Link>
-          </p>
-        </div>
+        {isLoggedIn && (
+          <div className="text-center mt-3">
+            <p>
+              Welcome! You are logged in.
+              <button className="btn btn-primary" onClick={handleLogout}>
+                Logout
+              </button>
+            </p>
+            <p>
+              <Link to="/profile">Profile</Link>
+            </p>
+          </div>
+        )}
+        {!isLoggedIn && (
+          <div className="text-center mt-3">
+            <p>
+              Don't have an account? <Link to="/register">Register</Link>
+            </p>
+            {/* <p>
+              <Link to="/forgot-password">Forgot Password</Link>
+            </p> */}
+          </div>
+        )}
       </div>
     </div>
   );
