@@ -55,7 +55,7 @@ export default function FooterComponent() {
                   <div className="d-flex align-items-center justify-content-start">
                     <MDBIcon icon="home" className="me-3" style={{ color: 'white', fontSize: '1.2rem' }} />
                     <p className="mb-0" style={{ color: 'white' }}>
-                      IET, Shivajinagar, Pune, Maharashtra
+                      4S Events, Shivajinagar, Pune, Maharashtra
                     </p>
                   </div>
                 </div>
@@ -63,7 +63,7 @@ export default function FooterComponent() {
                   <div className="d-flex align-items-center">
                     <MDBIcon icon="envelope" className="me-3" style={{ color: 'white', fontSize: '1.2rem' }} />
                     <p className="mb-0" style={{ color: 'white' }}>
-                      IET@gmail.com
+                      sumeetwd25@gmail.com
                     </p>
                   </div>
                 </div>

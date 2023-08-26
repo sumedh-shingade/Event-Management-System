@@ -25,13 +25,13 @@ function RegistrationComponent() {
     const handleChange = (event) => {
         const { name, value, type } = event.target;
         const newValue = type === 'checkbox' ? event.target.checked : value;
-    
+
         setFormValues((prevValues) => ({
             ...prevValues,
             [name]: newValue,
         }));
     };
-    
+
 
     const handleRegistration = () => {
         // Perform form validation
@@ -56,7 +56,7 @@ function RegistrationComponent() {
             .then(response => {
                 console.log('User created successfully:', response.data);
                 // Redirect to the desired page after successful registration
-                // For example: window.location.href = '/login';
+                window.location.href = '/';
                 alert('Registration successful!');
 
             })

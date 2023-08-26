@@ -58,15 +58,15 @@ export default function LoginComponent() {
         sessionStorage.setItem("isLoggedIn", "true");
         // Handle successful login response
         console.log(loginData);
-        alert('Login successful');
-        //navigate('/');
+        // alert('Login successful');
+        navigate('/profile');
       } // Navigate to the desired route after successful login
     } catch (error) {
       if (error.response && error.response.status === 401) {
         alert('Login failed: Wrong credentials');
         console.log(loginData);
       } else {
-        alert('Login failed: An error occurred');
+        alert('Login failed. Kindly register first');
         console.log(loginData);
       }
       console.error(error);

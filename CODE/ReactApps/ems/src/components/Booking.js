@@ -331,12 +331,12 @@ function BookingComponent() {
             <form onSubmit={handleSubmit}>
 
                 <div className="mb-3">
-                    <label htmlFor="eventName" className="form-label">Event Name:</label>
+                    <label htmlFor="eventName" className="form-label"><b>Event Name:</b></label>
                     <input type="text" className="form-control" id="eventName" name="eventName" value={eventName} onChange={(e) => setEventName(e.target.value)} required />
                 </div>
 
                 <div className="mb-3">
-                    <label htmlFor="date" className="form-label">Date:</label>
+                    <label htmlFor="date" className="form-label"><b>Date:</b></label>
                     <input
                         type="date"
                         className="form-control"
@@ -351,27 +351,27 @@ function BookingComponent() {
 
                 <div className="row mb-3">
                     <div className="col-md-6">
-                        <label htmlFor="startTime" className="form-label">Start Time:</label>
+                        <label htmlFor="startTime" className="form-label"><b>Start Time:</b></label>
                         <input type="time" className="form-control" id="startTime" name="startTime" value={startTime} onChange={(e) => setStartTime(e.target.value)} required />
                     </div>
                     <div className="col-md-6">
-                        <label htmlFor="endTime" className="form-label">End Time:</label>
+                        <label htmlFor="endTime" className="form-label"><b>End Time:</b></label>
                         <input type="time" className="form-control" id="endTime" name="endTime" value={endTime} onChange={(e) => setEndTime(e.target.value)} required />
                     </div>
                 </div>
 
                 <div className="mb-3">
-                    <label htmlFor="expectedAttendees" className="form-label">Expected Attendees:</label>
+                    <label htmlFor="expectedAttendees" className="form-label"><b>Expected Attendees:</b></label>
                     <input type="number" className="form-control" id="expectedAttendees" name="expectedAttendees" value={expectedAttendees} onChange={(e) => setExpectedAttendees(e.target.value)} required />
                 </div>
 
                 <div className="mb-3">
-                    <label htmlFor="venue" className="form-label">Venue:</label>
+                    <label htmlFor="venue" className="form-label"><b>Venue:</b></label>
                     <select className="form-select" id="venue" name="venue" value={selectedVenue} onChange={(e) => {
                         handleVenueChange(e.target.value);
                         handleOptionChange(e.target.value);
                     }} required>
-                        <option value="">Select a Venue</option>
+                        <option value=""><b>Select a Venue</b></option>
                         {venueOptions.map(option => (
                             <option key={option.value} value={option.value}>{option.label}</option>
                         ))}
@@ -387,15 +387,15 @@ function BookingComponent() {
                     <div>
                         <h5>Custom Venue Details</h5>
                         <div className="mb-3">
-                            <label htmlFor="venueName" className="form-label">Venue Name:</label>
+                            <label htmlFor="venueName" className="form-label"><b>Venue Name:</b></label>
                             <input type="text" className="form-control" id="venueName" name="venueName" value={customVenue.venueName} onChange={handleInputChange} required />
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="address" className="form-label">Address:</label>
+                            <label htmlFor="address" className="form-label"><b>Address:</b></label>
                             <input type="text" className="form-control" id="address" name="address" value={customVenue.address} onChange={handleInputChange} required />
                         </div>
                         <div className="mb-3">
-                            <label htmlFor="location" className="form-label">Location:</label>
+                            <label htmlFor="location" className="form-label"><b>Location:</b></label>
                             <input type="text" className="form-control" id="location" name="location" value={customVenue.location} onChange={handleInputChange} required />
                         </div>
                     </div>
@@ -414,7 +414,7 @@ function BookingComponent() {
                         setSelectedCatering(e.target.value);
                         handleCateringOptionChange(e.target.value);
                     }} required>
-                        <option value="">Select Catering</option>
+                        <option value=""><b>Select Catering</b></option>
                         {cateringOptions.map(option => (
                             <option key={option.value} value={option.value}>{option.label}</option>
                         ))}
@@ -422,13 +422,13 @@ function BookingComponent() {
                 </div>
                 {selectedCateringOptionDetails && (
                     <div>
-                        <h5>Catering Details:</h5>
+                        <h5><b>Catering Details:</b></h5>
                         <p>{selectedCateringOptionDetails}</p>
                     </div>
                 )}
                 {selectedCatering === 'other' && (
                     <div className="mb-3">
-                        <label htmlFor="customCatering" className="form-label">Your Choice:</label>
+                        <label htmlFor="customCatering" className="form-label"><b>Your Choice:</b></label>
                         <input type="text" className="form-control" id="customCatering" name="customCatering" value={customCatering} onChange={(e) => setCustomCatering(e.target.value)} required />
                     </div>
                 )}
@@ -440,12 +440,12 @@ function BookingComponent() {
 
 
                 <div className="mb-3">
-                    <label htmlFor="decoration" className="form-label">Decoration:</label>
+                    <label htmlFor="decoration" className="form-label"><b>Decoration:</b></label>
                     <select className="form-select" id="decoration" name="decoration" value={selectedDecoration} onChange={(e) => {
                         setSelectedDecoration(e.target.value);
                         handleDecorOptionChange(e.target.value);
                     }} required>
-                        <option value="">Select Decoration</option>
+                        <option value=""><b>Select Decoration</b></option>
                         {decorationOptions.map(option => (
                             <option key={option.value} value={option.value}>{option.label}</option>
                         ))}
@@ -459,7 +459,7 @@ function BookingComponent() {
                 )}
                 {selectedDecoration === 'other' && (
                     <div className="mb-3">
-                        <label htmlFor="customDecoration" className="form-label">Your Choice:</label>
+                        <label htmlFor="customDecoration" className="form-label"><b>Your Choice:</b></label>
                         <input type="text" className="form-control" id="customDecoration" name="customDecoration" value={customDecoration} onChange={(e) => setCustomDecoration(e.target.value)} required />
                     </div>
                 )}
@@ -476,7 +476,7 @@ function BookingComponent() {
                         setSelectedMedia(e.target.value);
                         handleMediaOptionChange(e.target.value);
                     }} required>
-                        <option value="">Select Media</option>
+                        <option value=""><b>Select Media</b></option>
                         {mediaOptions.map(option => (
                             <option key={option.value} value={option.value}>{option.label}</option>
                         ))}
@@ -484,7 +484,7 @@ function BookingComponent() {
                 </div>
                 {selectedOptionDetails && (
                     <div>
-                        <h5>Media Details:</h5>
+                        <h5><b>Media Details:</b></h5>
                         <p>{selectedMediaOptionDetails}</p>
                     </div>
                 )}
@@ -493,7 +493,7 @@ function BookingComponent() {
 
 
                 <div className="mb-3">
-                    <label htmlFor="email_id" className="form-label">Email Id:</label>
+                    <label htmlFor="email_id" className="form-label"><b>Email Id:</b></label>
                     <input type="text" className="form-control" id="email_id" name="email_id" value={email_id} onChange={(e) => setEmail_id(e.target.value)} required />
                 </div>
 

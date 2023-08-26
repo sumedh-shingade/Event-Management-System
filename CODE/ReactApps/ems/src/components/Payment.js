@@ -64,22 +64,23 @@ const PaymentComponent = () => {
                 <h2>Payment Summary</h2>
                 {paymentDetails ? (
                     <>
-                        <p>Total Venue Cost: {paymentDetails.venue_amt}</p>
-                        <p>Total Catering Cost: {paymentDetails.catering_amt}</p>
-                        <p>Total Media Cost: {paymentDetails.media_amt}</p>
-                        <p>Total Decoration Cost: {paymentDetails.decoration_amt}</p>
-                        <p className="total">Total Amount: {paymentDetails.total}</p>
+                        <p><b>Total Venue Cost:</b> Rs.{paymentDetails.venue_amt}</p>
+                        <p><b>Total Catering Cost:</b> Rs. {paymentDetails.catering_amt}</p>
+                        <p><b>Total Media Cost:</b> Rs. {paymentDetails.media_amt}</p>
+                        <p><b>Total Decoration Cost:</b> Rs. {paymentDetails.decoration_amt}</p>
+                        <p className="total"><b>Total Amount:</b>Rs. {paymentDetails.total}</p>
+                        <p><b>Payment Status:</b> {paymentDetails.status}</p>
                     </>
                 ) : (
                     <p>Loading payment details...</p>
                 )}
-                {!isPaymentSuccessful ? (
+                {/* {!isPaymentSuccessful ? (
                     <button className="btn btn-primary pay-button" onClick={handlePayNow}>
                         Pay Now
                     </button>
                 ) : (
                     <p className="payment-success text-success font-weight-bold">Payment Successful!</p>
-                )}
+                )} */}
             </div>
         </div>
     );

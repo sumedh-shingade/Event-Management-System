@@ -13,7 +13,7 @@ function ProfileComponent() {
 
     console.log(sessionStorage);
 
-    alert("Logout successfull")
+    // alert("Logout successfull")
     navigate('/login');
 
 
@@ -67,19 +67,19 @@ function ProfileComponent() {
     { label: 'Venue A', value: 'venue_a' },
     { label: 'Venue B', value: 'venue_b' },
     { label: 'Venue C', value: 'venue_c' },
-    { label: 'Other', value: 'other' }
+    // { label: 'Other', value: 'other' }
   ];
 
   const cateringOptions = [
     { label: 'Indian', value: 'indian' },
     { label: 'Continental', value: 'continental' },
-    { label: 'Other', value: 'other' }
+    // { label: 'Other', value: 'other' }
   ];
 
   const decorationOptions = [
     { label: 'Floral decoration', value: 'floral' },
     { label: 'Balloon decoration', value: 'balloon' },
-    { label: 'Other', value: 'other' }
+    // { label: 'Other', value: 'other' }
   ];
 
   const mediaOptions = [
@@ -265,6 +265,7 @@ function ProfileComponent() {
         console.log("Booking updated", response.data);
         alert("Event updated successfully")
         console.log(editFormData);
+        window.location.reload();
 
       })
       .catch(error => {
@@ -314,9 +315,9 @@ function ProfileComponent() {
   return (
     <div className="profile">
       <h2>Profile Information</h2>
-      <p>Name: {userData.name}</p>
-      <p>Email: {userData.email_id}</p>
-      <p>Mobile: {userData.mob_no}</p>
+      <p><b>Name:</b> {userData.name}</p>
+      <p><b>Email:</b> {userData.email_id}</p>
+      <p><b>Mobile:</b> {userData.mob_no}</p>
 
       <div>
 
@@ -415,15 +416,15 @@ function ProfileComponent() {
       {selectedBookingDetails && (
         <div className="selected-booking-details">
           <h3>Booking Details</h3>
-          <p>Event Name: {selectedBookingDetails.event_name}</p>
-          <p>Date: {selectedBookingDetails.date}</p>
-          <p>Start Time: {selectedBookingDetails.start_time}</p>
-          <p>End Time: {selectedBookingDetails.end_time}</p>
-          <p>Expected Attendees: {selectedBookingDetails.exp_attendee}</p>
-          <p>Venue: {selectedBookingDetails.venue.name}</p>
-          <p>Catering Services: {selectedBookingDetails.catering.menu}</p>
-          <p>Decoration Services: {selectedBookingDetails.decoration.decor_type}</p>
-          <p>Media Services: {selectedBookingDetails.media.media_type}</p>
+          <p><b>Event Name:</b> {selectedBookingDetails.event_name}</p>
+          <p><b>Date:</b> {selectedBookingDetails.date}</p>
+          <p><b>Start Time:</b> {selectedBookingDetails.start_time}</p>
+          <p><b>End Time:</b> {selectedBookingDetails.end_time}</p>
+          <p><b>Expected Attendees:</b> {selectedBookingDetails.exp_attendee}</p>
+          <p><b>Venue:</b> {selectedBookingDetails.venue.name}</p>
+          <p><b>Catering Services:</b> {selectedBookingDetails.catering.menu}</p>
+          <p><b>Decoration Services:</b> {selectedBookingDetails.decoration.decor_type}</p>
+          <p><b>Media Services:</b> {selectedBookingDetails.media.media_type}</p>
           {/* Render other details as needed */}
         </div>
       )}
@@ -436,11 +437,11 @@ function ProfileComponent() {
           <h3>Update Booking Details</h3>
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
-              <label htmlFor="event_name" className="form-label">Event Name:</label>
+              <label htmlFor="event_name" className="form-label"><b>Event Name:</b></label>
               <input type="text" className="form-control" id="event_name" name="event_name" value={event_name} onChange={(e) => setevent_name(e.target.value)} required />
             </div>
             <div className="mb-3">
-              <label htmlFor="date" className="form-label">Date:</label>
+              <label htmlFor="date" className="form-label"><b>Date:</b></label>
               <input
                 type="date"
                 className="form-control"
@@ -455,81 +456,81 @@ function ProfileComponent() {
 
             <div className="row mb-3">
               <div className="col-md-6">
-                <label htmlFor="start_time" className="form-label">Start Time:</label>
+                <label htmlFor="start_time" className="form-label"><b>Start Time:</b></label>
                 <input type="time" className="form-control" id="start_time" name="start_time" value={start_time} onChange={(e) => setstart_time(e.target.value)} required />
               </div>
               <div className="col-md-6">
-                <label htmlFor="end_time" className="form-label">End Time:</label>
+                <label htmlFor="end_time" className="form-label"><b>End Time:</b></label>
                 <input type="time" className="form-control" id="end_time" name="end_time" value={end_time} onChange={(e) => setend_time(e.target.value)} required />
               </div>
             </div>
             <div className="mb-3">
-              <label htmlFor="exp_attendee" className="form-label">Expected Attendees:</label>
+              <label htmlFor="exp_attendee" className="form-label"><b>Expected Attendees:</b></label>
               <input type="number" className="form-control" id="exp_attendee" name="exp_attendee" value={exp_attendee} onChange={(e) => setexp_attendee(e.target.value)} required />
             </div>
             <div className="mb-3">
               <label htmlFor="venue" className="form-label">Venue:</label>
               <select className="form-select" id="venue" name="venue" value={selectedVenue} onChange={(e) => handleVenueChange(e.target.value)} required>
-                <option value="">Select a Venue</option>
+                <option value=""><b>Select a Venue</b></option>
                 {venueOptions.map(option => (
                   <option key={option.value} value={option.value}>{option.label}</option>
                 ))}
               </select>
             </div>
-            {selectedVenue === 'other' && (
+            {/* {selectedVenue === 'other' && (
               <div>
                 <h5>Custom Venue Details</h5>
                 <div className="mb-3">
-                  <label htmlFor="venueName" className="form-label">Venue Name:</label>
+                  <label htmlFor="venueName" className="form-label"><b>Venue Name:</b></label>
                   <input type="text" className="form-control" id="venueName" name="venueName" value={customVenue.venueName} onChange={handleInputChange} required />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="address" className="form-label">Address:</label>
+                  <label htmlFor="address" className="form-label"><b>Address:</b></label>
                   <input type="text" className="form-control" id="address" name="address" value={customVenue.address} onChange={handleInputChange} required />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="location" className="form-label">Location:</label>
+                  <label htmlFor="location" className="form-label"><b>Location:</b></label>
                   <input type="text" className="form-control" id="location" name="location" value={customVenue.location} onChange={handleInputChange} required />
                 </div>
               </div>
-            )}
+            )} */}
 
             <div className="mb-3">
-              <label htmlFor="catering" className="form-label">Catering:</label>
+              <label htmlFor="catering" className="form-label"><b>Catering:</b></label>
               <select className="form-select" id="catering" name="catering" value={selectedCatering} onChange={(e) => setSelectedCatering(e.target.value)} required>
-                <option value="">Select Catering</option>
+                <option value=""><b>Select Catering</b></option>
                 {cateringOptions.map(option => (
                   <option key={option.value} value={option.value}>{option.label}</option>
                 ))}
               </select>
             </div>
-            {selectedCatering === 'other' && (
+            {/* {selectedCatering === 'other' && (
               <div className="mb-3">
-                <label htmlFor="customCatering" className="form-label">Your Choice:</label>
+                <label htmlFor="customCatering" className="form-label"><b>Your Choice:</b></label>
                 <input type="text" className="form-control" id="customCatering" name="customCatering" value={customCatering} onChange={(e) => setCustomCatering(e.target.value)} required />
               </div>
-            )}
+            )} */}
 
             <div className="mb-3">
-              <label htmlFor="decoration" className="form-label">Decoration:</label>
+              <label htmlFor="decoration" className="form-label"><b>Decoration:</b></label>
               <select className="form-select" id="decoration" name="decoration" value={selectedDecoration} onChange={(e) => setSelectedDecoration(e.target.value)} required>
-                <option value="">Select Decoration</option>
+                <option value=""><b>Select Decoration</b></option>
                 {decorationOptions.map(option => (
                   <option key={option.value} value={option.value}>{option.label}</option>
                 ))}
               </select>
             </div>
-            {selectedDecoration === 'other' && (
+            {/* {selectedDecoration === 'other' && (
               <div className="mb-3">
-                <label htmlFor="customDecoration" className="form-label">Your Choice:</label>
+                <label htmlFor="customDecoration" className="form-label"><b>Your Choice:</b></label>
                 <input type="text" className="form-control" id="customDecoration" name="customDecoration" value={customDecoration} onChange={(e) => setCustomDecoration(e.target.value)} required />
               </div>
-            )}
+            )} */}
 
             <div className="mb-3">
-              <label className="form-label">Media:</label>
+              <label className="form-label"><b>Media:</b></label>
               <select className="form-select" id="media" name="media" value={selectedMedia} onChange={(e) => setSelectedMedia(e.target.value)} required>
-                <option value="">Select Media</option>
+                <option value=""><b>Select Media</b></option>
                 {mediaOptions.map(option => (
                   <option key={option.value} value={option.value}>{option.label}</option>
                 ))}
@@ -547,7 +548,7 @@ function ProfileComponent() {
 
 
       <div className="text-center mt-3">
-        <button className="btn btn-danger" onClick={handleLogout}>
+        <button className="btn btn-warning" onClick={handleLogout}>
           Logout
         </button>
         <span className="mx-2"></span> {/* Adding spacing */}

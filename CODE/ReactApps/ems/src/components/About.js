@@ -29,17 +29,17 @@
 //       <div className="text-center">
 //           <span style={aboutUsHeaderStyle}>About Us</span>
 //         <h1 style={aboutUsHeaderBackgroundStyle}></h1>
-        
+
 //         <p className="intro-text">
 //         4S Events is a dynamic and innovative Event Management Company that thrives on turning visions into extraordinary realities. With a keen eye for detail and a passion for creativity, we specialize in curating exceptional experiences that leave a lasting impact. Our dedicated team works tirelessly to exceed expectations, ensuring every event, whether it's a corporate gathering, a grand wedding, or a community celebration, is flawlessly executed. At 4S Events, we don't just organize events; we craft unforgettable memories, transforming ideas into immersive experiences that bring people together and create moments to be cherished.
 //       </p>
-   
-       
+
+
 //       </div>
 
 //       {/* Team Members */}
 //       {/* ... */}
-      
+
 //       {/* Mission */}
 //       <section className="py-5 bg-light">
 //         <div className="text-center">
@@ -58,7 +58,7 @@
 //           </div>
 //         </div>
 //       </section>
-      
+
 //     {/* Team Members */}
 //     <section className="py-5">
 //         <h2 className="text-center">Our Team</h2>
@@ -94,9 +94,9 @@
 //         </div>
 //       </section>
 
-      
-     
-      
+
+
+
 //       {/* Contact */}
 //       <section className="py-5">
 //         <h2 className="text-center">Contact Us</h2>
@@ -133,17 +133,17 @@ import introbackground from './images/introbackground.jpg';
 const AboutUsComponent = () => {
   return (
     <div>
-    <div className="image-aboutus-banner" style={{ marginTop: '70px', backgroundImage: `url(${introbackground})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', padding: '100px 0', color: 'black', opacity: 0.7 }}>
-      <div className="container">
-        <div className="row">
-          <div className="col-md-12">
-            <h1 className="lg-text" style={{ fontWeight: 'bold', color: 'black' }}>About Us</h1>
-            <p className="image-aboutus-para" style={{ color: 'black', fontWeight: 'bold' }}>
-              Empowering Extraordinary Experiences: Your Trusted Partner in Seamless Event Management.
-            </p>
+      <div className="image-aboutus-banner" style={{ marginTop: '70px', backgroundImage: `url(${introbackground})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', padding: '100px 0', color: 'black', opacity: 0.7 }}>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-12">
+              <h1 className="lg-text" style={{ fontWeight: 'bold', color: 'black' }}>About Us</h1>
+              <p className="image-aboutus-para" style={{ color: 'black', fontWeight: 'bold' }}>
+                Empowering Extraordinary Experiences: Your Trusted Partner in Seamless Event Management.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
       </div>
       <div className="bread-bar">
         <div className="container">
