@@ -18,7 +18,7 @@
 1. Middleware: Java Springboot.
 2. Backend: MySql Database.
 3. Frontend: React JS.
-4. IDE: Eclipse.
+4. IDE: Eclipse,VS Code,MySql workbench
 
 ## Explore the Code
 
