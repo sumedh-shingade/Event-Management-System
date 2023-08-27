@@ -333,7 +333,7 @@ function AdminProfileComponent() {
               <th scope="col">Edit</th>
               <th scope="col">Delete</th>
               <th>Details</th>
-              <th>Payment</th>
+              <th>Payment Details</th>
             </tr>
           </thead>
 
