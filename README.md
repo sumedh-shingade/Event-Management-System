@@ -26,5 +26,11 @@ Dive into the repositories to explore the code behind **4S-Events** and other re
 
 🌐 Happy exploring and innovating!
 
+## Project members:
+1. Sumeet Wadile
+2. Sumedh Shingade
+3. Sujit Pawar
+4. Sushant Pawar
+
 
 
