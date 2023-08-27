@@ -330,8 +330,8 @@ function ProfileComponent() {
             <tr>
               <th scope="col">Sr No</th>
               <th scope="col">Booked Events</th>
-              <th scope="col">Edit</th>
-              <th scope="col">Delete</th>
+              {/* <th scope="col">Edit</th>
+              <th scope="col">Delete</th> */}
               <th>Details</th>
               <th>Payment</th>
             </tr>
@@ -343,7 +343,7 @@ function ProfileComponent() {
               <tr key={bData.event_id}>
                 <th scope="row">{index + 1}</th>
                 <td>{bData.event_name}</td>
-                <td>
+                {/* <td>
                   <button
                     type="button"
                     className="btn btn-secondary"
@@ -351,8 +351,8 @@ function ProfileComponent() {
                   >
                     Edit
                   </button>
-                </td>
-                <td>
+                </td> */}
+                {/* <td>
                   <td>
                     <button
                       type="button"
@@ -366,7 +366,7 @@ function ProfileComponent() {
                     </button>
                   </td>
 
-                </td>
+                </td> */}
                 <td> <button type="button" className="btn btn-info" onClick={() => setSelectedBookingDetails(bData)}>
                   Show Details
                 </button></td>
@@ -374,7 +374,7 @@ function ProfileComponent() {
                 <td> <button type="button" className="btn btn-primary" onClick={() => {
                   navigate(`/payment?eventId=${bData.event_id}`);
                 }}>
-                  Payment
+                  Payment Details
                 </button></td>
 
               </tr>

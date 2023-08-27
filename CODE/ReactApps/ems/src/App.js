@@ -11,6 +11,7 @@ import ProfileComponent from './components/Profile';
 import AboutUsComponent from './components/About';
 import PaymentComponent from './components/Payment';
 import AdminProfileComponent from './components/AdminProfile'
+import ForgotPasswordComponent from './components/ForgetPassword';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
     <Route path='/aboutus' element={<AboutUsComponent></AboutUsComponent>}></Route>
     <Route path='/payment' element={<PaymentComponent></PaymentComponent>}></Route>
     <Route path='/adminprofile' element={<AdminProfileComponent></AdminProfileComponent>} isLoggedIn></Route>
+    <Route path='/forgetpassword' element={<ForgotPasswordComponent></ForgotPasswordComponent>}></Route>
 
   </Routes>
 }

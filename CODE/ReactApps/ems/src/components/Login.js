@@ -36,6 +36,10 @@ export default function LoginComponent() {
   };
 
   const handleLogin = async (e) => {
+
+    e.preventDefault();
+
+
     const loginData = {
       "email_id": email,        //Always use double quotes while using DTO
       "password": password,     //Keys name should always match with Bean variable names
@@ -97,6 +101,7 @@ export default function LoginComponent() {
 
   };
 
+
   return (
     <div style={containerStyle}>
       <div className="card p-4" style={cardStyle}>
@@ -116,6 +121,8 @@ export default function LoginComponent() {
               onChange={handleEmail}
             />
           </div>
+
+
           <div className="mb-3">
             <label htmlFor="password" className="form-label">
               Password:
@@ -130,6 +137,9 @@ export default function LoginComponent() {
               onChange={handlePassword}
             />
           </div>
+
+
+
           <button className="btn btn-primary w-100" onClick={handleLogin}>
             Login
           </button>
@@ -152,9 +162,9 @@ export default function LoginComponent() {
             <p>
               Don't have an account? <Link to="/register">Register</Link>
             </p>
-            {/* <p>
-              <Link to="/forgot-password">Forgot Password</Link>
-            </p> */}
+            <p>
+              <Link to="/forgetpassword">Forgot Password</Link>
+            </p>
           </div>
         )}
       </div>

@@ -32,8 +32,20 @@ function RegistrationComponent() {
         }));
     };
 
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const handleConfirmPassword = (e) => {
+        setConfirmPassword(e.target.value);
+    };
 
     const handleRegistration = () => {
+
+        // e.preventDefault();
+
+        if (formValues.password !== confirmPassword) {
+            alert("Passwords do not match. Please confirm your password.");
+            return;
+        }
+
         // Perform form validation
         const { name, email, password, address, mobile } = formValues;
         if (!name || !email || !password || !address || !mobile) {
@@ -96,6 +108,8 @@ function RegistrationComponent() {
 
     };
 
+
+
     return (
         <div style={containerStyle}>
             <div className="container mt-5">
@@ -144,6 +158,22 @@ function RegistrationComponent() {
                                         required
                                     />
                                 </div>
+
+                                <div className="mb-3">
+                                    <label htmlFor="confirmPassword" className="form-label">
+                                        Confirm Password:
+                                    </label>
+                                    <input
+                                        type="password"
+                                        className="form-control"
+                                        id="confirmPassword"
+                                        name="confirmPassword"
+                                        placeholder="Confirm your password"
+                                        value={confirmPassword}
+                                        onChange={handleConfirmPassword}
+                                    />
+                                </div>
+
 
                                 <div className="mb-3">
                                     <label htmlFor="address" className="form-label">Address:</label>
