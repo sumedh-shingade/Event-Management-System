@@ -10,7 +10,8 @@ import BookingComponent from './components/Booking';
 import ProfileComponent from './components/Profile';
 import AboutUsComponent from './components/About';
 import PaymentComponent from './components/Payment';
-// import Header from './components/Header';
+import AdminProfileComponent from './components/AdminProfile'
+
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
     <Route path='/profile' element={<ProfileComponent></ProfileComponent>} isLoggedIn></Route>
     <Route path='/aboutus' element={<AboutUsComponent></AboutUsComponent>}></Route>
     <Route path='/payment' element={<PaymentComponent></PaymentComponent>}></Route>
+    <Route path='/adminprofile' element={<AdminProfileComponent></AdminProfileComponent>} isLoggedIn></Route>
 
   </Routes>
 }

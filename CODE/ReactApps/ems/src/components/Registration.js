@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import registration from './images/registration.jpg';
 
 function RegistrationComponent() {
+
     const containerStyle = {
         backgroundImage: `url(${registration})`,
         backgroundSize: 'cover',
@@ -51,19 +51,49 @@ function RegistrationComponent() {
             role: 'customer'
         };
 
-        // Make the Axios POST request
-        axios.post('http://localhost:8080/accounts/insert', data)
+
+        axios.get(`http://localhost:8080/accounts/`)
             .then(response => {
-                console.log('User created successfully:', response.data);
-                // Redirect to the desired page after successful registration
-                window.location.href = '/';
-                alert('Registration successful!');
+                console.log(response.data);
+
+                let emailAlreadyExists = false;
+
+                response.data.forEach((aData, index) => {
+                    console.log(aData.email_id);
+                    if (aData.email_id === formValues.email) {
+                        alert("This email id is already registered. Please select another email id.");
+                        emailAlreadyExists = true;
+                        return;
+                    }
+                });
+
+                if (!emailAlreadyExists) {
+                    postHandler();
+                }
 
             })
             .catch(error => {
-                console.error('Error creating user:', error);
-                // Display an error message or handle the error appropriately
+                console.error("Error fetching user data:", error);
+                alert(error);
             });
+
+        function postHandler() {
+            // Make the Axios POST request
+            axios.post('http://localhost:8080/accounts/insert', data)
+                .then(response => {
+                    console.log('User created successfully:', response.data);
+                    // Redirect to the desired page after successful registration
+                    // window.location.href = '/';
+                    alert('Registration successful!');
+                })
+                .catch(error => {
+                    console.error('Error creating user:', error);
+                    // Display an error message or handle the error appropriately
+                });
+        }
+
+
+
     };
 
     return (
@@ -88,6 +118,7 @@ function RegistrationComponent() {
                                         required
                                     />
                                 </div>
+
                                 <div className="mb-3">
                                     <label htmlFor="email" className="form-label">Email address:</label>
                                     <input
@@ -100,6 +131,7 @@ function RegistrationComponent() {
                                         required
                                     />
                                 </div>
+
                                 <div className="mb-3">
                                     <label htmlFor="password" className="form-label">Password:</label>
                                     <input
@@ -112,6 +144,7 @@ function RegistrationComponent() {
                                         required
                                     />
                                 </div>
+
                                 <div className="mb-3">
                                     <label htmlFor="address" className="form-label">Address:</label>
                                     <input
@@ -124,10 +157,11 @@ function RegistrationComponent() {
                                         required
                                     />
                                 </div>
+
                                 <div className="mb-3">
                                     <label htmlFor="mobile" className="form-label">Mobile Number:</label>
                                     <input
-                                        type="text"
+                                        type="number"
                                         className="form-control"
                                         id="mobile"
                                         name="mobile"

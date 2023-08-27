@@ -58,8 +58,15 @@ export default function LoginComponent() {
         sessionStorage.setItem("isLoggedIn", "true");
         // Handle successful login response
         console.log(loginData);
+        console.log(sessionStorage);
+
+        if (loginData.email_id === "abc@ems") {
+          navigate('/adminprofile');
+        }
         // alert('Login successful');
-        navigate('/profile');
+        else {
+          navigate('/profile');
+        }
       } // Navigate to the desired route after successful login
     } catch (error) {
       if (error.response && error.response.status === 401) {

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
+
 function BookingComponent() {
 
     const navigate = useNavigate();
@@ -12,6 +13,7 @@ function BookingComponent() {
     useEffect(() => {
         // Check if the user is logged in
         const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+
 
         // If not logged in, redirect to login page
         if (!isLoggedIn) {
@@ -27,7 +29,7 @@ function BookingComponent() {
 
 
 
-    const [email_id, setEmail_id] = useState('');
+    // const [email_id, setEmail_id] = useState('');
     const [eventName, setEventName] = useState('');
     const [date, setDate] = useState('');
     const [startTime, setStartTime] = useState('');
@@ -237,9 +239,10 @@ function BookingComponent() {
 
 
 
-
     // Calculate total costs
     const totalCost = customVenue.venueCost + cateringCost * expectedAttendees + decorationCost + mediaCost;
+
+    const email_id = sessionStorage.getItem('email_id');
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -310,6 +313,7 @@ function BookingComponent() {
                     const response = await axios.post('http://localhost:8080/bookings/insert', bookingData);
                     console.log('Booking data sent successfully:', response.data);
                     alert("Event booked successfully!")
+                    window.location.href = '/profile'
                     console.log(bookingData);
                 } catch (error) {
                     console.error('Error sending booking data:', error);
@@ -344,21 +348,24 @@ function BookingComponent() {
                         name="date"
                         value={date}
                         onChange={(e) => setDate(e.target.value)}
-                        min={new Date().toISOString().split("T")[0]} // Set the minimum date to the current date
+                        min={(new Date(Date.now() + 24 * 60 * 60 * 1000)).toISOString().split("T")[0]} // Set the minimum date to the current date
                         required
                     />
                 </div>
 
                 <div className="row mb-3">
-                    <div className="col-md-6">
-                        <label htmlFor="startTime" className="form-label"><b>Start Time:</b></label>
-                        <input type="time" className="form-control" id="startTime" name="startTime" value={startTime} onChange={(e) => setStartTime(e.target.value)} required />
-                    </div>
-                    <div className="col-md-6">
-                        <label htmlFor="endTime" className="form-label"><b>End Time:</b></label>
-                        <input type="time" className="form-control" id="endTime" name="endTime" value={endTime} onChange={(e) => setEndTime(e.target.value)} required />
+                    <div className="row mb-3">
+                        <div className="col-md-6">
+                            <label htmlFor="startTime" className="form-label"><b>Start Time:</b></label>
+                            <input type="time" className="form-control" id="startTime" name="startTime" value={startTime} onChange={(e) => setStartTime(e.target.value)} required />
+                        </div>
+                        <div className="col-md-6">
+                            <label htmlFor="endTime" className="form-label"><b>End Time:</b></label>
+                            <input type="time" className="form-control" id="endTime" name="endTime" value={endTime} onChange={(e) => setEndTime(e.target.value)} required />
+                        </div>
                     </div>
                 </div>
+
 
                 <div className="mb-3">
                     <label htmlFor="expectedAttendees" className="form-label"><b>Expected Attendees:</b></label>
@@ -492,10 +499,10 @@ function BookingComponent() {
 
 
 
-                <div className="mb-3">
+                {/* <div className="mb-3">
                     <label htmlFor="email_id" className="form-label"><b>Email Id:</b></label>
                     <input type="text" className="form-control" id="email_id" name="email_id" value={email_id} onChange={(e) => setEmail_id(e.target.value)} required />
-                </div>
+                </div> */}
 
 
 

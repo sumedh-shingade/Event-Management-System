@@ -1,5 +1,7 @@
 package com.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.beans.Accounts;
+import com.demo.beans.Bookings;
 import com.demo.service.AccountService;
 
 @CrossOrigin("*")
@@ -21,6 +24,14 @@ public class AccountsController {
 
 	@Autowired
 	AccountService accountService;
+	
+	@GetMapping("/")
+	public List<Accounts> displayAll() {
+
+		List<Accounts> alist = accountService.getAll();
+
+		return alist;
+	}
 	
 	@GetMapping("/{email_id}")
 	public ResponseEntity<Accounts> getAccountByEmailId(@PathVariable String email_id) {
