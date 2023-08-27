@@ -168,7 +168,7 @@ function RegistrationComponent() {
                                         className="form-control"
                                         id="confirmPassword"
                                         name="confirmPassword"
-                                        placeholder="Confirm your password"
+                                        // placeholder="Confirm your password"
                                         value={confirmPassword}
                                         onChange={handleConfirmPassword}
                                     />
