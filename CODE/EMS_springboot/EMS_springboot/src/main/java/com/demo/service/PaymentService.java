@@ -8,4 +8,6 @@ public interface PaymentService {
 
 	void getById(Payment p);
 
+	void setStatus(Payment p, String s);
+
 }

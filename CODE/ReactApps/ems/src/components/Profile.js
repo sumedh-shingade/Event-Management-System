@@ -425,6 +425,8 @@ function ProfileComponent() {
           <p><b>Catering Services:</b> {selectedBookingDetails.catering.menu}</p>
           <p><b>Decoration Services:</b> {selectedBookingDetails.decoration.decor_type}</p>
           <p><b>Media Services:</b> {selectedBookingDetails.media.media_type}</p>
+          <p><b>Email Id:</b> {selectedBookingDetails.email_id}</p>
+
           {/* Render other details as needed */}
         </div>
       )}

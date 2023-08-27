@@ -299,11 +299,6 @@ function AdminProfileComponent() {
 
 
 
-  // Find the booking data for the selected event_id
-  // const selectedBooking = bookingData.find(booking => booking.event_id === event_id);
-
-
-
 
 
 
@@ -334,6 +329,7 @@ function AdminProfileComponent() {
               <th scope="col">Delete</th>
               <th>Details</th>
               <th>Payment Details</th>
+              <th>Payment Status</th>
             </tr>
           </thead>
 
@@ -374,7 +370,13 @@ function AdminProfileComponent() {
                 <td> <button type="button" className="btn btn-primary" onClick={() => {
                   navigate(`/payment?eventId=${bData.event_id}`);
                 }}>
-                  Payment
+                  Payment Details
+                </button></td>
+
+                <td> <button type="button" className="btn btn-light" onClick={() => {
+                  navigate(`/paymentstatus?eventId=${bData.event_id}`);
+                }}>
+                  Change Status
                 </button></td>
 
               </tr>
@@ -425,6 +427,8 @@ function AdminProfileComponent() {
           <p><b>Catering Services:</b> {selectedBookingDetails.catering.menu}</p>
           <p><b>Decoration Services:</b> {selectedBookingDetails.decoration.decor_type}</p>
           <p><b>Media Services:</b> {selectedBookingDetails.media.media_type}</p>
+          <p><b>Email Id:</b> {selectedBookingDetails.email_id}</p>
+
           {/* Render other details as needed */}
         </div>
       )}

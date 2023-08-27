@@ -6,10 +6,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.beans.Bookings;
+import com.demo.beans.NewData;
 import com.demo.beans.Payment;
 import com.demo.service.BookingService;
 import com.demo.service.PaymentService;
@@ -32,18 +35,9 @@ public class PaymentController {
 		System.out.println(b);
 		
 		if (b != null) {
-//			int exp_attendee = b.getExp_attendee();
-//			
+		
 			int p_id = b.getPayment().getPayment_id();
-//			String status = b.getPayment().getStatus();
-//			int v_cost = b.getVenue().getVenue_cost();
-//			int c_cost =b.getCatering().getMenu_cost();
-//			c_cost= c_cost*exp_attendee;
-//			int m_cost = b.getMedia().getMedia_cost();
-//			int d_cost = b.getDecoration().getDecor_cost();
-//			int total = b.getPayment().getTotal();
-//			
-//			Payment p = new Payment(p_id, status, v_cost, c_cost, m_cost, d_cost, total);
+
 			System.out.println(p_id);
 			Payment p =paymentService.getById(p_id);
 
@@ -54,6 +48,23 @@ public class PaymentController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
 		}
+	}
+	
+	@PutMapping("/status/{event_id}")
+	public ResponseEntity<String> updateBooking(@PathVariable int event_id, @RequestBody String s) {
+	    System.out.println(s);
+	    // Make sure you set the event_id from the path into the entity if needed
+	    Bookings b = bookingService.getById(event_id);
+	    System.out.println(b);
+	    
+		int p_id = b.getPayment().getPayment_id();
+		System.out.println(p_id);
+		
+		Payment p =paymentService.getById(p_id);
+		System.out.println(p);
+		
+	    paymentService.setStatus(p,s);
+	    return ResponseEntity.ok("Modified successfully");
 	}
 
 }

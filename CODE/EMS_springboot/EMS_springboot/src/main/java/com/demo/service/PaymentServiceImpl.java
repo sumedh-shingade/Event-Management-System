@@ -2,6 +2,8 @@ package com.demo.service;
 
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,12 @@ public class PaymentServiceImpl implements PaymentService {
 	@Override
 	public void getById(Payment p) {
 		
+	}
+
+	@Transactional
+	@Override
+	public void setStatus(Payment p, String s) {
+		p.setStatus(s);
 	}
 
 }
