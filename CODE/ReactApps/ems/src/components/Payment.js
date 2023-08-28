@@ -64,12 +64,52 @@ const PaymentComponent = () => {
                 <h2>Payment Summary</h2>
                 {paymentDetails ? (
                     <>
-                        <p><b>Total Venue Cost:</b> Rs.{paymentDetails.venue_amt}</p>
-                        <p><b>Total Catering Cost:</b> Rs. {paymentDetails.catering_amt}</p>
-                        <p><b>Total Media Cost:</b> Rs. {paymentDetails.media_amt}</p>
-                        <p><b>Total Decoration Cost:</b> Rs. {paymentDetails.decoration_amt}</p>
-                        <p className="total"><b>Total Amount:</b>Rs. {paymentDetails.total}</p>
-                        <p><b>Payment Status:</b> {paymentDetails.status}</p>
+                        <div className="table-responsive">
+                            <table className="table table-bordered">
+                                <caption>Payment Summary</caption>
+                                <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Amount (Rs.)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {paymentDetails ? (
+                                        <>
+                                            <tr>
+                                                <td>Total Venue Cost</td>
+                                                <td>{paymentDetails.venue_amt}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total Catering Cost</td>
+                                                <td>{paymentDetails.catering_amt}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total Media Cost</td>
+                                                <td>{paymentDetails.media_amt}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Total Decoration Cost</td>
+                                                <td>{paymentDetails.decoration_amt}</td>
+                                            </tr>
+                                            <tr>
+                                                <td className="total">Total Amount</td>
+                                                <td className="total">{paymentDetails.total}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Payment Status</td>
+                                                <td>{paymentDetails.status}</td>
+                                            </tr>
+                                        </>
+                                    ) : (
+                                        <tr>
+                                            <td colSpan="2">Loading payment details...</td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
+
                     </>
                 ) : (
                     <p>Loading payment details...</p>

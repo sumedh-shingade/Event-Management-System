@@ -6,7 +6,7 @@ import wedding from './images/wedding.jpg';
 import courousalimage11 from './images/corousalimage11.jpg';
 import courousalimage2 from './images/corousalimage2.jpg';
 import courousalimage3 from './images/corousalimage3.jpg';
-//import backgroundImage from './images/background.jpg'; // Replace with your background image path
+import backgroundImage from './images/homepagebackground.jpg'; // Replace with your background image path
 
 export default function HomeComponent() {
     const cardStyle = {
@@ -18,7 +18,7 @@ export default function HomeComponent() {
     };
 
     const containerStyle = {
-        //  backgroundImage: `url(${backgroundImage})`,
+        backgroundImage: `url(${backgroundImage})`,
         backgroundSize: "cover",
         minHeight: "100vh",
         display: "flex",
@@ -50,7 +50,7 @@ export default function HomeComponent() {
     return (
 
         <div style={containerStyle}>
-            <h1 className="display-4 my-5" style={{ fontWeight: 'bold', fontStyle: 'italic', marginTop: '0rem', marginBottom: '2rem' }}>4S Events</h1>
+            <h1 className="display-4 my-5" style={{ fontFamily: 'Montserrat', fontWeight: 'bold', fontStyle: 'italic', marginTop: '0rem', marginBottom: '2rem' }}>4S Events</h1>
             <div id="imageCarousel" className="carousel slide mb-4" data-bs-ride="carousel">
                 <div className="carousel-inner">
                     {carouselImages.map((image, index) => (
@@ -89,7 +89,7 @@ export default function HomeComponent() {
             </div>
             <div className="container text-center">
 
-                <h3><p className="lead" style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>
+                <h3><p className="lead" style={{ fontFamily: 'Montserrat', fontWeight: 'bold', fontSize: '1.2rem' }}>
                     4S Events stands as a trailblazer in the domain of event management, weaving together exceptional services that transcend conventional boundaries. Our unwavering commitment lies in sculpting experiences that etch themselves into memory, invoking emotions that resonate long after the event's conclusion. From the elegance of weddings to the exuberance of birthdays and the strategic finesse of corporate assemblies, we orchestrate a symphony of moments that linger in hearts and minds.
                 </p></h3>
             </div><br></br>

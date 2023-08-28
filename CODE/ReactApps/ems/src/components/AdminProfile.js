@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 function AdminProfileComponent() {
@@ -64,28 +65,28 @@ function AdminProfileComponent() {
   const [selectedMedia, setSelectedMedia] = useState('');
 
   const venueOptions = [
-    { label: 'Venue A', value: 'venue_a' },
-    { label: 'Venue B', value: 'venue_b' },
-    { label: 'Venue C', value: 'venue_c' },
+    { label: 'Mahalakshmi Lawns,Karve Nagar,Pune', value: 'Mahalakshmi Lawns,Karve Nagar,Pune' },
+    { label: 'Hotel Sadanand Regency,Balewadi,Pune', value: 'Hotel Sadanand Regency,Balewadi,Pune' },
+    { label: 'Grand Tamanna Hotel,Hinjewadi,Pune', value: 'Grand Tamanna Hotel,Hinjewadi,Pune' },
     // { label: 'Other', value: 'other' }
   ];
 
   const cateringOptions = [
-    { label: 'Indian', value: 'indian' },
-    { label: 'Continental', value: 'continental' },
+    { label: 'Indian', value: 'Indian' },
+    { label: 'Continental', value: 'Continental' },
     // { label: 'Other', value: 'other' }
   ];
 
   const decorationOptions = [
-    { label: 'Floral decoration', value: 'floral' },
-    { label: 'Balloon decoration', value: 'balloon' },
+    { label: 'Floral decoration', value: 'Floral Decoration' },
+    { label: 'Balloon decoration', value: 'Balloon Decoration' },
     // { label: 'Other', value: 'other' }
   ];
 
   const mediaOptions = [
-    { label: 'Photography', value: 'photography' },
-    { label: 'Videography', value: 'videography' },
-    { label: 'Drone Photography', value: 'drone' }
+    { label: 'Photography', value: 'Photography' },
+    { label: 'Videography', value: 'Videography' },
+    { label: 'Drone Photography', value: 'Drone Photography' }
   ];
 
   const handleVenueChange = (value) => {
@@ -263,7 +264,15 @@ function AdminProfileComponent() {
     axios.put(`http://localhost:8080/bookings/update/${superId}`, editFormData)
       .then(response => {
         console.log("Booking updated", response.data);
-        alert("Event updated successfully")
+        // alert("Event updated successfully")
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Event Updated Successfully.'
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
         console.log(editFormData);
         window.location.reload();
 
@@ -288,8 +297,16 @@ function AdminProfileComponent() {
         // After successful deletion, you might want to refresh the booking data
         // You can call the API request again to fetch the updated data
 
-        alert("Kindly refresh your page to view updated profile")
-        // window.location.reload();
+        // alert("Kindly refresh your page to view updated profile")
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Event Deleted Successfully.'
+        });
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 2000);
+        window.location.reload();
       })
       .catch(error => {
         console.error("Error deleting event", error);
@@ -298,6 +315,18 @@ function AdminProfileComponent() {
   };
 
 
+  const [custData, setCustData] = useState({});
+  function custDataHandler(email_id) {
+    axios.get(`http://localhost:8080/accounts/${email_id}`)
+      .then(response => {
+        setCustData(response.data);
+        console.log(custData);
+      })
+      .catch(error => {
+        console.error("Error fetching user data:", error);
+        // alert(error)
+      });
+  }
 
 
 
@@ -363,7 +392,10 @@ function AdminProfileComponent() {
                   </td>
 
                 </td>
-                <td> <button type="button" className="btn btn-info" onClick={() => setSelectedBookingDetails(bData)}>
+                <td> <button type="button" className="btn btn-info" onClick={() => {
+                  setSelectedBookingDetails(bData);
+                  custDataHandler(bData.email_id);
+                }}>
                   Show Details
                 </button></td>
 
@@ -417,19 +449,60 @@ function AdminProfileComponent() {
       {/* Render the selected booking details */}
       {selectedBookingDetails && (
         <div className="selected-booking-details">
-          <h3>Booking Details</h3>
-          <p><b>Event Name:</b> {selectedBookingDetails.event_name}</p>
-          <p><b>Date:</b> {selectedBookingDetails.date}</p>
-          <p><b>Start Time:</b> {selectedBookingDetails.start_time}</p>
-          <p><b>End Time:</b> {selectedBookingDetails.end_time}</p>
-          <p><b>Expected Attendees:</b> {selectedBookingDetails.exp_attendee}</p>
-          <p><b>Venue:</b> {selectedBookingDetails.venue.name}</p>
-          <p><b>Catering Services:</b> {selectedBookingDetails.catering.menu}</p>
-          <p><b>Decoration Services:</b> {selectedBookingDetails.decoration.decor_type}</p>
-          <p><b>Media Services:</b> {selectedBookingDetails.media.media_type}</p>
-          <p><b>Email Id:</b> {selectedBookingDetails.email_id}</p>
-
-          {/* Render other details as needed */}
+          <h3><center>Booking Details</center></h3>
+          <table className="table table-striped table-bordered">
+            <tbody>
+              <tr>
+                <td><b>Event Name:</b></td>
+                <td>{selectedBookingDetails.event_name}</td>
+              </tr>
+              <tr>
+                <td><b>Date:</b></td>
+                <td>{selectedBookingDetails.date}</td>
+              </tr>
+              <tr>
+                <td><b>Start Time:</b></td>
+                <td>{selectedBookingDetails.start_time}</td>
+              </tr>
+              <tr>
+                <td><b>End Time:</b></td>
+                <td>{selectedBookingDetails.end_time}</td>
+              </tr>
+              <tr>
+                <td><b>Expected Attendees:</b></td>
+                <td>{selectedBookingDetails.exp_attendee}</td>
+              </tr>
+              <tr>
+                <td><b>Venue:</b></td>
+                <td>{selectedBookingDetails.venue.name}</td>
+              </tr>
+              <tr>
+                <td><b>Catering Services:</b></td>
+                <td>{selectedBookingDetails.catering.menu}</td>
+              </tr>
+              <tr>
+                <td><b>Decoration Services:</b></td>
+                <td>{selectedBookingDetails.decoration.decor_type}</td>
+              </tr>
+              <tr>
+                <td><b>Media Services:</b></td>
+                <td>{selectedBookingDetails.media.media_type}</td>
+              </tr>
+              <tr>
+                <td><b>Email Id:</b></td>
+                <td>{selectedBookingDetails.email_id}</td>
+              </tr>
+              <tr>
+                <td><b>Customer Name:</b></td>
+                <td>{custData.name}</td>
+              </tr>
+              <tr>
+                <td><b>Mobile number:</b></td>
+                <td>{custData.mob_no}</td>
+              </tr>
+              {/* Add more rows for other details as needed */}
+            </tbody>
+          </table>
         </div>
       )}
 

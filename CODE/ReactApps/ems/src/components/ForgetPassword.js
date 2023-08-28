@@ -24,7 +24,9 @@ const ForgetPassword = () => {
                     icon: 'success',
                     title: 'Email Sent',
                     text: 'Please check the email to get the password'
-                });
+                }); setTimeout(() => {
+                    window.location.href = '/login';
+                }, 2000);
             }
             else {
                 alert("Email not found")

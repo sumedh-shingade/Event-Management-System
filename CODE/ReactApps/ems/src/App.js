@@ -13,6 +13,8 @@ import PaymentComponent from './components/Payment';
 import AdminProfileComponent from './components/AdminProfile'
 import ForgotPasswordComponent from './components/ForgetPassword';
 import StatusComponent from './components/Status';
+import VenuesAvailable from './components/Venue';
+import CateringServices from './components/Catering';
 
 
 function App() {
@@ -30,6 +32,8 @@ function App() {
     <Route path='/adminprofile' element={<AdminProfileComponent></AdminProfileComponent>} isLoggedIn></Route>
     <Route path='/forgetpassword' element={<ForgotPasswordComponent></ForgotPasswordComponent>}></Route>
     <Route path='/paymentstatus' element={<StatusComponent></StatusComponent>}></Route>
+    <Route path='/venue' element={<VenuesAvailable></VenuesAvailable>}></Route>
+    <Route path='/catering' element={<CateringServices></CateringServices>}></Route>
 
 
   </Routes>

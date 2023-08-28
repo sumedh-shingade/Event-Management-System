@@ -3,10 +3,12 @@ import { Link, useParams } from 'react-router-dom';
 import weddingImage from './images/wedding.jpg';
 import birthdayImage from './images/birthday.jpg';
 import corporateImage from './images/corporate.jpg';
+import VenuesAvailable from './Venue';
+import CateringServices from './Catering';
 
 export default function ServiceComponent() {
     const isLoggedIn = true; // Replace with your authentication logic
-   
+
     const servicesData = [
         {
             title: "Wedding",
@@ -40,14 +42,14 @@ export default function ServiceComponent() {
 
     return (
         <div className="container">
-            <h2 className="text-center my-5">Services</h2>
+            <h1 className="text-center my-5">Services</h1>
             <div className="row">
                 {servicesData.map((service, index) => (
                     <div key={index} className={`col-md-12 mb-4 ${selectedService !== null && selectedService !== index ? 'd-none' : ''}`}>
                         <div className="card">
                             <div className="row g-0">
                                 <div className="col-md-4">
-                                    <img src={service.image} alt={service.title} className="img-fluid"  />
+                                    <img src={service.image} alt={service.title} className="img-fluid" />
                                 </div>
                                 <div className="col-md-8">
                                     <div className="card-body">
@@ -55,25 +57,25 @@ export default function ServiceComponent() {
                                         <p className="card-text">{service.description}</p>
                                         {selectedService === index ? (
                                             <div>
-                                            <p className="card-text">{service.details}</p>
-                                            <div className="d-flex justify-content-right align-items-center">
-                                                <button className="btn btn-primary me-2" onClick={handleReadLess}>Read Less</button>
-                                                {isLoggedIn ? (
-                                                    <button className="btn btn-success">
-                                                        <Link to="/booking" className="nav-link">
-                                                            Book Now
-                                                        </Link>
-                                                    </button>
-                                                ) : (
-                                                    <button className="btn btn-success">
-                                                        <Link to="/login" className="nav-link">
-                                                            Book Now
-                                                        </Link>
-                                                    </button>
-                                                )}
+                                                <p className="card-text">{service.details}</p>
+                                                <div className="d-flex justify-content-right align-items-center">
+                                                    <button className="btn btn-primary me-2" onClick={handleReadLess}>Read Less</button>
+                                                    {isLoggedIn ? (
+                                                        <button className="btn btn-success">
+                                                            <Link to="/booking" className="nav-link">
+                                                                Book Now
+                                                            </Link>
+                                                        </button>
+                                                    ) : (
+                                                        <button className="btn btn-success">
+                                                            <Link to="/login" className="nav-link">
+                                                                Book Now
+                                                            </Link>
+                                                        </button>
+                                                    )}
+                                                </div>
                                             </div>
-                                        </div>
-                                        
+
                                         ) : (
                                             <button className="btn btn-primary me-2" onClick={() => handleReadMore(index)}>Read More</button>
                                         )}
@@ -84,6 +86,10 @@ export default function ServiceComponent() {
                     </div>
                 ))}
             </div>
+
+            <VenuesAvailable></VenuesAvailable>
+
+            <CateringServices></CateringServices>
         </div>
     );
 }

@@ -53,9 +53,9 @@ function BookingComponent() {
     const [selectedMedia, setSelectedMedia] = useState('');
 
     const venueOptions = [
-        { label: 'Venue A', value: 'venue_a' },
-        { label: 'Venue B', value: 'venue_b' },
-        { label: 'Venue C', value: 'venue_c' },
+        { label: 'Mahalakshmi Lawns', value: 'venue_a' },
+        { label: 'Hotel Sadanand Regency', value: 'venue_b' },
+        { label: 'Grand Tamanna Hotel', value: 'venue_c' },
         { label: 'Other', value: 'other' }
     ];
 
@@ -83,25 +83,25 @@ function BookingComponent() {
             switch (value) {
                 case 'venue_a':
                     setCustomVenue({
-                        venueName: 'Venue A Name',
-                        address: 'Venue A Address',
-                        location: 'Venue A Location',
+                        venueName: 'Mahalakshmi Lawns',
+                        address: 'Kharadi Bypass',
+                        location: 'Pune',
                         venueCost: 20000
                     });
                     break;
                 case 'venue_b':
                     setCustomVenue({
-                        venueName: 'Venue B Name',
-                        address: 'Venue B Address',
-                        location: 'Venue B Location',
+                        venueName: 'Hotel Sadanand Regency',
+                        address: 'Balewadi',
+                        location: 'Pune',
                         venueCost: 25000
                     });
                     break;
                 case 'venue_c':
                     setCustomVenue({
-                        venueName: 'Venue C Name',
-                        address: 'Venue C Address',
-                        location: 'Venue C Location',
+                        venueName: 'Grand Tamanna Hotel',
+                        address: 'Hinjewadi',
+                        location: 'Pune',
                         venueCost: 30000
 
                     });
@@ -145,14 +145,14 @@ function BookingComponent() {
         switch (optionValue) {
             case 'venue_a':
                 setSelectedOptionDetails(
-                    'Details for Venue A: Price: 20,000/- Per Day'
+                    'Address:Kharadi Bypass, Pune. Price: 20,000/- Per Day'
                 );
                 break;
             case 'venue_b':
-                setSelectedOptionDetails('Details for Venue B: Price: 25,000/- Per Day');
+                setSelectedOptionDetails('Address:Balewadi, Pune. Price: 25,000/- Per Day');
                 break;
             case 'venue_c':
-                setSelectedOptionDetails('Details for Venue C: Price: 30,000/- Per Day');
+                setSelectedOptionDetails('Address:Hinjewadi, Pune. Price: 30,000/- Per Day');
                 break;
             default:
                 setSelectedOptionDetails(null);
@@ -170,7 +170,7 @@ function BookingComponent() {
         switch (optionValue) {
             case 'indian':
                 setSelectedCateringOptionDetails(
-                    'Details for Menu: Price: 200/- Per Head'
+                    'Details for Menu:  Price: 200/- Per Head'
                 );
                 setCateringCost(200);
                 break;
@@ -260,8 +260,11 @@ function BookingComponent() {
                 Swal.fire({
                     icon: 'error',
                     title: 'Time Slot Not Available',
-                    text: 'This time slot is not available. Please select another date.'
+                    text: 'This time slot is not available. Please select another date/time.'
                 });
+                setTimeout(() => {
+                    // window.location.href = '/login';
+                }, 2000);
 
                 console.log(availabilityResponse.data);
 
@@ -319,19 +322,45 @@ function BookingComponent() {
                     // Send the booking data to the server
                     const response = await axios.post('http://localhost:8080/bookings/insert', bookingData);
                     console.log('Booking data sent successfully:', response.data);
-                    alert("Event booked successfully!")
-                    window.location.href = '/profile'
+                    // alert("Event booked successfully!")
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Event Booked Successfully.'
+                    });
+                    setTimeout(() => {
+                        window.location.href = '/profile'
+
+                    }, 2000);
                     console.log(bookingData);
                 } catch (error) {
                     console.error('Error sending booking data:', error);
-                    alert(error)
+                    // alert(error)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Failed',
+                        text: 'Event Booking Failed.'
+                    });
+                    setTimeout(() => {
+
+                    }, 2000);
+
                     console.log(bookingData);
 
                 }
             }
         } catch (error) {
             console.error('Error checking date availability:', error);
-            alert("An error occurred while checking date availability.");
+            // alert("An error occurred while checking date availability.");
+            Swal.fire({
+                icon: 'error',
+                title: 'Failed',
+                text: 'An error occurred while checking date availability.'
+            });
+            setTimeout(() => {
+
+            }, 2000);
+
         }
     };
 
@@ -366,9 +395,53 @@ function BookingComponent() {
                             <label htmlFor="startTime" className="form-label"><b>Start Time:</b></label>
                             <input type="time" className="form-control" id="startTime" name="startTime" value={startTime} onChange={(e) => setStartTime(e.target.value)} required />
                         </div>
-                        <div className="col-md-6">
+                        {/* <div className="col-md-6">
                             <label htmlFor="endTime" className="form-label"><b>End Time:</b></label>
                             <input type="time" className="form-control" id="endTime" name="endTime" value={endTime} onChange={(e) => setEndTime(e.target.value)} required />
+                        </div> */}
+
+
+
+                        <div className="col-md-6">
+                            <label htmlFor="endTime" className="form-label"><b>End Time:</b></label>
+                            <input
+                                type="time"
+                                className="form-control"
+                                id="endTime"
+                                name="endTime"
+                                value={endTime}
+                                onChange={(e) => {
+                                    const selectedTime = e.target.value;
+                                    const currentDate = new Date().toISOString().split("T")[0];
+                                    const currentTime = new Date().toLocaleTimeString('en-US', { hour12: true, hour: '2-digit', minute: '2-digit' });
+
+                                    if (currentDate === date && selectedTime <= currentTime) {
+                                        // alert("Please select a valid end time.");
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Invalid Entry',
+                                            text: 'Please select a valid end time.'
+                                        });
+                                        setTimeout(() => {
+                                        }, 2000);
+                                    } else if (currentDate > date) {
+                                        // alert("Please select a valid date.");
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Invalid Entry',
+                                            text: 'Please select a valid date.'
+                                        });
+                                        setTimeout(() => {
+                                        }, 2000);
+                                    } else {
+                                        setEndTime(selectedTime);
+                                    }
+                                }}
+                                required
+                            />
+                            {startTime && endTime && startTime > endTime && (
+                                <p className="text-danger">End time must be after start time.</p>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -391,29 +464,33 @@ function BookingComponent() {
                         ))}
                     </select>
                 </div>
-                {selectedOptionDetails && (
-                    <div>
-                        <h5>Venue Details:</h5>
-                        <p>{selectedOptionDetails}</p>
-                    </div>
-                )}
-                {selectedVenue === 'other' && (
-                    <div>
-                        <h5>Custom Venue Details</h5>
-                        <div className="mb-3">
-                            <label htmlFor="venueName" className="form-label"><b>Venue Name:</b></label>
-                            <input type="text" className="form-control" id="venueName" name="venueName" value={customVenue.venueName} onChange={handleInputChange} required />
+                {
+                    selectedOptionDetails && (
+                        <div>
+                            <h5>Venue Details:</h5>
+                            <p>{selectedOptionDetails}</p>
                         </div>
-                        <div className="mb-3">
-                            <label htmlFor="address" className="form-label"><b>Address:</b></label>
-                            <input type="text" className="form-control" id="address" name="address" value={customVenue.address} onChange={handleInputChange} required />
+                    )
+                }
+                {
+                    selectedVenue === 'other' && (
+                        <div>
+                            <h5>Custom Venue Details</h5>
+                            <div className="mb-3">
+                                <label htmlFor="venueName" className="form-label"><b>Venue Name:</b></label>
+                                <input type="text" className="form-control" id="venueName" name="venueName" value={customVenue.venueName} onChange={handleInputChange} required />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="address" className="form-label"><b>Address:</b></label>
+                                <input type="text" className="form-control" id="address" name="address" value={customVenue.address} onChange={handleInputChange} required />
+                            </div>
+                            <div className="mb-3">
+                                <label htmlFor="location" className="form-label"><b>Location:</b></label>
+                                <input type="text" className="form-control" id="location" name="location" value={customVenue.location} onChange={handleInputChange} required />
+                            </div>
                         </div>
-                        <div className="mb-3">
-                            <label htmlFor="location" className="form-label"><b>Location:</b></label>
-                            <input type="text" className="form-control" id="location" name="location" value={customVenue.location} onChange={handleInputChange} required />
-                        </div>
-                    </div>
-                )}
+                    )
+                }
 
 
 
@@ -434,23 +511,22 @@ function BookingComponent() {
                         ))}
                     </select>
                 </div>
-                {selectedCateringOptionDetails && (
-                    <div>
-                        <h5><b>Catering Details:</b></h5>
-                        <p>{selectedCateringOptionDetails}</p>
-                    </div>
-                )}
-                {selectedCatering === 'other' && (
-                    <div className="mb-3">
-                        <label htmlFor="customCatering" className="form-label"><b>Your Choice:</b></label>
-                        <input type="text" className="form-control" id="customCatering" name="customCatering" value={customCatering} onChange={(e) => setCustomCatering(e.target.value)} required />
-                    </div>
-                )}
-
-
-
-
-
+                {
+                    selectedCateringOptionDetails && (
+                        <div>
+                            <h5><b>Catering Details:</b></h5>
+                            <p>{selectedCateringOptionDetails}</p>
+                        </div>
+                    )
+                }
+                {
+                    selectedCatering === 'other' && (
+                        <div className="mb-3">
+                            <label htmlFor="customCatering" className="form-label"><b>Your Choice:</b></label>
+                            <input type="text" className="form-control" id="customCatering" name="customCatering" value={customCatering} onChange={(e) => setCustomCatering(e.target.value)} required />
+                        </div>
+                    )
+                }
 
 
                 <div className="mb-3">
@@ -465,18 +541,22 @@ function BookingComponent() {
                         ))}
                     </select>
                 </div>
-                {selectedOptionDetails && (
-                    <div>
-                        <h5>Decoration Details:</h5>
-                        <p>{selectedDecorOptionDetails}</p>
-                    </div>
-                )}
-                {selectedDecoration === 'other' && (
-                    <div className="mb-3">
-                        <label htmlFor="customDecoration" className="form-label"><b>Your Choice:</b></label>
-                        <input type="text" className="form-control" id="customDecoration" name="customDecoration" value={customDecoration} onChange={(e) => setCustomDecoration(e.target.value)} required />
-                    </div>
-                )}
+                {
+                    selectedOptionDetails && (
+                        <div>
+                            <h5>Decoration Details:</h5>
+                            <p>{selectedDecorOptionDetails}</p>
+                        </div>
+                    )
+                }
+                {
+                    selectedDecoration === 'other' && (
+                        <div className="mb-3">
+                            <label htmlFor="customDecoration" className="form-label"><b>Your Choice:</b></label>
+                            <input type="text" className="form-control" id="customDecoration" name="customDecoration" value={customDecoration} onChange={(e) => setCustomDecoration(e.target.value)} required />
+                        </div>
+                    )
+                }
 
 
 
@@ -496,12 +576,14 @@ function BookingComponent() {
                         ))}
                     </select>
                 </div>
-                {selectedOptionDetails && (
-                    <div>
-                        <h5><b>Media Details:</b></h5>
-                        <p>{selectedMediaOptionDetails}</p>
-                    </div>
-                )}
+                {
+                    selectedOptionDetails && (
+                        <div>
+                            <h5><b>Media Details:</b></h5>
+                            <p>{selectedMediaOptionDetails}</p>
+                        </div>
+                    )
+                }
 
 
 
@@ -516,8 +598,8 @@ function BookingComponent() {
 
 
                 <button type="submit" className="btn btn-success">Book Event</button>
-            </form>
-        </div>
+            </form >
+        </div >
     );
 }
 
