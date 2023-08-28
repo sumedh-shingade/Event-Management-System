@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const ForgetPassword = () => {
     const [email, setEmail] = useState('');
@@ -18,7 +19,12 @@ const ForgetPassword = () => {
 
             if (response.data !== null) {
                 console.log('Email sent:', response.data);
-                alert("Email Sent")
+                // alert("Email Sent")
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Email Sent',
+                    text: 'Please check the email to get the password'
+                });
             }
             else {
                 alert("Email not found")

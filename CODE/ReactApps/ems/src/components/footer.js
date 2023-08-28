@@ -50,12 +50,12 @@ export default function FooterComponent() {
 
             <MDBCol md="4" lg="3" xl="3" className='mx-auto mb-md-0 mb-4'>
               <div className="text-center">
-                <h6 className='text-uppercase fw-bold mb-4'>Contact</h6>
-                <div className="mb-3">
+                <h6 className='text-uppercase fw-bold mb-4' style={{ marginLeft: '-4rem' }}>Contact</h6>
+                <div className="mb-3" >
                   <div className="d-flex align-items-center justify-content-start">
-                    <MDBIcon icon="home" className="me-3" style={{ color: 'white', fontSize: '1.2rem' }} />
-                    <p className="mb-0" style={{ color: 'white' }}>
-                      4S Events, Shivajinagar, Pune, Maharashtra
+                    <MDBIcon fas icon="map-marker-alt" className="me-3" style={{ color: 'white', fontSize: '1.2rem' }} />
+                    <p className="mb-0" style={{ color: 'white', marginLeft: '-3.8rem' }}>
+                      4S Events, Shivajinagar, Pune,Maharashtra
                     </p>
                   </div>
                 </div>
@@ -69,7 +69,7 @@ export default function FooterComponent() {
                 </div>
                 <div className="d-flex align-items-center">
                   <MDBIcon icon="phone" className="me-3" style={{ color: 'white', fontSize: '1.2rem' }} />
-                  <p className="mb-0" style={{ color: 'white' }}>
+                  <p className="mb-0" style={{ color: 'white', marginLeft: '0rem' }}>
                     +91 9689483207,<br></br>
                     +91 8329496964,<br></br>
                     +91 9370530085
@@ -84,7 +84,7 @@ export default function FooterComponent() {
       </section>
       <div className='text-center p-4' style={{ backgroundColor: 'rgba(0, 0, 0, 0.05)' }}>
         © 2023 Copyright:
-        <a className='text-reset fw-bold' href='https://mdbootstrap.com/' style={{ color: 'white' }}>
+        <a className='text-reset fw-bold' href='/' style={{ color: 'white' }}>
           4S Events
         </a>
       </div>

@@ -131,15 +131,15 @@ import sushant from './images/sushant.jpg';
 import introbackground from './images/introbackground.jpg';
 
 const AboutUsComponent = () => {
+
   return (
     <div>
-      <div className="image-aboutus-banner" style={{ marginTop: '70px', backgroundImage: `url(${introbackground})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', padding: '100px 0', color: 'black', opacity: 0.7 }}>
+      <div className="image-aboutus-banner" style={{ marginTop: '70px', backgroundImage: `url(${introbackground})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', padding: '100px 0', color: 'black', opacity: 1 }}>
         <div className="container">
           <div className="row">
             <div className="col-md-12">
               <h1 className="lg-text" style={{ fontWeight: 'bold', color: 'black' }}>About Us</h1>
               <p className="image-aboutus-para" style={{ color: 'black', fontWeight: 'bold' }}>
-                Empowering Extraordinary Experiences: Your Trusted Partner in Seamless Event Management.
               </p>
             </div>
           </div>
@@ -172,7 +172,7 @@ const AboutUsComponent = () => {
         </div>
       </div>
       {/* Mission */}
-      <section className="py-5 bg-light">
+      <section className="py-5" style={{ backgroundColor: 'lightgrey' }}>
         <div className="text-center">
           <h2>Our Mission</h2>
         </div>
@@ -194,12 +194,12 @@ const AboutUsComponent = () => {
       <section className="py-5">
         <h2 className="text-center">Our Team</h2>
         <p>
-          <center>Meet the dedicated professionals who work tirelessly to turn your visions into unforgettable events.</center>
+          <center>Step into the world of our event management team, where dreams are woven into reality. Our dedicated professionals are the magic-makers behind every awe-inspiring occasion. With unwavering passion and tireless dedication, we bring your visions to life, turning them into unforgettable memories. From meticulous planning to flawless execution, our team works tirelessly to ensure that every detail is perfect, and every moment is extraordinary. Join us on this journey of turning your imagination into an unforgettable event that will be etched in your heart forever.</center><br></br>
         </p>
         <div className="row justify-content-center align-items-center">
           <div className="col-md-3">
-            <div className="card mb-4 d-flex flex-column">
-              <img src={sumeet} className="card-img-top" alt="Sumeet Wadile" />
+            <div className="card mb-4 d-flex flex-column text-center" style={{ border: 'none' }}>
+              <img src={sumeet} className="card-img-top rounded-circle" alt="Sumeet Wadile" />
               <div className="card-body">
                 <h5 className="card-title">Sumeet Wadile</h5>
                 <p className="card-text">Admin</p>
@@ -207,8 +207,8 @@ const AboutUsComponent = () => {
             </div>
           </div>
           <div className="col-md-3">
-            <div className="card mb-4 d-flex flex-column">
-              <img src={sujit} className="card-img-top" alt="Sujit Pawar" />
+            <div className="card mb-4 d-flex flex-column text-center" style={{ border: 'none' }}>
+              <img src={sujit} className="card-img-top rounded-circle" alt="Sujit Pawar" />
               <div className="card-body">
                 <h5 className="card-title">Sujit Pawar</h5>
                 <p className="card-text">Admin</p>
@@ -216,8 +216,8 @@ const AboutUsComponent = () => {
             </div>
           </div>
           <div className="col-md-3">
-            <div className="card mb-4 d-flex flex-column">
-              <img src={sumedh} className="card-img-top" alt="Sumedh Shingade" />
+            <div className="card mb-4 d-flex flex-column text-center" style={{ border: 'none' }}>
+              <img src={sumedh} className="card-img-top rounded-circle" alt="Sumedh Shingade" />
               <div className="card-body">
                 <h5 className="card-title">Sumedh Shingade</h5>
                 <p className="card-text">Admin</p>
@@ -225,8 +225,8 @@ const AboutUsComponent = () => {
             </div>
           </div>
           <div className="col-md-3">
-            <div className="card mb-4 d-flex flex-column">
-              <img src={sushant} className="card-img-top" alt="Sushant Pawar" />
+            <div className="card mb-4 d-flex flex-column text-center" style={{ border: 'none' }}>
+              <img src={sushant} className="card-img-top rounded-circle" alt="Sushant Pawar" />
               <div className="card-body">
                 <h5 className="card-title">Sushant Pawar</h5>
                 <p className="card-text">Admin</p>
@@ -235,6 +235,7 @@ const AboutUsComponent = () => {
           </div>
         </div>
       </section>
+
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import registration from './images/registration.jpg';
+import Swal from 'sweetalert2';
 
 function RegistrationComponent() {
 
@@ -95,8 +96,16 @@ function RegistrationComponent() {
                 .then(response => {
                     console.log('User created successfully:', response.data);
                     // Redirect to the desired page after successful registration
+                    // alert('Registration successful!');
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Registered Successfully.'
+                    });
+                    setTimeout(() => {
+                        window.location.href = '/login';
+                    }, 2000);
                     // window.location.href = '/';
-                    alert('Registration successful!');
                 })
                 .catch(error => {
                     console.error('Error creating user:', error);

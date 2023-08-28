@@ -27,12 +27,15 @@ public class EmailController {
     	
     	Accounts a =accountService.getByEmailId(emailRequest.getTo());
     	if(a!=null) {
+    		System.out.println(a);
     		String password = a.getPassword();
         	
             SimpleMailMessage message = new SimpleMailMessage();
             message.setTo(emailRequest.getTo());
             message.setSubject("4S Events");
             message.setText("Password of your 4S Events account is : "+password);
+            
+            System.out.println(message);
             
             javaMailSender.send(message);
             

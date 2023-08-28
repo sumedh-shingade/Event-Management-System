@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import birthday from './images/birthday.jpg';
 import corporate from './images/corporate.jpg';
 import wedding from './images/wedding.jpg';
-import courousalimage1 from './images/corousalimage1.jpg';
+import courousalimage11 from './images/corousalimage11.jpg';
 import courousalimage2 from './images/corousalimage2.jpg';
 import courousalimage3 from './images/corousalimage3.jpg';
 //import backgroundImage from './images/background.jpg'; // Replace with your background image path
@@ -42,18 +42,15 @@ export default function HomeComponent() {
 
     const carouselImages = [
         { src: courousalimage3, alt: "courousalimage3" },
-        { src: courousalimage1, alt: "courousalimage1" },
+        { src: courousalimage11, alt: "courousalimage11" },
         { src: courousalimage2, alt: "courousalimage2" }
     ];
-
-
-
 
 
     return (
 
         <div style={containerStyle}>
-            <h1 className="display-4 my-5" style={{ fontWeight: 'bold', fontStyle: 'italic' }}>4S Events</h1>
+            <h1 className="display-4 my-5" style={{ fontWeight: 'bold', fontStyle: 'italic', marginTop: '0rem', marginBottom: '2rem' }}>4S Events</h1>
             <div id="imageCarousel" className="carousel slide mb-4" data-bs-ride="carousel">
                 <div className="carousel-inner">
                     {carouselImages.map((image, index) => (
@@ -65,7 +62,8 @@ export default function HomeComponent() {
                                 src={image.src}
                                 className="d-block w-100"
                                 alt={image.alt}
-                                style={{ maxHeight: "400px", objectFit: "cover" }}
+                                style={{ maxWidth: "100%", maxHeight: "500px", objectFit: "contain" }}
+
                             />
                         </div>
                     ))}
@@ -107,7 +105,7 @@ export default function HomeComponent() {
                             <div className="card-body">
                                 <h5 className="card-title">Wedding</h5>
                                 <p className="card-text">Exquisite arrangements for your special day. Our team will create a magical atmosphere that reflects your love story.</p>
-                                <Link to="/service" className="btn btn-primary">Learn More</Link>
+                                <br></br><Link to="/service" className="btn btn-primary">Learn More</Link>
                             </div>
                         </div>
 
@@ -116,7 +114,7 @@ export default function HomeComponent() {
                             <div className="card-body">
                                 <h5 className="card-title">Birthday</h5>
                                 <p className="card-text">Celebrate with style and fun. Whether it's a kids' party or an adult celebration, we have creative ideas to make it memorable.</p>
-                                <Link to="/service" className="btn btn-primary">Learn More</Link>
+                                <br></br><Link to="/service" className="btn btn-primary">Learn More</Link>
                             </div>
                         </div>
 

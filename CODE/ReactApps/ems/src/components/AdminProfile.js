@@ -288,12 +288,12 @@ function AdminProfileComponent() {
         // After successful deletion, you might want to refresh the booking data
         // You can call the API request again to fetch the updated data
 
-        // alert("Kindly refresh your page to view updated profile")
-        window.location.reload();
+        alert("Kindly refresh your page to view updated profile")
+        // window.location.reload();
       })
       .catch(error => {
         console.error("Error deleting event", error);
-        alert(error);
+        // alert(error);
       });
   };
 
@@ -355,7 +355,7 @@ function AdminProfileComponent() {
                       className="btn btn-danger"
                       onClick={() => {
                         setEventToDelete(bData.event_id);
-                        handleDelete(bData.event_id);
+                        // handleDelete(bData.event_id);
                       }}
                     >
                       Delete

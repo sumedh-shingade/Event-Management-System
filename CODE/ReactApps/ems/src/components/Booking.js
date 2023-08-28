@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'; // Import Axios library
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 
 
@@ -240,6 +241,7 @@ function BookingComponent() {
 
 
     // Calculate total costs
+    const cat_cost = cateringCost * expectedAttendees;
     const totalCost = customVenue.venueCost + cateringCost * expectedAttendees + decorationCost + mediaCost;
 
     const email_id = sessionStorage.getItem('email_id');
@@ -254,7 +256,12 @@ function BookingComponent() {
             if (availabilityResponse.data.length > 0) {
 
                 // Date is not available
-                alert("This time slot is not available. Please select another date.");
+                // alert("This time slot is not available. Please select another date.");
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Time Slot Not Available',
+                    text: 'This time slot is not available. Please select another date.'
+                });
 
                 console.log(availabilityResponse.data);
 
@@ -295,7 +302,7 @@ function BookingComponent() {
                     "payment": {
                         "status": "Pending",
                         "venue_amt": customVenue.venueCost,
-                        "catering_amt": cateringCost,
+                        "catering_amt": cat_cost,
                         "media_amt": mediaCost,
                         "decoration_amt": decorationCost,
                         "total": totalCost
