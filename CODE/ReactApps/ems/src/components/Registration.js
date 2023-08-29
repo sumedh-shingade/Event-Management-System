@@ -43,7 +43,14 @@ function RegistrationComponent() {
         // e.preventDefault();
 
         if (formValues.password !== confirmPassword) {
-            alert("Passwords do not match. Please confirm your password.");
+            // alert("Passwords do not match. Please confirm your password.");
+            Swal.fire({
+                icon: 'error',
+                title: 'Passwords does not match.',
+                text: 'Please confirm your password.'
+            });
+            setTimeout(() => {
+            }, 2000);
             return;
         }
 
@@ -74,7 +81,14 @@ function RegistrationComponent() {
                 response.data.forEach((aData, index) => {
                     console.log(aData.email_id);
                     if (aData.email_id === formValues.email) {
-                        alert("This email id is already registered. Please select another email id.");
+                        // alert("This email id is already registered. Please select another email id.");
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'This email id is already registered.',
+                            text: 'Please select another email id.'
+                        });
+                        setTimeout(() => {
+                        }, 2000);
                         emailAlreadyExists = true;
                         return;
                     }
@@ -87,7 +101,7 @@ function RegistrationComponent() {
             })
             .catch(error => {
                 console.error("Error fetching user data:", error);
-                alert(error);
+                // alert(error);
             });
 
         function postHandler() {
@@ -103,9 +117,9 @@ function RegistrationComponent() {
                         text: 'Registered Successfully.'
                     });
                     setTimeout(() => {
-                        window.location.href = '/login';
+                        // window.location.href = '/login';
                     }, 2000);
-                    // window.location.href = '/';
+                    window.location.href = '/login';
                 })
                 .catch(error => {
                     console.error('Error creating user:', error);
@@ -206,6 +220,8 @@ function RegistrationComponent() {
                                         name="mobile"
                                         value={formValues.mobile}
                                         onChange={handleChange}
+                                        minLength={10} // Minimum length of 10 characters
+                                        maxLength={10} // Maximum length of 10 characters
                                         required
                                     />
                                 </div>

@@ -6,6 +6,7 @@ import navbarlogo from './images/navbarlogo.png'
 
 const Header = ({ isLoggedIn }) => {
 
+    const email_id = sessionStorage.getItem('email_id'); // Assuming you retrieve the email from SessionStorage
 
     const navigate = useNavigate();
 
@@ -80,11 +81,10 @@ const Header = ({ isLoggedIn }) => {
                             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                         </li> */}
                     </ul>
-
-                    <Link to="/profile" className="nav-link">
-                        <span class="fa-stack fa-lg">
-                            <i class="fas fa-circle fa-stack-2x"></i>
-                            <i class="fas fa-user fa-stack-1x fa-inverse"></i>
+                    <Link to={email_id === '4seventmgmtservices@gmail.com' ? "/adminprofile" : "/profile"} className="nav-link">
+                        <span className="fa-stack fa-lg">
+                            <i className="fas fa-circle fa-stack-2x"></i>
+                            <i className="fas fa-user fa-stack-1x fa-inverse"></i>
                         </span>
                     </Link>
                 </div>

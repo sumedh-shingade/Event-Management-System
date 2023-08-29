@@ -19,6 +19,8 @@ import CateringServices from './components/Catering';
 
 function App() {
 
+  const emailId = sessionStorage.getItem('email_id');
+
 
   return <Routes>
     <Route path="/" element={<HomeComponent></HomeComponent>}></Route>

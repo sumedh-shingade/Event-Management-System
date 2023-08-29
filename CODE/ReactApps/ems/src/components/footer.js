@@ -63,7 +63,7 @@ export default function FooterComponent() {
                   <div className="d-flex align-items-center">
                     <MDBIcon icon="envelope" className="me-3" style={{ color: 'white', fontSize: '1.2rem' }} />
                     <p className="mb-0" style={{ color: 'white' }}>
-                      sumeetwd25@gmail.com
+                      4seventmgmtservices@gmail.com
                     </p>
                   </div>
                 </div>

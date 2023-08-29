@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import loginBackground from './images/loginbackground.jpeg';
+import Swal from 'sweetalert2';
 
 export default function LoginComponent() {
   const navigate = useNavigate();
@@ -64,7 +65,7 @@ export default function LoginComponent() {
         console.log(loginData);
         console.log(sessionStorage);
 
-        if (loginData.email_id === "abc@ems") {
+        if (loginData.email_id === "4seventmgmtservices@gmail.com") {
           navigate('/adminprofile');
         }
         // alert('Login successful');
@@ -74,10 +75,24 @@ export default function LoginComponent() {
       } // Navigate to the desired route after successful login
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        alert('Login failed: Wrong credentials');
+        // alert('Login failed: Wrong credentials');
+        Swal.fire({
+          icon: 'error',
+          title: 'Login Failed',
+          text: ' Wrong credentials.'
+        });
+        setTimeout(() => {
+        }, 2000);
         console.log(loginData);
       } else {
-        alert('Login failed. Kindly register first');
+        // alert('Login failed. Kindly register first');
+        Swal.fire({
+          icon: 'error',
+          title: 'Login Failed',
+          text: ' Wrong credentials.'
+        });
+        setTimeout(() => {
+        }, 2000);
         console.log(loginData);
       }
       console.error(error);

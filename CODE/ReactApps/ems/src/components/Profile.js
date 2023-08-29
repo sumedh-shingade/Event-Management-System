@@ -271,7 +271,7 @@ function ProfileComponent() {
           text: 'Event Updated Successfully.'
         });
         setTimeout(() => {
-          window.location.reload();
+          // window.location.reload();
         }, 2000);
         console.log(editFormData);
         window.location.reload();
@@ -298,7 +298,15 @@ function ProfileComponent() {
         // You can call the API request again to fetch the updated data
 
         // alert("Kindly refresh your page to view updated profile")
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Event Deleted Successfully.'
+        });
+        setTimeout(() => {
+        }, 2000);
         window.location.reload();
+
       })
       .catch(error => {
         console.error("Error deleting event", error);

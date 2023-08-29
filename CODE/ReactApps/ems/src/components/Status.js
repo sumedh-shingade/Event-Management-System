@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 function HandlerStatus() {
     const [inputData, setInputData] = useState('');
@@ -25,7 +26,15 @@ function HandlerStatus() {
             .then(response => {
                 console.log('PUT request successful:', response.data);
                 // Handle any success actions here
-                alert("Payment status updated.")
+                // alert("Payment status updated.")
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Payment status updated.'
+                });
+                setTimeout(() => {
+                    window.location.href = '/adminprofile'
+                }, 2000);
             })
             .catch(error => {
                 console.error('Error making PUT request:', error);
@@ -44,6 +53,7 @@ function HandlerStatus() {
                     placeholder="Enter data"
                     value={inputData}
                     onChange={handleInputChange}
+                    required
                 />
             </div>
             <button className="btn btn-primary" onClick={handleButtonClick}>Update Status</button>

@@ -271,7 +271,7 @@ function AdminProfileComponent() {
           text: 'Event Updated Successfully.'
         });
         setTimeout(() => {
-          window.location.reload();
+          // window.location.reload();
         }, 2000);
         console.log(editFormData);
         window.location.reload();
@@ -304,7 +304,6 @@ function AdminProfileComponent() {
           text: 'Event Deleted Successfully.'
         });
         setTimeout(() => {
-          window.location.href = '/login';
         }, 2000);
         window.location.reload();
       })
