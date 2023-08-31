@@ -22,8 +22,6 @@
 
 ## Explore the Code
 
-Dive into the repositories to explore the code behind **4S-Events** and other related projects. Don't forget to star the repositories you find interesting and let's together create a new era of exceptional event experiences.
-
 🌐 Happy exploring and innovating!
 
 ## Project members:
