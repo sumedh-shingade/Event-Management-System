@@ -2,8 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom'
+import qrcode from './images/Payment.jpg'
 
 const PaymentComponent = () => {
+
+    // Get the email_id from SessionStorage
+    const emailId = sessionStorage.getItem('email_id');
 
     const navigate = useNavigate();
 
@@ -27,16 +31,6 @@ const PaymentComponent = () => {
     const [paymentDetails, setPaymentDetails] = useState(null);
     const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false);
 
-    // const navigate = useNavigate(); console.log(eventId);
-
-    // useEffect(() => {
-    //     if (isPaymentSuccessful) {
-    //         const timeout = setTimeout(() => {
-    //             navigate('/profile');
-    //         }, 4000);
-
-    //         return () => clearTimeout(timeout);
-    //     }
     // }, [isPaymentSuccessful, navigate]);
 
     useEffect(() => {
@@ -108,6 +102,13 @@ const PaymentComponent = () => {
                                     )}
                                 </tbody>
                             </table>
+
+                            {emailId !== '4seventmgmtservices@gmail.com' && (
+                                <div>
+                                    <p>Make your payment here</p>
+                                    <img src={qrcode} alt="QR Code" />
+                                </div>
+                            )}
                         </div>
 
                     </>

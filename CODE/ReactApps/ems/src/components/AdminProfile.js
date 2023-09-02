@@ -31,6 +31,7 @@ function AdminProfileComponent() {
   }, [navigate]);
 
 
+
   // Inside the ProfileComponent function
   const [selectedBookingDetails, setSelectedBookingDetails] = useState(null);
 
@@ -314,6 +315,7 @@ function AdminProfileComponent() {
   };
 
 
+
   const [custData, setCustData] = useState({});
   function custDataHandler(email_id) {
     axios.get(`http://localhost:8080/accounts/${email_id}`)
@@ -352,6 +354,7 @@ function AdminProfileComponent() {
           <thead>
             <tr>
               <th scope="col">Sr No</th>
+              {/* <th scope="col">Customer Name</th> */}
               <th scope="col">Booked Events</th>
               <th scope="col">Edit</th>
               <th scope="col">Delete</th>
@@ -366,6 +369,7 @@ function AdminProfileComponent() {
             {bookingData.map((bData, index) => (
               <tr key={bData.event_id}>
                 <th scope="row">{index + 1}</th>
+                {/* <td>{custData.name}</td> */}
                 <td>{bData.event_name}</td>
                 <td>
                   <button
