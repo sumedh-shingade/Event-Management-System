@@ -1,0 +1,15 @@
+Steps :
+Add Connection String  :
+Server=localhost;Database=emsdotnet;Uid=root;Pwd=root
+
+Packages to install :
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Pomelo.EntityFrameworkCore.MySql
+
+Install & Update dotnet EF tool :
+dotnet tool install --global dotnet-ef
+dotnet tool update --global dotnet-ef
+
+Scaffold MySQL Database :
+dotnet ef dbcontext scaffold Name=EmsDB Pomelo.EntityFrameworkCore.MySql --output-dir Models --context-dir Data --namespace EMS.Models --context-namespace EMS.Data --context EmsDBContext -f --no-onconfiguring
+dotnet add package Microsoft.AspNetCore.Mvc.NewtonsoftJson
