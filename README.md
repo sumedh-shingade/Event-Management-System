@@ -1,6 +1,6 @@
 # Welcome to Event-Management-System
 
-## Project: Event Management System Web Application using Java Platform
+## Project: Event Management System Web Application using Java & MS.NET Platform
 
 🚀 **4S-Events** is an innovative event management platform that aims to provide unparalleled convenience to both clients and event organizers. Our primary objective is to tackle the challenges posed by traditional manual systems and offer a comprehensive solution that streamlines every aspect of event management.
 
@@ -14,14 +14,19 @@
 - **Robust Analytics and Reporting:** Gain insights into event performance and attendee engagement.
 - **Streamlined Payments:** Simplify financial transactions with our one-step payment system.
 
-## Technologies used
-1. Middleware: Java Springboot.
-2. Backend: MySql Database.
+## Technologies used:-
+### Java:-
+1. Backend: Java Springboot.
+2. Database: MySql Database.
 3. Frontend: React JS.
-4. IDE: Eclipse,VS Code,MySql workbench
-
+4. IDE: Eclipse,VS Code,MySql workbench.
+### MS.NET:-
+1. Backend: ASP.NET Core Web API.
+2. Database: MySql Database.
+3. Frontend: React JS.
+4. IDE: Visual Studio,VS Code,MySql workbench.
+   
 ## Explore the Code
-
 🌐 Happy exploring and innovating!
 
 ## Project members:
